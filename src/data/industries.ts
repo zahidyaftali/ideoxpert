@@ -1,3 +1,5 @@
+import { from, money } from './pricing';
+
 // Industry pages (/industries/<slug>). Each lists only industries where we
 // have real, live client work to show; `projects` are ids from projects.ts.
 // Figures on the page (project count, countries, pages, SEO) are computed
@@ -21,17 +23,17 @@ export type Industry = {
 
 export const industries: Industry[] = [
 	{
-		slug: 'trades-home-services',
-		name: 'Trades & Home Services',
-		short: 'Trades & Home Services',
-		audience: 'trades and home service businesses',
+		slug: 'home-services',
+		name: 'Home Services',
+		short: 'Home Services',
+		audience: 'home service businesses',
 		meta: {
-			title: 'Websites for Trades & Home Services | IdeoXpert',
-			description: 'Websites and local SEO for electricians, removal firms, cleaners, painters and locksmiths, with trades sites we built in Canada, Germany and the UK.',
+			title: 'Websites for Home Service Businesses | IdeoXpert',
+			description: 'Websites and local SEO for electricians, removal firms, cleaners and locksmiths, with home service sites we built in Canada, Germany and the UK.',
 			keywords: 'website for tradesmen, electrician website design, removal company website, cleaning company website, contractor website design, plumber website, locksmith website, local SEO for trades, home services website',
 		},
-		title: 'Websites for trades and home service businesses',
-		lead: 'Electricians, removal firms, cleaners, painters, locksmiths and hire companies. We build websites that show up when someone nearby searches for the job, and make it easy to call or ask for a quote.',
+		title: 'Websites for home service businesses',
+		lead: 'Electricians, removal firms, cleaners, clearance companies, security firms and locksmiths. We build websites that show up when someone nearby searches for the job, and make it easy to call or ask for a quote.',
 		builds: [
 			{ title: 'A page for every service', text: 'Panel upgrades, house clearances, deep cleans: each job gets its own page, because that is exactly what people search for.', icon: 'website-development' },
 			{ title: 'Pages for the areas you cover', text: 'Town and city pages written for real local searches, so you show up beyond your own postcode.', icon: 'seo-optimization' },
@@ -41,24 +43,60 @@ export const industries: Industry[] = [
 			{ title: 'Hosting and upkeep', text: 'Fast hosting, SSL, backups and updates handled, so the site keeps working while you are on the job.', icon: 'website-maintenance' },
 		],
 		needs: [
-			{ title: 'Show up in local search', text: 'Most trade jobs start with a search like "electrician near me" or "removals Wiesbaden". Service pages, area pages, a complete Google Business Profile and LocalBusiness schema are what get you into those results.' },
+			{ title: 'Show up in local search', text: 'Most home service jobs start with a search like "electrician near me" or "removals Wiesbaden". Service pages, area pages, a complete Google Business Profile and LocalBusiness schema are what get you into those results.' },
 			{ title: 'Answer the price question', text: 'Customers want to know roughly what a job costs before they call. Clear starting prices or what affects the price bring in better inquiries and fewer time-wasters.' },
 			{ title: 'Make contact effortless', text: 'A phone number that works as a button, a WhatsApp link and a three-field quote form. Every extra step loses a customer who is comparing three firms at once.' },
-			{ title: 'Prove you do good work', text: 'Photos of real jobs, reviews and credentials such as licenses and insurance matter more for trades than any design detail.' },
+			{ title: 'Prove you do good work', text: 'Photos of real jobs, reviews and credentials such as licenses and insurance matter more for home services than any design detail.' },
 			{ title: 'Load fast on a phone', text: 'Most visitors are on mobile data. Compressed images and a light build keep the page quick enough that they do not go back to the search results.' },
 		],
 		faqs: [
-			{ q: 'Do trades businesses really need more than a Facebook page?', a: 'A Facebook page helps, but it does not rank for searches like "emergency electrician Toronto" and you do not control it. A website with a page per service and area is what gets you found by people who do not know your name yet.' },
+			{ q: 'Do home service businesses really need more than a Facebook page?', a: 'A Facebook page helps, but it does not rank for searches like "emergency electrician Toronto" and you do not control it. A website with a page per service and area is what gets you found by people who do not know your name yet.' },
 			{ q: 'Can you build pages for every town we cover?', a: 'Yes. We write area pages with real local content, such as the jobs you do there and the areas nearby, rather than copies with the town name swapped, which Google ignores.' },
-			{ q: 'Can I update prices and photos myself?', a: 'Yes. We build most trades websites on WordPress and show you how to add services, areas, prices and project photos on your own.' },
+			{ q: 'Can I update prices and photos myself?', a: 'Yes. We build most home service websites on WordPress and show you how to add services, areas, prices and project photos on your own.' },
 			{ q: 'Do you set up Google Business Profile?', a: 'We make sure your website and Google Business Profile match (name, address, phone, services and hours) and link to each other, which helps you appear in the local map results.' },
 		],
 		services: ['website-development', 'wordpress-website', 'seo-optimization', 'website-maintenance'],
-		projects: ['smbelectrical-ca', 'flessner-sicherheitsdienst-de', 'mut-umzug-de', 'die-chaoskiller-berlin-de', 'handwerk-am-rhein-de', 'abccranehire-com-au', 'djschilderwerken-nl', 'csfmcleaning-com'],
+		projects: ['smbelectrical-ca', 'csfmcleaning-com', 'mut-umzug-de', 'die-chaoskiller-berlin-de', 'flessner-sicherheitsdienst-de'],
 	},
 	{
-		slug: 'healthcare-wellness',
-		name: 'Healthcare & Wellness',
+		slug: 'construction',
+		name: 'Construction',
+		short: 'Construction',
+		audience: 'construction, renovation and engineering firms',
+		meta: {
+			title: 'Construction & Contractor Website Design | IdeoXpert',
+			description: 'Websites for crane hire, renovation, painting and engineering firms: service and area pages, project galleries and quote forms that bring in jobs.',
+			keywords: 'construction website design, contractor website, crane hire website, renovation company website, painter website, builder website, construction company SEO, engineering company website',
+		},
+		title: 'Websites for construction and engineering firms',
+		lead: 'Crane hire, renovation, painting and decorating, and industrial equipment. We build websites that show your projects, explain what you do and where, and make it easy for site managers and homeowners to ask for a quote.',
+		builds: [
+			{ title: 'A page for every service', text: 'Crane hire by size, window fitting, interior painting: each service gets its own page, so it shows up for the exact search.', icon: 'website-development' },
+			{ title: 'Pages for the areas you work in', text: 'Suburb and town pages for the places you cover, like ABC Crane Hire’s pages across Perth and the Peel region.', icon: 'seo-optimization' },
+			{ title: 'Project galleries', text: 'Before-and-after photos and finished jobs, organized by type, because contractors are hired on past work.', icon: 'website-design' },
+			{ title: 'Quote requests from the site', text: 'Short forms that ask for the job, the location and the dates, plus a phone number that works as a button.', icon: 'mobile-app-development' },
+			{ title: 'Easy to keep up to date', text: 'Add new projects, services and photos yourself in WordPress, without calling a developer.', icon: 'wordpress-website' },
+			{ title: 'Hosting and upkeep', text: 'Fast hosting, SSL, backups and updates handled, so the site keeps working while you are on site.', icon: 'website-maintenance' },
+		],
+		needs: [
+			{ title: 'Show the work', text: 'Clients hire contractors on past work. Real project photos, before-and-after shots and the size of jobs you take on count for more than any slogan.' },
+			{ title: 'Be found for the job and the place', text: 'Site managers search for the service plus the suburb, like "crane hire Rockingham". A page for each service and area is how you appear for those searches.' },
+			{ title: 'Make quoting quick', text: 'A short quote form and a phone number that works as a button. Busy people on a job site call whoever answers first.' },
+			{ title: 'Show you are licensed and insured', text: 'Licenses, insurance and industry memberships reassure larger clients before they send you a job.' },
+			{ title: 'Explain technical products simply', text: 'For equipment and industrial products: what it does, how it saves time and cost, and a way to ask an engineer.' },
+		],
+		faqs: [
+			{ q: 'Can you show our past projects?', a: 'Yes. We build project galleries you can add to yourself, with photos, the location and what the job involved, as we did for DJ Schilderwerken.' },
+			{ q: 'Can you help us rank in the areas we cover?', a: 'Yes. We build service and area pages with real local content, schema markup and a matching Google Business Profile, as for ABC Crane Hire across Perth and the Peel region.' },
+			{ q: 'Do you build websites in German or Dutch?', a: 'Yes. Handwerk am Rhein is in German and DJ Schilderwerken is in Dutch.' },
+			{ q: 'Can you build a website for an industrial product?', a: 'Yes. The Zero-Trip Wedge site explains a directional drilling tool, how it works and how it cuts the time, cost and risk of sidetrack drilling.' },
+		],
+		services: ['website-development', 'wordpress-website', 'seo-optimization', 'website-maintenance'],
+		projects: ['abccranehire-com-au', 'handwerk-am-rhein-de', 'djschilderwerken-nl', 'zero-trip-com'],
+	},
+	{
+		slug: 'healthcare',
+		name: 'Healthcare',
 		short: 'Healthcare',
 		audience: 'clinics, trainers and wellness brands',
 		meta: {
@@ -94,7 +132,7 @@ export const industries: Industry[] = [
 	},
 	{
 		slug: 'real-estate',
-		name: 'Real Estate & Property',
+		name: 'Real Estate',
 		short: 'Real estate',
 		audience: 'real estate agents, property platforms and advisors',
 		meta: {
@@ -126,11 +164,47 @@ export const industries: Industry[] = [
 			{ q: 'Will the listings show up on Google?', a: 'Each property and location gets its own page with a descriptive title, description and structured data, which is what search engines need to index them.' },
 		],
 		services: ['website-development', 'cms-development', 'website-design', 'seo-optimization'],
-		projects: ['fijianrealestate-com', 'myrentfiji-com', 'priveluxadvisory-com', 'casa-suerte-nl'],
+		projects: ['fijianrealestate-com', 'myrentfiji-com', 'priveluxadvisory-com'],
 	},
 	{
-		slug: 'restaurants-hospitality',
-		name: 'Restaurants & Hospitality',
+		slug: 'ecommerce',
+		name: 'E-commerce',
+		short: 'E-commerce',
+		audience: 'online shops and product brands',
+		meta: {
+			title: 'E-commerce Website Design for Online Shops | IdeoXpert',
+			description: 'Online stores for product brands and small shops on WooCommerce and Shopify: product pages, a short checkout and SEO. See the stores we built.',
+			keywords: 'ecommerce website design, online store design, WooCommerce store, Shopify store design, small business online shop, product brand website, ecommerce SEO',
+		},
+		title: 'Websites for online shops and product brands',
+		lead: 'Beauty and gift brands, custom apparel and repair businesses that sell online. We build stores that show products well, keep checkout short and are easy to run day to day.',
+		builds: [
+			{ title: 'Product pages that sell', text: 'Photos, prices, sizes and options, with delivery and returns information where people decide.', icon: 'ecommerce-development' },
+			{ title: 'A short checkout', text: 'Guest checkout and card payments, tested with orders before launch.', icon: 'website-development' },
+			{ title: 'Your brand story', text: 'Pages for your story, your values and the people behind the products, so buyers choose you over a marketplace.', icon: 'website-design' },
+			{ title: 'A shop next to your services', text: 'Sell products on the same site as your services, as Flechtarbeiten does next to its chair repairs.', icon: 'cms-development' },
+			{ title: 'Found for product searches', text: 'Category and product pages written for what people search, with product structured data.', icon: 'seo-optimization' },
+			{ title: 'Hosting and upkeep', text: 'Fast hosting, SSL, backups and updates, so the store stays up when orders come in.', icon: 'website-maintenance' },
+		],
+		needs: [
+			{ title: 'Products people can picture', text: 'Good photos, sizes, options and delivery details on the page, so buyers do not have to ask.' },
+			{ title: 'A checkout with no surprises', text: 'Shipping, taxes and payment options shown before the last step. Surprises at checkout make people leave.' },
+			{ title: 'A brand worth buying from', text: 'Your story, your values and real reviews give people a reason to buy from you and not from a marketplace.' },
+			{ title: 'Easy to run', text: 'Adding products, changing prices and handling orders should take minutes, not a developer.' },
+			{ title: 'Found on Google', text: 'Category and product pages that match what people search, so the store brings in visitors without paying for every click.' },
+		],
+		faqs: [
+			{ q: 'WooCommerce or Shopify?', a: 'Both work well. WooCommerce has no monthly platform fee and runs on WordPress. Shopify is the easiest to run yourself. We built T-Shirt Studio on WooCommerce and BOTL on Shopify.' },
+			{ q: 'Can you sell services and products on one site?', a: 'Yes. Flechtarbeiten offers chair repairs and runs a shop on the same site.' },
+			{ q: 'Can I add products myself?', a: 'Yes. At handover we show you how to add products, change prices and handle orders.' },
+			{ q: 'How much does an online store cost?', a: `Online stores start at ${money(from.store, 'USD')} for up to ${from.storeProducts} products, with card payments set up. The cost calculator on our pricing page gives you an estimate for your own store.` },
+		],
+		services: ['ecommerce-development', 'website-design', 'seo-optimization', 'website-maintenance'],
+		projects: ['flechtarbeiten-de', 'maisonluma-com', '4tsstudio-org', 'botl-com-au'],
+	},
+	{
+		slug: 'hospitality',
+		name: 'Hospitality',
 		short: 'Hospitality',
 		audience: 'restaurants, holiday rentals and hospitality businesses',
 		meta: {
@@ -199,42 +273,6 @@ export const industries: Industry[] = [
 		],
 		services: ['website-design', 'website-development', 'wordpress-website', 'seo-optimization'],
 		projects: ['psgwa-com-au', 'tvdm-au', 'jazbahost-com', 'brightwayconsultsolutions-com', 'brightwaygroup-org', 'priveluxadvisory-com', 'ransfordaddo-com', 'thomwerk-nl'],
-	},
-	{
-		slug: 'media-entertainment',
-		name: 'Media & Entertainment',
-		short: 'Media & Entertainment',
-		audience: 'studios, event companies and entertainment brands',
-		meta: {
-			title: 'Websites for Studios & Entertainment | IdeoXpert',
-			description: 'Websites for recording studios, event companies, ticketing platforms and talent managers: bold design, bookings and launch pages that stay fast.',
-			keywords: 'entertainment website design, recording studio website, event company website, ticketing website development, music website design, talent agency website, media website development',
-		},
-		title: 'Websites for media, events and entertainment',
-		lead: 'Recording studios, event companies, ticketing platforms and talent managers. We build bold websites that feel as big as your shows and still get people to book, buy or sign up.',
-		builds: [
-			{ title: 'Event and artist pages', text: 'Events, artists and past shows presented with the energy they deserve.', icon: 'website-design' },
-			{ title: 'Bookings and inquiries', text: 'Studio time, artist bookings and hire requests in a few taps.', icon: 'website-development' },
-			{ title: 'Ticketing and launches', text: 'Fast launch pages and ticketing front-ends that collect sign-ups before day one.', icon: 'ecommerce-development' },
-			{ title: 'Media galleries', text: 'Video, photos and releases that stay sharp and load quickly on phones.', icon: 'website-design' },
-			{ title: 'Easy updates', text: 'Add an event, an artist or a gallery yourself, whenever you need to.', icon: 'cms-development' },
-			{ title: 'Built for traffic spikes', text: 'Hosting that copes when an announcement sends everyone to the site at once.', icon: 'hosting-domain' },
-		],
-		needs: [
-			{ title: 'Energy in the first second', text: 'Entertainment sites have to feel alive. Strong visuals and motion set the tone, as long as they stay fast.' },
-			{ title: 'One clear action', text: 'Get tickets, book the studio, hire the artist. Every page should push towards the one thing you want visitors to do.' },
-			{ title: 'Always up to date', text: 'Old events on the homepage look abandoned. Your team needs to add and archive events and artists in minutes.' },
-			{ title: 'Ready for launch day', text: 'Announcements send traffic in bursts. Caching and good hosting keep the site up when it matters most.' },
-			{ title: 'Great on a phone', text: 'Fans arrive from social media on their phones, so everything is designed for small screens first.' },
-		],
-		faqs: [
-			{ q: 'Can people book studio time or artists on the site?', a: 'Yes. We build booking and inquiry flows for studio sessions, equipment hire and artist bookings.' },
-			{ q: 'Can you build a ticketing website?', a: 'We build ticketing front-ends and launch pages, and connect them to a ticketing or payment provider for secure checkout.' },
-			{ q: 'Can we add events ourselves?', a: 'Yes. Events, artists and galleries are managed from a dashboard, so you can keep the site current without us.' },
-			{ q: 'Will the site handle a big announcement?', a: 'We set up caching and hosting that can cope with sudden traffic, and test it before launch.' },
-		],
-		services: ['website-design', 'website-development', 'ecommerce-development', 'hosting-domain'],
-		projects: ['jazbaentertainment-com', 'jazba-studio', 'jazbatickets-com', 'redxpink-com'],
 	},
 ];
 

@@ -24,10 +24,9 @@ const latest = projects[0];
 // WhatsApp opens with a message about the page the visitor is on.
 const waHref = whatsappLink(services.find((s) => path === `/${s.slug}`)?.name);
 
-// Industries menu: six industries, where we work, and all industries.
+// Industries menu: seven industries and all industries (4 x 2, like the reference).
 const tiles = [
 	...industries.map((ind) => ({ href: `/industries/${ind.slug}`, label: ind.short, image: `/assets/images/industries/${ind.slug}.webp` })),
-	{ href: '/locations', label: 'Where we work', image: '/assets/images/industries/where-we-work.webp' },
 	{ href: '/industries', label: 'All Industries', image: '' },
 ];
 // Menu images load when a menu first opens, not with the page.

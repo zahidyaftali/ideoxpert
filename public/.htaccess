@@ -33,6 +33,11 @@ RewriteRule ^work/?$ /portfolio [R=301,L]
 RewriteRule ^website\sdevelopment/?$ /website-development [R=301,L]
 # The founder's own site was removed from the client portfolio.
 RewriteRule ^work/zahid-ali-yaftali(\.html)?/?$ /portfolio [R=301,L]
+# Industries renamed or regrouped (Oct 2026).
+RewriteRule ^industries/trades-home-services(\.html)?/?$ /industries/home-services [R=301,L]
+RewriteRule ^industries/healthcare-wellness(\.html)?/?$ /industries/healthcare [R=301,L]
+RewriteRule ^industries/restaurants-hospitality(\.html)?/?$ /industries/hospitality [R=301,L]
+RewriteRule ^industries/media-entertainment(\.html)?/?$ /industries [R=301,L]
 # UI/UX design is no longer offered as a separate service.
 RewriteRule ^ux-ui-design(\.html)?/?$ /website-design [R=301,L]
 

@@ -84,4 +84,4 @@ Photos of real jobs, before-and-after projects, certifications, insurance detail
 
 Local searches are usually less competitive than national ones, so improvements often show sooner. See our realistic guide to [how long SEO takes](/blog/how-long-does-seo-take).
 
-We build websites and SEO for [trades and home service businesses](/industries/trades-home-services) with all of the above set up from launch. See our [SEO optimization](/seo-optimization) service, or [ask for a free review](/contact) of your local visibility.
+We build websites and SEO for [home service businesses](/industries/home-services) with all of the above set up from launch. See our [SEO optimization](/seo-optimization) service, or [ask for a free review](/contact) of your local visibility.
