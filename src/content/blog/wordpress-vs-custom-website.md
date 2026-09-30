@@ -50,7 +50,7 @@ WordPress wins for non-technical teams. A custom site can match it only if a CMS
 
 ### Speed
 
-Custom code has the edge out of the box. WordPress can be fast with good hosting, caching, optimised images and restraint with plugins.
+Custom code has the edge out of the box. WordPress can be fast with good hosting, caching, optimized images and restraint with plugins.
 
 ### Security
 
@@ -62,7 +62,7 @@ Both can rank well. What matters is structure, content, speed and technical setu
 
 ### Cost over time
 
-WordPress is often quicker to build and cheaper to change, but has ongoing plugin licences and maintenance. Custom code can cost more to build and to change, but less to keep running.
+WordPress is often quicker to build and cheaper to change, but has ongoing plugin licenses and maintenance. Custom code can cost more to build and to change, but less to keep running.
 
 ## A simple way to decide
 

@@ -10,7 +10,7 @@ faqs:
   - q: "Do I need a physical address for local SEO?"
     a: "No. Service-area businesses can hide their address on Google Business Profile and list the areas they serve instead. You still need a genuine business location."
   - q: "How many area pages should I create?"
-    a: "Only as many as you can write genuinely useful content for. A few strong pages for the areas you really serve beat dozens of near-identical copies."
+    a: "Only as many as you can write useful content for. A few strong pages for the areas you really serve beat dozens of near-identical copies."
   - q: "Can I put keywords in my Google Business Profile name?"
     a: "No. Google's guidelines say your business name should be your real-world name. Adding extra keywords can get your profile suspended."
 ---

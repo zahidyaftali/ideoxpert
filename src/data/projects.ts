@@ -19,7 +19,7 @@
 import factsJson from './case-facts.json';
 
 type CountryCode = 'us' | 'gb' | 'ca' | 'au' | 'de' | 'nl' | 'nz' | 'ae' | 'fj' | 'pk';
-type Goal = 'enquiries' | 'bookings' | 'sales' | 'applications' | 'signups' | 'support' | 'listings' | 'readers';
+type Goal = 'inquiries' | 'bookings' | 'sales' | 'applications' | 'signups' | 'support' | 'listings' | 'readers';
 
 type Facts = {
 	sections: { file: string; h: number }[];
@@ -36,7 +36,7 @@ type Facts = {
 	seo: { good: boolean; plugin: string | null; passed: number; total: number; checks: { label: string; pass: boolean }[] };
 	stack: { name: string; si?: string; img?: string }[];
 	built: { title: string; text: string }[];
-	/** Main brand colour measured from the homepage screenshot. */
+	/** Main brand color measured from the homepage screenshot. */
 	accent: string | null;
 };
 
@@ -65,7 +65,7 @@ type Entry = {
 const recent: Entry[] = [
 	{
 		id: 'jazbahost-com', slug: 'jazba-host', client: 'Jazba', name: 'Jazba Host', url: 'https://www.jazbahost.com/', country: 'gb',
-		industry: 'Web hosting', sector: 'Technology', kind: 'Business website', goal: 'enquiries',
+		industry: 'Web hosting', sector: 'Technology', kind: 'Business website', goal: 'inquiries',
 		headline: 'Jazba Host: web design and UK hosting under one roof',
 		summary: 'Jazba Host builds, hosts and maintains websites for UK businesses, with fixed-price builds and managed hosting plans. We designed and developed their new website to explain both offers clearly and turn visitors into quote requests.',
 		brief: 'Jazba Host sells two things at once, website builds and monthly hosting, and needed a site that explains both without confusing anyone. Prices had to be clear and every page had to lead to a quote.',
@@ -74,7 +74,7 @@ const recent: Entry[] = [
 	{
 		id: 'jazba-studio', slug: 'jazba-studio', client: 'Jazba', name: 'Jazba Studio', url: 'https://jazba.studio/',
 		industry: 'Recording studio', sector: 'Media & entertainment', kind: 'Booking website', goal: 'bookings',
-		headline: 'Jazba Studio: four recording rooms, one booking journey',
+		headline: 'Jazba Studio: four recording rooms, one place to book',
 		summary: 'Jazba Studio runs recording rooms, post-production services and film equipment rental across three branches. We designed and built a website that presents the whole pipeline and makes booking studio time a single step.',
 		brief: 'Artists and filmmakers needed to see every room, service and branch in one place, and book time without phoning around.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
@@ -83,8 +83,8 @@ const recent: Entry[] = [
 		id: 'gahealthcaretraining-com', slug: 'ga-healthcare-training', name: 'GA Healthcare Training', url: 'https://gahealthcaretraining.com/', country: 'us',
 		industry: 'Healthcare training', sector: 'Health & wellness', kind: 'Training website', goal: 'bookings',
 		headline: 'GA Healthcare Training: CPR and BLS classes Georgia can book online',
-		summary: 'GA Healthcare Training runs American Heart Association BLS, ACLS, PALS and Heartsaver classes in Lilburn, Georgia, alongside nurse review courses and consulting. We built a website that lists every programme and helps students book a seat.',
-		brief: 'Nurses and healthcare workers search for certified classes near them. The site needed to show every programme clearly, rank locally and make booking a seat easy.',
+		summary: 'GA Healthcare Training runs American Heart Association BLS, ACLS, PALS and Heartsaver classes in Lilburn, Georgia, alongside nurse review courses and consulting. We built a website that lists every program and helps students book a seat.',
+		brief: 'Nurses and healthcare workers search for certified classes near them. The site needed to show every program clearly, rank locally and make booking a seat easy.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
@@ -105,7 +105,7 @@ const recent: Entry[] = [
 	},
 	{
 		id: 'abccranehire-com-au', slug: 'abc-crane-hire', name: 'ABC Crane Hire', url: 'https://abccranehire.com.au/', country: 'au',
-		industry: 'Crane hire', sector: 'Construction & trades', kind: 'Service website', goal: 'enquiries',
+		industry: 'Crane hire', sector: 'Construction & trades', kind: 'Service website', goal: 'inquiries',
 		headline: 'ABC Crane Hire: ranking crane hire across Perth and Peel',
 		summary: 'ABC Crane Hire supplies Franna, Tom Thumb, Hiab and 100-tonne mobile cranes across Perth and the Peel region. We built their WordPress website with location pages and a large blog, set up to rank for crane hire searches across Western Australia.',
 		brief: 'Site managers search "crane hire" plus their suburb. ABC Crane Hire needed to show up in Perth, Rockingham and Mandurah, and make it easy to call about a lift.',
@@ -113,15 +113,15 @@ const recent: Entry[] = [
 	},
 	{
 		id: 'brightwayconsultsolutions-com', slug: 'brightway-consult-solutions', name: 'Brightway Consult Solutions', url: 'https://brightwayconsultsolutions.com/',
-		industry: 'Business consulting', sector: 'Business & consulting', kind: 'Business website', goal: 'enquiries',
+		industry: 'Business consulting', sector: 'Business & consulting', kind: 'Business website', goal: 'inquiries',
 		headline: 'Brightway Consult Solutions: a consulting firm and its family of brands',
-		summary: 'Brightway Consult Solutions offers strategy, recruiting and business services, alongside a family of brands, events and affiliate partners. We designed a website that brings the firm and its brands together and turns interest into enquiries.',
+		summary: 'Brightway Consult Solutions offers strategy, recruiting and business services, alongside a family of brands, events and affiliate partners. We designed a website that brings the firm and its brands together and turns interest into inquiries.',
 		brief: 'The firm had services, brands, events and partner deals to show. The site needed to present all of it without overwhelming a first-time visitor.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
 		id: 'brightwaygroup-org', slug: 'brightway-group', name: 'Brightway Group', url: 'https://brightwaygroup.org/',
-		industry: 'Group of companies', sector: 'Business & consulting', kind: 'Group website', goal: 'enquiries',
+		industry: 'Group of companies', sector: 'Business & consulting', kind: 'Group website', goal: 'inquiries',
 		headline: 'Brightway Group: one website for a group of companies',
 		summary: 'Brightway Group brings several companies under one vision. We built the group website that introduces each company, shares events and updates, and gives partners and clients one clear place to get in touch.',
 		brief: 'Each company in the group had its own audience. The group site needed to explain how they fit together and route visitors to the right one.',
@@ -131,8 +131,8 @@ const recent: Entry[] = [
 		id: 'ransfordaddo-com', slug: 'dr-ransford-addo', name: 'Dr. Ransford Addo', url: 'https://ransfordaddo.com/',
 		industry: 'Author & speaker', sector: 'Business & consulting', kind: 'Personal brand website', goal: 'readers',
 		headline: 'Dr. Ransford Addo: an author and speaker’s home online',
-		summary: 'Dr. Ransford M. K. Addo is an author, speaker and organisational development consultant. We built a personal website that brings together his books, videos, events and articles, with clear ways to buy, follow and get in touch.',
-		brief: 'Books, talks, videos and articles were spread across platforms. Dr. Addo needed one home for his work that readers and event organisers could trust.',
+		summary: 'Dr. Ransford M. K. Addo is an author, speaker and organizational development consultant. We built a personal website that brings together his books, videos, events and articles, with clear ways to buy, follow and get in touch.',
+		brief: 'Books, talks, videos and articles were spread across platforms. Dr. Addo needed one home for his work that readers and event organizers could trust.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
@@ -153,9 +153,9 @@ const recent: Entry[] = [
 	},
 	{
 		id: 'tvdm-au', slug: 'tvdm', name: 'TVDM', url: 'https://tvdm.au/', country: 'au',
-		industry: 'Digital marketing', sector: 'Marketing & agencies', kind: 'Agency website', goal: 'enquiries',
+		industry: 'Digital marketing', sector: 'Marketing & agencies', kind: 'Agency website', goal: 'inquiries',
 		headline: 'TVDM: a Perth marketing agency’s website that sells its own results',
-		summary: 'True Vine Digital Marketing helps Perth businesses grow with web development, SEO, lead generation and AI. We built a website that practises what they preach: fast, clear on pricing and built around a free audit offer.',
+		summary: 'True Vine Digital Marketing helps Perth businesses grow with web development, SEO, lead generation and AI. We built a website that practices what they preach: fast, clear on pricing and built around a free audit offer.',
 		brief: 'A marketing agency’s own site is its first case study. TVDM needed a website that ranks, explains its method and pricing, and books audits.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
@@ -180,7 +180,7 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'zero-trip-com', slug: 'zero-trip', name: 'Zero-Trip Wedge', url: 'https://zero-trip.com/',
-		industry: 'Drilling technology', sector: 'Industrial & engineering', kind: 'Product website', goal: 'enquiries',
+		industry: 'Drilling technology', sector: 'Industrial & engineering', kind: 'Product website', goal: 'inquiries',
 		headline: 'Zero-Trip Wedge: an industrial product, explained online',
 		summary: 'The Zero-Trip Wedge is a directional drilling tool that cuts the time, cost and risk of sidetrack drilling. We built a product website with training, case studies, media and distribution pages, plus a downloadable e-brochure.',
 		brief: 'Drilling engineers need proof before they trust a new tool. The site needed to explain the product, show it working in the field and connect buyers with distributors.',
@@ -188,7 +188,7 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'die-chaoskiller-berlin-de', slug: 'chaos-killer-berlin', name: 'Chaos-Killer Berlin', url: 'https://die-chaoskiller-berlin.de/', country: 'de',
-		industry: 'Clearance & removals', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Clearance & removals', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'Chaos-Killer Berlin: clearance and removals, one call away',
 		summary: 'Chaos-Killer Berlin handles house clearances, waste disposal, small demolitions, removals and cleaning across Berlin. We built a German-language website with a page for every service, set up to rank for local searches.',
 		brief: 'People need a clearance company fast, and they search for the exact job. Each service needed its own page and a quick way to ask for a quote.',
@@ -196,15 +196,15 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'handwerk-am-rhein-de', slug: 'handwerk-am-rhein', name: 'Handwerk am Rhein', url: 'https://handwerk-am-rhein.de/', country: 'de',
-		industry: 'Renovation & repairs', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Renovation & repairs', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'Handwerk am Rhein: windows, doors and insect screens, made local',
-		summary: 'Handwerk am Rhein fits windows, doors and insect screens and takes on renovation work along the Rhine. We built a website with product pages, local area pages and an enquiry flow, set up to be found in local search.',
+		summary: 'Handwerk am Rhein fits windows, doors and insect screens and takes on renovation work along the Rhine. We built a website with product pages, local area pages and an inquiry flow, set up to be found in local search.',
 		brief: 'Homeowners compare local tradespeople online. Handwerk am Rhein needed to appear in each town they serve and make requesting a quote simple.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
 		id: 'flessner-sicherheitsdienst-de', slug: 'flessner-sicherheitsdienst', name: 'Fleßner Sicherheitsdienst', url: 'https://www.flessner-sicherheitsdienst.de/', country: 'de',
-		industry: 'Security & locksmith', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Security & locksmith', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'Fleßner: security and locksmith services, found 24/7',
 		summary: 'Fleßner Sicherheitsdienst provides property protection, event security and a 24/7 emergency locksmith around Pfungstadt. We built a custom-coded website with a page for every service and area, set up to rank in local search.',
 		brief: 'Someone locked out at midnight searches their town plus "Schlüsseldienst". Fleßner needed to show up for every service in every nearby town, and be one tap from a call.',
@@ -212,8 +212,8 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'caisd-africa', slug: 'caisd', name: 'CAISD', url: 'https://caisd.africa/',
-		industry: 'AI research centre', sector: 'Nonprofit & public', kind: 'Organisation website', goal: 'support',
-		headline: 'CAISD: an AI research centre for sustainable development in Africa',
+		industry: 'AI research center', sector: 'Nonprofit & public', kind: 'Organization website', goal: 'support',
+		headline: 'CAISD: an AI research center for sustainable development in Africa',
 		summary: 'The Centre for Artificial Intelligence and Sustainable Development drives AI research and collaboration across Africa. We built a website for its research, events, podcasts, partners and the Continental AI Index.',
 		brief: 'CAISD publishes research, runs events and works with partners across the continent. The site needed to present that work with authority and make it easy to support.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
@@ -244,7 +244,7 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'priveluxadvisory-com', slug: 'prive-lux-advisory', name: 'Privé LUX Advisory', url: 'https://priveluxadvisory.com/',
-		industry: 'Wealth advisory', sector: 'Business & consulting', kind: 'Advisory website', goal: 'enquiries',
+		industry: 'Wealth advisory', sector: 'Business & consulting', kind: 'Advisory website', goal: 'inquiries',
 		headline: 'Privé LUX Advisory: a private client platform for wealth and legacy',
 		summary: 'Privé LUX Advisory Group advises clients on wealth, property and legacy through its Realty, Capital, Assurance and Wealth divisions. We designed an elegant website that introduces each division and the Privé process.',
 		brief: 'Private clients expect discretion and polish. The site needed to present four divisions as one trusted advisory and guide visitors to a first conversation.',
@@ -268,9 +268,9 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'csfmcleaning-com', slug: 'csfm-cleaning', name: 'CSFM Cleaning', url: 'https://csfmcleaning.com/', country: 'gb',
-		industry: 'Cleaning services', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Cleaning services', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'CSFM Cleaning: home cleaning in Birmingham, booked with a message',
-		summary: 'CSFM Cleaning offers home, deep and event cleaning in Birmingham and nearby. We built a website that explains each service and the areas covered, with enquiries by form or WhatsApp.',
+		summary: 'CSFM Cleaning offers home, deep and event cleaning in Birmingham and nearby. We built a website that explains each service and the areas covered, with inquiries by form or WhatsApp.',
 		brief: 'Customers want to know what is included, where the company works and how to book. The site needed to answer all three quickly.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
@@ -284,7 +284,7 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'djschilderwerken-nl', slug: 'dj-schilderwerken', name: 'DJ Schilderwerken', url: 'https://www.djschilderwerken.nl/', country: 'nl',
-		industry: 'Painting & decorating', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Painting & decorating', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'DJ Schilderwerken: painting and decorating, shown before and after',
 		summary: 'DJ Schilderwerken has handled interior and exterior painting, wood-rot repair and maintenance since 2005. We built a Dutch-language website with a page per service and a before-and-after project gallery.',
 		brief: 'Painters are chosen on trust and past work. The site needed to show real before-and-after projects and make it simple to request a quote.',
@@ -308,7 +308,7 @@ const earlier: Entry[] = [
 	},
 	{
 		id: 'smbelectrical-ca', slug: 'smb-electrical', name: 'SMB Electrical', url: 'https://smbelectrical.ca/', country: 'ca',
-		industry: 'Electrical contractor', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Electrical contractor', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'SMB Electrical: Toronto electricians, found for every job',
 		summary: 'SMB Electrical is a licensed electrical contractor serving homes and businesses in Toronto. We built a WordPress website with a page for every electrical service, set up to rank in local search.',
 		brief: 'People search for the exact job, from panel upgrades to floor heating. Each service needed its own page and an easy way to get in touch.',
@@ -318,13 +318,13 @@ const earlier: Entry[] = [
 		id: 'vanguardstrengthfitness-com', slug: 'vanguard-strength', name: 'Vanguard Strength', url: 'https://vanguardstrengthfitness.com/',
 		industry: 'Fitness coaching', sector: 'Health & wellness', kind: 'Coaching website', goal: 'signups',
 		headline: 'Vanguard Strength: a fitness coaching website',
-		summary: 'Vanguard Strength and Fitness offers customised workouts, expert guidance and progress tracking. We built a clean website that explains the coaching approach and helps new members get started.',
+		summary: 'Vanguard Strength and Fitness offers customized workouts, expert guidance and progress tracking. We built a clean website that explains the coaching approach and helps new members get started.',
 		brief: 'New members want to know how coaching works before signing up. The site needed to explain the approach simply and make joining easy.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
 		id: 'mut-umzug-de', slug: 'mut-umzug', name: 'MUT Umzug', url: 'https://mut-umzug.de/', country: 'de',
-		industry: 'Removals', sector: 'Home & trade services', kind: 'Service website', goal: 'enquiries',
+		industry: 'Removals', sector: 'Home & trade services', kind: 'Service website', goal: 'inquiries',
 		headline: 'MUT Umzug: a Wiesbaden removals company, working nationwide',
 		summary: 'MUT Umzüge & Transport handles private, business, international and European moves from Wiesbaden. We built a custom-coded website with a page for every service and city, plus articles and FAQs, set up for local search across Germany.',
 		brief: 'Moves are booked by searching the service plus the city. MUT needed a page for each combination and a fast way to request a quote.',
@@ -343,7 +343,7 @@ const earlier: Entry[] = [
 const facts = factsJson as unknown as Record<string, Facts>;
 
 const goalText: Record<Goal, { title: string; text: (n: string) => string }> = {
-	enquiries: { title: 'More enquiries', text: (n) => `Every page needed a clear next step, so visitors interested in ${n} get in touch instead of leaving.` },
+	inquiries: { title: 'More inquiries', text: (n) => `Every page needed a clear next step, so visitors interested in ${n} get in touch instead of leaving.` },
 	bookings: { title: 'Bookings without the back-and-forth', text: () => 'Visitors needed to go from interested to booked in a few taps, without phone tag or email chains.' },
 	sales: { title: 'A shop that sells', text: (n) => `Products needed to look their best, with a checkout simple enough that ${n} customers finish their order.` },
 	applications: { title: 'Applications that come in', text: () => 'The path from reading to applying needed to be short and obvious on every page.' },

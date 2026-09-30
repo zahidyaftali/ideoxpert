@@ -1,5 +1,5 @@
 ---
-// A brand logo: inline Simple Icons SVG in the brand colour, or an image file.
+// A brand logo: inline Simple Icons SVG in the brand color, or an image file.
 import * as icons from 'simple-icons';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const { si, img, name, size = 40, class: className } = Astro.props;
 const icon = si ? (icons as unknown as Record<string, { path: string; hex: string }>)[si] : undefined;
-// Near-black brand colours (Apple, Squarespace) use the page ink instead.
+// Near-black brand colors (Apple, Squarespace) use the page ink instead.
 const luminance = (hex: string) => {
 	const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
 	return 0.2126 * r + 0.7152 * g + 0.0722 * b;

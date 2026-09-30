@@ -70,12 +70,55 @@ export function brandHeadings(html: string): string {
 	return out + html.slice(last);
 }
 
-export const onRequest = defineMiddleware(async (_context, next) => {
+// The site is written in US English; pages for UK visitors use UK spelling.
+// Only visible text in <body> changes: tags, attributes, scripts and styles
+// are left alone.
+const UK_PAGES = new Set(['/locations/united-kingdom']);
+const US_TO_UK: [string, string][] = [
+	['inquiries', 'enquiries'], ['inquiry', 'enquiry'],
+	['optimization', 'optimisation'], ['optimized', 'optimised'], ['optimize', 'optimise'], ['optimizing', 'optimising'],
+	['organizations', 'organisations'], ['organization', 'organisation'], ['organized', 'organised'], ['organize', 'organise'],
+	['customized', 'customised'], ['customize', 'customise'],
+	['colors', 'colours'], ['color', 'colour'],
+	['centered', 'centred'], ['center', 'centre'],
+	['neighborhoods', 'neighbourhoods'], ['neighborhood', 'neighbourhood'],
+	['favor', 'favour'], ['behavior', 'behaviour'],
+	['labeled', 'labelled'], ['analyze', 'analyse'],
+	['prioritize', 'prioritise'], ['recognize', 'recognise'], ['specialize', 'specialise'], ['realize', 'realise'],
+	['catalog', 'catalogue'], ['gray', 'grey'],
+];
+const UK_RULES = US_TO_UK.flatMap(([us, uk]) => [
+	[new RegExp(`\\b${us}\\b`, 'g'), uk],
+	[new RegExp(`\\b${us[0].toUpperCase()}${us.slice(1)}\\b`, 'g'), uk[0].toUpperCase() + uk.slice(1)],
+] as [RegExp, string][]);
+
+function toUkSpelling(html: string): string {
+	const body = html.indexOf('<body');
+	if (body < 0) return html;
+	const head = html.slice(0, body);
+	// Split into tags (and whole script/style blocks) and the text between them.
+	const parts = html.slice(body).split(/(<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>)/);
+	return (
+		head +
+		parts
+			.map((part, i) => {
+				if (i % 2 === 1) return part; // a tag
+				let text = part;
+				for (const [re, uk] of UK_RULES) text = text.replace(re, uk);
+				return text;
+			})
+			.join('')
+	);
+}
+
+export const onRequest = defineMiddleware(async (context, next) => {
 	const response = await next();
 	const type = response.headers.get('content-type') ?? '';
 	if (type && !type.includes('text/html')) return response;
-	const html = await response.text();
+	let html = await response.text();
 	if (!html.includes('<html')) return new Response(html, response);
+	const path = context.url.pathname.replace(/\.html$/, '').replace(/\/$/, '');
+	if (UK_PAGES.has(path)) html = toUkSpelling(html);
 	return new Response(brandHeadings(html), {
 		status: response.status,
 		statusText: response.statusText,

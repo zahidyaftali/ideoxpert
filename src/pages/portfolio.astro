@@ -6,7 +6,7 @@ import Select from '../components/Select.astro';
 import { site, services, stats, founded } from '../data/site';
 import { projects, sectors } from '../data/projects';
 
-// Hero collage: centre project in its brand colour, one on each side.
+// Hero collage: center project in its brand color, one on each side.
 const [center, left, right] = ['jazbahost-com', 'abccranehire-com-au', 'tvdm-au'].map((id) => projects.find((p) => p.id === id)!);
 const shot = (p: (typeof projects)[number]) => `/assets/images/work/${p.id}/hero.webp`;
 
@@ -199,7 +199,7 @@ const schema = [
 		mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.3) 25%, #000 65%);
 	}
 
-	/* Centre: the project's own colour as a soft panel, the screenshot on top. */
+	/* Center: the project's own color as a soft panel, the screenshot on top. */
 	.collage__center {
 		position: relative;
 		z-index: 2;

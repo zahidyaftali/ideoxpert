@@ -17,14 +17,14 @@ export const toolsByService: Record<string, Tool[]> = {
 	'website-design': [
 		{ name: 'Figma', si: 'siFigma', text: 'Where we design every page and screen, and where you review and comment on designs before development starts.' },
 		{ name: 'Adobe XD', img: '/assets/images/tools/adobe-xd.png', text: 'Clickable prototypes that let you move through the website and feel the flow before a line of code is written.' },
-		{ name: 'Sketch', si: 'siSketch', text: 'Layouts, icons and design systems that keep colours, type and spacing consistent across every page.' },
+		{ name: 'Sketch', si: 'siSketch', text: 'Layouts, icons and design systems that keep colors, type and spacing consistent across every page.' },
 		{ name: 'Framer', si: 'siFramer', text: 'Interactive prototypes with real motion, so you can see exactly how pages, menus and animations will behave.' },
 		{ name: 'InVision', img: '/assets/images/tools/invision.png', text: 'Shareable prototypes for gathering feedback from your team in one place, with comments pinned to the design.' },
 		{ name: 'Axure', img: '/assets/images/tools/axure.png', text: 'Detailed wireframes for larger websites, mapping out page structure and content before visual design begins.' },
 	],
 	'wordpress-website': [
 		{ name: 'WordPress', si: 'siWordpress', text: 'The world’s most used CMS. We set it up so your team can edit pages, posts and images without calling a developer.' },
-		{ name: 'Elementor', si: 'siElementor', text: 'A visual page builder for pages you want to change often, set up with your brand’s colours and fonts locked in.' },
+		{ name: 'Elementor', si: 'siElementor', text: 'A visual page builder for pages you want to change often, set up with your brand’s colors and fonts locked in.' },
 		{ name: 'WooCommerce', si: 'siWoocommerce', text: 'Online stores with products, payments, shipping and stock management, all inside your WordPress dashboard.' },
 		{ name: 'Yoast SEO', si: 'siYoast', text: 'Titles, meta descriptions, XML sitemaps and schema configured on every page from launch day.' },
 		{ name: 'WP Rocket', si: 'siWprocket', text: 'Caching, file minification and lazy loading so your WordPress site loads fast on phones and slower connections.' },
@@ -40,7 +40,7 @@ export const toolsByService: Record<string, Tool[]> = {
 	],
 	'seo-optimization': [
 		{ name: 'Google Search Console', si: 'siGooglesearchconsole', text: 'We watch which searches bring visitors, fix indexing problems and submit your sitemap so new pages are found quickly.' },
-		{ name: 'Google Analytics', si: 'siGoogleanalytics', text: 'Tracks where visitors come from and what they do, so every SEO change can be measured against real enquiries.' },
+		{ name: 'Google Analytics', si: 'siGoogleanalytics', text: 'Tracks where visitors come from and what they do, so every SEO change can be measured against real inquiries.' },
 		{ name: 'Semrush', si: 'siSemrush', text: 'Keyword research, competitor analysis and rank tracking to find the searches worth going after in your market.' },
 		{ name: 'Rank Math', img: '/assets/images/tools/rank-math.png', text: 'On-page SEO for WordPress: titles, descriptions, schema markup and redirects managed page by page.' },
 		{ name: 'Yoast SEO', si: 'siYoast', text: 'Readability and on-page checks for every post, plus clean sitemaps and canonical URLs.' },
@@ -75,7 +75,7 @@ export const toolsByService: Record<string, Tool[]> = {
 		{ name: 'UpdraftPlus', img: '/assets/images/tools/updraftplus.png', text: 'Scheduled backups stored off-site, so any version of your website can be restored in minutes.' },
 		{ name: 'ManageWP', img: '/assets/images/tools/managewp.png', text: 'Safe plugin, theme and core updates across WordPress sites, with uptime monitoring and reports.' },
 		{ name: 'Cloudflare', si: 'siCloudflare', text: 'Caching and protection at the network edge that keep your website fast and filter out bad traffic.' },
-		{ name: 'Google Analytics', si: 'siGoogleanalytics', text: 'Monthly checks on traffic and enquiries, so problems are spotted before they cost you customers.' },
+		{ name: 'Google Analytics', si: 'siGoogleanalytics', text: 'Monthly checks on traffic and inquiries, so problems are spotted before they cost you customers.' },
 		{ name: 'Google Search Console', si: 'siGooglesearchconsole', text: 'Alerts for crawl errors, security issues and broken pages, fixed as part of your maintenance plan.' },
 	],
 };

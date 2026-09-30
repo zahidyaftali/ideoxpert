@@ -42,14 +42,14 @@ export const industries: Industry[] = [
 		],
 		needs: [
 			{ title: 'Show up in local search', text: 'Most trade jobs start with a search like "electrician near me" or "removals Wiesbaden". Service pages, area pages, a complete Google Business Profile and LocalBusiness schema are what get you into those results.' },
-			{ title: 'Answer the price question', text: 'Customers want to know roughly what a job costs before they call. Clear starting prices or what affects the price bring in better enquiries and fewer time-wasters.' },
+			{ title: 'Answer the price question', text: 'Customers want to know roughly what a job costs before they call. Clear starting prices or what affects the price bring in better inquiries and fewer time-wasters.' },
 			{ title: 'Make contact effortless', text: 'A phone number that works as a button, a WhatsApp link and a three-field quote form. Every extra step loses a customer who is comparing three firms at once.' },
-			{ title: 'Prove you do good work', text: 'Photos of real jobs, reviews and credentials such as licences and insurance matter more for trades than any design detail.' },
+			{ title: 'Prove you do good work', text: 'Photos of real jobs, reviews and credentials such as licenses and insurance matter more for trades than any design detail.' },
 			{ title: 'Load fast on a phone', text: 'Most visitors are on mobile data. Compressed images and a light build keep the page quick enough that they do not go back to the search results.' },
 		],
 		faqs: [
 			{ q: 'Do trades businesses really need more than a Facebook page?', a: 'A Facebook page helps, but it does not rank for searches like "emergency electrician Toronto" and you do not control it. A website with a page per service and area is what gets you found by people who do not know your name yet.' },
-			{ q: 'Can you build pages for every town we cover?', a: 'Yes. We write area pages with genuinely local content, such as the jobs you do there and the areas nearby, rather than copies with the town name swapped, which Google ignores.' },
+			{ q: 'Can you build pages for every town we cover?', a: 'Yes. We write area pages with real local content, such as the jobs you do there and the areas nearby, rather than copies with the town name swapped, which Google ignores.' },
 			{ q: 'Can I update prices and photos myself?', a: 'Yes. We build most trades websites on WordPress and show you how to add services, areas, prices and project photos on your own.' },
 			{ q: 'Do you set up Google Business Profile?', a: 'We make sure your website and Google Business Profile match (name, address, phone, services and hours) and link to each other, which helps you appear in the local map results.' },
 		],
@@ -69,8 +69,8 @@ export const industries: Industry[] = [
 		title: 'Websites for healthcare and wellness',
 		lead: 'Clinics, healthcare training providers, coaches and wellness brands. We build calm, clear websites that explain your services, answer patients’ questions and make booking simple.',
 		builds: [
-			{ title: 'Clear service pages', text: 'One page per treatment, programme or class, written in plain language patients understand.', icon: 'website-design' },
-			{ title: 'Online booking', text: 'Booking and enquiry forms that fit how you work, from class seats to consultations.', icon: 'website-development' },
+			{ title: 'Clear service pages', text: 'One page per treatment, program or class, written in plain language patients understand.', icon: 'website-design' },
+			{ title: 'Online booking', text: 'Booking and inquiry forms that fit how you work, from class seats to consultations.', icon: 'website-development' },
 			{ title: 'Locations and patient info', text: 'Every location, opening hours, what to bring and your policies, all easy to find.', icon: 'cms-development' },
 			{ title: 'Local search', text: 'Service and location pages set up to rank for searches such as "dermatologist near me" or "BLS class Lilburn".', icon: 'seo-optimization' },
 			{ title: 'Shops for guides and products', text: 'Sell courses, guides and wellness products online with a simple checkout.', icon: 'ecommerce-development' },
@@ -79,7 +79,7 @@ export const industries: Industry[] = [
 		needs: [
 			{ title: 'Trust at first glance', text: 'Patients judge credibility in seconds: real photos of your team and premises, qualifications, accreditations and reviews do more than any slogan.' },
 			{ title: 'Plain-language services', text: 'Explain each treatment or course, who it is for and what happens, without jargon. It helps patients and helps you rank for the words they actually search.' },
-			{ title: 'Booking without phone tag', text: 'Online booking or a short enquiry form cuts the back-and-forth and fills appointments outside office hours.' },
+			{ title: 'Booking without phone tag', text: 'Online booking or a short inquiry form cuts the back-and-forth and fills appointments outside office hours.' },
 			{ title: 'Practical information up front', text: 'Locations, hours, insurance or payment policies and what to expect on the day are what patients look for right before they commit.' },
 			{ title: 'Accessible for everyone', text: 'Readable text, good contrast and forms that work with screen readers matter more in healthcare than anywhere else.' },
 		],
@@ -117,12 +117,12 @@ export const industries: Industry[] = [
 			{ title: 'A team that can update it', text: 'New listings, price changes and sold properties need to go live the same day, without waiting for a developer.' },
 			{ title: 'Built for overseas buyers', text: 'International buyers need content in their language, prices they understand and a way to get in touch across time zones.' },
 			{ title: 'Fast despite the photos', text: 'Property sites are photo-heavy. Compressed, lazy-loaded images keep pages quick on phones.' },
-			{ title: 'Leads that reach the right agent', text: 'Enquiry forms that say which property someone asked about, sent straight to the right person.' },
+			{ title: 'Leads that reach the right agent', text: 'Inquiry forms that say which property someone asked about, sent straight to the right person.' },
 		],
 		faqs: [
 			{ q: 'Can our team add and edit listings?', a: 'Yes. Listings are managed from a dashboard, with fields for price, location, type, features and photos, so there is no code involved.' },
 			{ q: 'Can the site be in more than one language?', a: 'Yes. We have built multilingual property sites, with separate language versions so overseas buyers can browse in their own language.' },
-			{ q: 'Can you build a rental platform with sign-ups?', a: 'Yes. myRent Fiji is a rental platform with landlord and tenant journeys, listings and pricing plans.' },
+			{ q: 'Can you build a rental platform with sign-ups?', a: 'Yes. myRent Fiji is a rental platform with sign-up for landlords and tenants, listings and pricing plans.' },
 			{ q: 'Will the listings show up on Google?', a: 'Each property and location gets its own page with a descriptive title, description and structured data, which is what search engines need to index them.' },
 		],
 		services: ['website-development', 'cms-development', 'website-design', 'seo-optimization'],
@@ -143,7 +143,7 @@ export const industries: Industry[] = [
 		builds: [
 			{ title: 'Menus people can read', text: 'Menus as real web pages, not PDFs, so they load fast on phones and show up in search.', icon: 'website-design' },
 			{ title: 'Table and direct bookings', text: 'Booking buttons and forms that take reservations without a third-party commission.', icon: 'website-development' },
-			{ title: 'Photos that sell', text: 'Galleries of dishes, rooms and views, optimised so they stay sharp and load quickly.', icon: 'website-design' },
+			{ title: 'Photos that sell', text: 'Galleries of dishes, rooms and views, optimized so they stay sharp and load quickly.', icon: 'website-design' },
 			{ title: 'Found by locals and visitors', text: 'Local SEO and a matching Google Business Profile, so you appear for "Turkish restaurant Birmingham".', icon: 'seo-optimization' },
 			{ title: 'For international guests', text: 'Translation for guests from abroad, as on Casa Suerte.', icon: 'cms-development' },
 			{ title: 'Always online', text: 'Hosting, updates and backups handled, because a broken booking page costs covers.', icon: 'website-maintenance' },
@@ -171,7 +171,7 @@ export const industries: Industry[] = [
 		audience: 'consultants, agencies and professional firms',
 		meta: {
 			title: 'Websites for Consultants & Agencies | IdeoXpert',
-			description: 'Websites for consulting firms, advisory groups, agencies, recruiters and experts that explain what you do and turn visitors into enquiries.',
+			description: 'Websites for consulting firms, advisory groups, agencies, recruiters and experts that explain what you do and turn visitors into inquiries.',
 			keywords: 'consulting firm website, professional services website design, agency website design, advisory firm website, recruitment agency website, personal brand website, B2B website design',
 		},
 		title: 'Websites for consultants, agencies and professional firms',
@@ -194,7 +194,7 @@ export const industries: Industry[] = [
 		faqs: [
 			{ q: 'Can you build one site for a group of companies?', a: 'Yes. We have built group websites that introduce each company and send visitors to the right one, like Brightway Group.' },
 			{ q: 'Do you build websites for agencies?', a: 'Yes. We have built websites for agencies such as TVDM and Jazba Host. If you are an agency looking for a development partner, get in touch.' },
-			{ q: 'Can visitors book a call from the site?', a: 'Yes. We add call booking or short enquiry forms, and connect them to the calendar or inbox you already use.' },
+			{ q: 'Can visitors book a call from the site?', a: 'Yes. We add call booking or short inquiry forms, and connect them to the calendar or inbox you already use.' },
 			{ q: 'Will you write the content?', a: 'We can. We help shape the service descriptions and page structure, and can write or edit the copy for SEO.' },
 		],
 		services: ['website-design', 'website-development', 'wordpress-website', 'seo-optimization'],
@@ -214,7 +214,7 @@ export const industries: Industry[] = [
 		lead: 'Recording studios, event companies, ticketing platforms and talent managers. We build bold websites that feel as big as your shows and still get people to book, buy or sign up.',
 		builds: [
 			{ title: 'Event and artist pages', text: 'Events, artists and past shows presented with the energy they deserve.', icon: 'website-design' },
-			{ title: 'Bookings and enquiries', text: 'Studio time, artist bookings and hire requests in a few taps.', icon: 'website-development' },
+			{ title: 'Bookings and inquiries', text: 'Studio time, artist bookings and hire requests in a few taps.', icon: 'website-development' },
 			{ title: 'Ticketing and launches', text: 'Fast launch pages and ticketing front-ends that collect sign-ups before day one.', icon: 'ecommerce-development' },
 			{ title: 'Media galleries', text: 'Video, photos and releases that stay sharp and load quickly on phones.', icon: 'website-design' },
 			{ title: 'Easy updates', text: 'Add an event, an artist or a gallery yourself, whenever you need to.', icon: 'cms-development' },
@@ -228,7 +228,7 @@ export const industries: Industry[] = [
 			{ title: 'Great on a phone', text: 'Fans arrive from social media on their phones, so everything is designed for small screens first.' },
 		],
 		faqs: [
-			{ q: 'Can people book studio time or artists on the site?', a: 'Yes. We build booking and enquiry flows for studio sessions, equipment hire and artist bookings.' },
+			{ q: 'Can people book studio time or artists on the site?', a: 'Yes. We build booking and inquiry flows for studio sessions, equipment hire and artist bookings.' },
 			{ q: 'Can you build a ticketing website?', a: 'We build ticketing front-ends and launch pages, and connect them to a ticketing or payment provider for secure checkout.' },
 			{ q: 'Can we add events ourselves?', a: 'Yes. Events, artists and galleries are managed from a dashboard, so you can keep the site current without us.' },
 			{ q: 'Will the site handle a big announcement?', a: 'We set up caching and hosting that can cope with sudden traffic, and test it before launch.' },

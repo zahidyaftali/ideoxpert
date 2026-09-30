@@ -155,7 +155,7 @@ function initMarquees() {
 
 /* ------------------------------------------------------------------------
    Spotlight hover. On a [data-spot-group] every card tracks the cursor, so
-   borders of neighbouring cards glow as the pointer passes near them.
+   borders of neighboring cards glow as the pointer passes near them.
    ------------------------------------------------------------------------ */
 function initSpotlight() {
 	if (!finePointer) return;

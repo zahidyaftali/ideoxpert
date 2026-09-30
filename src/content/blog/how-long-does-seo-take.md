@@ -65,17 +65,17 @@ Impressions in Google Search Console usually rise first, meaning you are appeari
 
 ### Months 6–12: compounding results
 
-Clicks and enquiries grow as pages move onto the first page. Content published earlier starts to rank. This is where SEO starts to pay for itself.
+Clicks and inquiries grow as pages move onto the first page. Content published earlier starts to rank. This is where SEO starts to pay for itself.
 
 ## How to measure progress before the leads arrive
 
-Do not judge SEO only by enquiries in the first months. Watch these in Google Search Console and Google Analytics:
+Do not judge SEO only by inquiries in the first months. Watch these in Google Search Console and Google Analytics:
 
 - **Impressions**: how often you appear in search results.
 - **Average position** for your important keywords.
 - **Clicks and click-through rate** from search.
 - **Pages indexed**, and indexing errors fixed.
-- **Enquiries from organic search**, the number that matters most in the end.
+- **Inquiries from organic search**, the number that matters most in the end.
 
 A good SEO partner reports on these regularly and explains what changed and why.
 

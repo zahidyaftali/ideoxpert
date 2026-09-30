@@ -1,7 +1,7 @@
 ---
 title: "Website Maintenance Checklist: Weekly, Monthly and Yearly Tasks"
 metaTitle: "Website Maintenance Checklist: Weekly to Yearly"
-description: "A practical website maintenance checklist: backups, updates, security, speed, forms, SEO checks and renewals, organised by how often to do them."
+description: "A practical website maintenance checklist: backups, updates, security, speed, forms, SEO checks and renewals, organized by how often to do them."
 category: "Website Maintenance"
 service: "website-maintenance"
 published: 2026-09-30
@@ -17,7 +17,7 @@ faqs:
 
 A website is not finished on launch day. Software needs updating, backups need checking and forms quietly stop working. Most website problems we are asked to fix come from sites that were built well and then left alone.
 
-Use this checklist to keep your site secure, fast and bringing in enquiries. It applies to any site, with a few extras for WordPress.
+Use this checklist to keep your site secure, fast and bringing in inquiries. It applies to any site, with a few extras for WordPress.
 
 ## Weekly
 
@@ -42,7 +42,7 @@ Use this checklist to keep your site secure, fast and bringing in enquiries. It 
 - **Review user accounts.** Remove old staff and freelancer logins, check that admins use strong passwords, and turn on two-factor authentication.
 - **Review your content.** Update prices, team members, opening hours, services and anything else that has changed.
 - **Check mobile layouts** on a real phone, not only in a desktop browser.
-- **Review analytics.** Which pages bring enquiries, and which lose visitors?
+- **Review analytics.** Which pages bring inquiries, and which lose visitors?
 
 ## Yearly
 

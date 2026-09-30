@@ -68,14 +68,14 @@ export const locations: Location[] = [
 		timezone: 'The US East Coast is 9 hours behind Islamabad in summer (10 in winter). We schedule calls in your morning, our evening, and work while you sleep, so updates are waiting when your day starts.',
 		points: [
 			{ title: 'Built for US search', text: 'Service and city pages for the markets you serve, Google Business Profile alignment and structured data that helps you show up locally.' },
-			{ title: 'Accessibility in mind', text: 'Readable contrast, keyboard-friendly navigation and labelled forms, following WCAG guidelines, which matters for many US businesses.' },
-			{ title: 'Work while you sleep', text: 'The time difference works in your favour: send feedback at the end of your day and wake up to the changes.' },
+			{ title: 'Accessibility in mind', text: 'Readable contrast, keyboard-friendly navigation and labeled forms, following WCAG guidelines, which matters for many US businesses.' },
+			{ title: 'Work while you sleep', text: 'The time difference works in your favor: send feedback at the end of your day and wake up to the changes.' },
 			{ title: 'Proven with US clients', text: 'We have built websites for a St. Louis dermatology practice, a Georgia healthcare training provider and a Maryland congressional campaign.' },
 		],
 		faqs: [
 			{ q: 'Do you work with businesses in every US state?', a: 'Yes. We work with clients across the US over video calls, email and WhatsApp, and have delivered projects in Missouri, Georgia and Maryland.' },
 			{ q: 'How do we handle the time difference?', a: 'We schedule calls in your morning, which is our evening, and do most of the work during your night, so each day starts with progress to review.' },
-			{ q: 'Can you make our website accessible?', a: 'We build with accessibility in mind: sufficient contrast, clear headings, alt text, keyboard navigation and labelled forms, following WCAG guidance.' },
+			{ q: 'Can you make our website accessible?', a: 'We build with accessibility in mind: sufficient contrast, clear headings, alt text, keyboard navigation and labeled forms, following WCAG guidance.' },
 			{ q: 'Can you help us rank in our city?', a: 'Yes. We set up local SEO for your city and service areas, including location pages, schema markup and a matching Google Business Profile.' },
 		],
 		projects: ['archdermatology-com', 'gahealthcaretraining-com', 'quincyforcongress-com'],
@@ -96,7 +96,7 @@ export const locations: Location[] = [
 		lead: 'We build websites for businesses in Toronto, Vancouver, Montreal and across Canada, set up to rank locally and turn visitors into calls and quote requests.',
 		timezone: 'Toronto is 9 hours behind Islamabad in summer (10 in winter) and Vancouver 12 (13). We book calls in your morning and deliver work overnight, so there is progress to review each day.',
 		points: [
-			{ title: 'Local SEO for your city', text: 'Service pages and pages for the neighbourhoods and cities you cover, from the GTA to the Lower Mainland, with a matching Google Business Profile.' },
+			{ title: 'Local SEO for your city', text: 'Service pages and pages for the neighborhoods and cities you cover, from the GTA to the Lower Mainland, with a matching Google Business Profile.' },
 			{ title: 'Sites in more than one language', text: 'We have built a site in English and Chinese for Fijian Real Estate, and German and Dutch sites for clients in Europe. An English and French site works the same way.' },
 			{ title: 'Built for trades and services', text: 'Click-to-call, quote forms and service pages for contractors and home services, as we did for a licensed Toronto electrician.' },
 			{ title: 'Overnight progress', text: 'Send feedback at the end of your day and find the changes ready in the morning.' },
@@ -133,7 +133,7 @@ export const locations: Location[] = [
 		faqs: [
 			{ q: 'Do you work with businesses across Australia?', a: 'Yes. We work with clients in every state remotely, and have delivered projects for Perth businesses.' },
 			{ q: 'What hours can we talk?', a: 'Perth is 3 hours ahead of Islamabad and the east coast 5 to 6, so your afternoon overlaps with our morning. Most questions are answered the same day.' },
-			{ q: 'Can you help us rank in our suburbs?', a: 'Yes. We build suburb and region pages with genuinely local content, plus schema markup and a matching Google Business Profile.' },
+			{ q: 'Can you help us rank in our suburbs?', a: 'Yes. We build suburb and region pages with real local content, plus schema markup and a matching Google Business Profile.' },
 			{ q: 'Can you register our .com.au domain?', a: 'We can help you register or transfer a .com.au domain. Australian domain rules require an Australian business connection, which you provide as the registrant.' },
 		],
 		projects: ['abccranehire-com-au', 'tvdm-au'],

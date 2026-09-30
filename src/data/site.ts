@@ -22,7 +22,7 @@ export const site = {
 	phoneDisplay: '+92 301 9860329',
 	whatsapp: '923019860329',
 
-	/** How fast we answer a new enquiry (owner's fact sheet). */
+	/** How fast we answer a new inquiry (owner's fact sheet). */
 	replyTime: 'within 24 hours on weekdays',
 
 	// Public reviews. The rating block only shows when both of these are filled

@@ -13,7 +13,7 @@ faqs:
   - q: "Is a cheap website builder enough for a small business?"
     a: "It can be for a simple online presence. It becomes limiting when you need custom features, better search visibility, faster pages or full control over your site and data."
   - q: "What ongoing costs should I budget for?"
-    a: "Domain renewal, hosting, SSL (often included with hosting), premium plugin or app licences, and maintenance: updates, backups, security and small content changes."
+    a: "Domain renewal, hosting, SSL (often included with hosting), premium plugin or app licenses, and maintenance: updates, backups, security and small content changes."
 ---
 
 "How much does a website cost?" is the first question almost every client asks us, and the honest answer is: it depends on what the website needs to do. A five-page site for a local electrician and an online store with 500 products are both "websites", but they are very different projects.
@@ -37,7 +37,7 @@ Ten service pages built from one layout cost far less than ten pages that each n
 
 ### Template or custom design
 
-A customised theme is faster and cheaper. A custom design built around your brand and customers takes longer but makes you stand out, which matters in competitive markets. Many projects sit in between: a custom homepage and key pages, with simpler templates for the rest. Our [website design](/website-design) process covers both.
+A customized theme is faster and cheaper. A custom design built around your brand and customers takes longer but makes you stand out, which matters in competitive markets. Many projects sit in between: a custom homepage and key pages, with simpler templates for the rest. Our [website design](/website-design) process covers both.
 
 ### Features and integrations
 
@@ -49,7 +49,7 @@ Content is the most underestimated cost. If you supply finished text and images,
 
 ### SEO from the start
 
-A site can be built "SEO-friendly" (clean structure, fast pages, meta tags) or it can launch with keyword research, optimised service pages, structured data and a submitted sitemap. The second costs more but saves you rebuilding pages later. Read more about our [SEO optimization](/seo-optimization) work.
+A site can be built "SEO-friendly" (clean structure, fast pages, meta tags) or it can launch with keyword research, optimized service pages, structured data and a submitted sitemap. The second costs more but saves you rebuilding pages later. Read more about our [SEO optimization](/seo-optimization) work.
 
 ## Costs after launch
 
@@ -57,7 +57,7 @@ The build is a one-off; running a website is ongoing. Budget for:
 
 1. **Domain name**, renewed every year.
 2. **Hosting**, monthly or yearly, depending on traffic and performance needs.
-3. **Licences** for premium plugins, themes or apps.
+3. **Licenses** for premium plugins, themes or apps.
 4. **Maintenance**: software updates, backups, security monitoring and small changes. See our [website maintenance checklist](/blog/website-maintenance-checklist) for what this involves.
 
 ## Freelancer, agency or website builder?
@@ -82,6 +82,6 @@ A very low price usually means something is missing. Ask whether the quote inclu
 
 ## The bottom line
 
-A website is priced by what it has to do, how custom it is and how much of the content and SEO work is included. The cheapest quote is rarely the cheapest website once rebuilds and lost enquiries are counted.
+A website is priced by what it has to do, how custom it is and how much of the content and SEO work is included. The cheapest quote is rarely the cheapest website once rebuilds and lost inquiries are counted.
 
-We do not use a fixed price list, because every project is different. Tell us what you need and we will send a clear, itemised quote with no hidden costs. [Get a free quote](/contact).
+We do not use a fixed price list, because every project is different. Tell us what you need and we will send a clear, itemized quote with no hidden costs. [Get a free quote](/contact).

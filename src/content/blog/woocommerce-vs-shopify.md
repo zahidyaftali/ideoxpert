@@ -24,7 +24,7 @@ WooCommerce and Shopify are the two platforms we are asked about most for online
 
 ## What each one is
 
-**Shopify** is a hosted platform. You pay a monthly subscription, and Shopify runs the servers, security, updates and checkout. You customise your store with themes and apps.
+**Shopify** is a hosted platform. You pay a monthly subscription, and Shopify runs the servers, security, updates and checkout. You customize your store with themes and apps.
 
 **WooCommerce** is a free plugin that turns a WordPress website into a store. You choose your hosting, and you own and control everything, which also means someone has to maintain it.
 
