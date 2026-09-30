@@ -31,6 +31,8 @@ RewriteRule ^index(\.html)?$ / [R=301,L]
 RewriteRule ^integrations/?$ /services [R=301,L]
 RewriteRule ^work/?$ /portfolio [R=301,L]
 RewriteRule ^website\sdevelopment/?$ /website-development [R=301,L]
+# The founder's own site was removed from the client portfolio.
+RewriteRule ^work/zahid-ali-yaftali(\.html)?/?$ /portfolio [R=301,L]
 # UI/UX design is no longer offered as a separate service.
 RewriteRule ^ux-ui-design(\.html)?/?$ /website-design [R=301,L]
 

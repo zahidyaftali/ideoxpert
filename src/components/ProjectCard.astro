@@ -23,6 +23,7 @@ const { project: p, featured = false, eager = false } = Astro.props;
 	</a>
 	<div class="pcard__body">
 		<h3 class="pcard__title"><a href={`/work/${p.slug}`}>{p.headline}</a></h3>
+		{p.result && <p class="pcard__result"><strong>Result:</strong> {p.result}</p>}
 		<ul class="pcard__lines" role="list">
 			{p.lines.map((l) => <li><strong>{l.strong}</strong> {l.text}</li>)}
 		</ul>
@@ -38,6 +39,14 @@ const { project: p, featured = false, eager = false } = Astro.props;
 		background: var(--paper);
 		border: 1px solid var(--line);
 		transition: background 0.3s;
+	}
+
+	.pcard__result {
+		padding: 8px 12px;
+		background: rgba(45, 180, 83, 0.12);
+		border-left: 3px solid var(--green);
+		font-size: 0.9375rem;
+		color: var(--ink);
 	}
 
 	.pcard:hover {

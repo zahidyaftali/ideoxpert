@@ -1,6 +1,6 @@
 ---
 import { site, services } from '../data/site';
-import { projects } from '../data/projects';
+import { projects, recentProjects } from '../data/projects';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import Countries from './Countries.astro';
@@ -30,7 +30,7 @@ const tiles = [
 ];
 // Menu images load when a menu first opens, not with the page.
 const blank = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-const menuProjects = projects.slice(0, 4);
+const menuProjects = recentProjects.slice(0, 4);
 
 const companyLinks = [
 	{ href: '/about', label: 'About us', text: 'Our story, what drives us and how we work.' },

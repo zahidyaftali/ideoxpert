@@ -53,7 +53,6 @@ const schema = [
 		url: new URL(`/work/${p.slug}`, site.url).href,
 		creator: { '@id': `${site.url}/#organization` },
 		image: new URL(`${dir}/hero.webp`, site.url).href,
-		dateCreated: String(p.year),
 	},
 ];
 ---
@@ -81,11 +80,11 @@ const schema = [
 					)}
 					<h1 class="chero__title" data-split>{p.headline}<span class="dot">.</span></h1>
 				</div>
+				{p.result && <p class="chero__result" data-reveal style="--d:150"><Icon name="spark" size={18} /> <strong>Result:</strong> {p.result}</p>}
 				<p class="chero__summary" data-reveal style="--d:200">{p.summary}</p>
 
 				<div class="chero__foot">
 					<ul class="chero__meta" role="list" data-reveal>
-						<li><Icon name="calendar" size={16} /> {p.year}</li>
 						{country && <li><img src={`/assets/images/flags/${country.code}.svg`} alt="" width="18" height="13" /> {country.name}</li>}
 						<li><Icon name="tag" size={16} /> {p.industry}</li>
 					</ul>
@@ -282,6 +281,18 @@ const schema = [
 		letter-spacing: -0.05em;
 		font-weight: 400;
 		text-wrap: balance;
+	}
+
+	.chero__result {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+		width: fit-content;
+		padding: 10px 16px;
+		background: var(--green);
+		color: var(--ink);
+		font-weight: 500;
 	}
 
 	.chero__summary {

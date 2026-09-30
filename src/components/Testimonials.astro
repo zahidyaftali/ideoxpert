@@ -11,25 +11,27 @@ interface Props {
 	title?: string;
 }
 
-// Each slide is a real project. Approved client quotes show as quotes;
-// the rest show the project itself (see src/data/testimonials.ts).
+// Client quotes appear only once at least three clients have approved theirs
+// (approved: true in src/data/testimonials.ts). Until then every slide shows
+// a recent client project instead, and nothing unapproved is ever shown.
 const { items = all } = Astro.props;
-const slides = items
+const approved = items.filter((t) => t.approved && t.quote && t.name);
+const quoteMode = approved.length >= 3;
+const slides = (quoteMode ? approved : items)
 	.map((t) => ({ t, p: projects.find((p) => p.id === t.project)! }))
 	.filter(({ p }) => p)
 	.map(({ t, p }) => ({
 		...t,
 		p,
-		quoted: t.approved && !!t.quote && !!t.name,
+		quoted: quoteMode,
 		// "Jazba Host: web design and UK hosting..." -> "Web design and UK hosting..."
 		line: p.headline.replace(/^[^:]+:\s*(.)/, (_, c: string) => c.toUpperCase()),
 		country: countries.find((c) => c.code === p.country),
 		logo: p.facts.logo?.marquee ? `/assets/images/work/${p.id}/logo-white.webp` : null,
 	}));
-const anyQuotes = slides.some((s) => s.quoted);
 const {
-	eyebrow = anyQuotes ? 'Real results from real clients' : 'Client stories',
-	title = anyQuotes ? 'What clients say about working with us<span class="dot">.</span>' : 'Real clients, real websites<span class="dot">.</span>',
+	eyebrow = quoteMode ? 'What clients say' : 'Client work',
+	title = quoteMode ? 'What clients say about working with us<span class="dot">.</span>' : 'Recent client projects<span class="dot">.</span>',
 } = Astro.props;
 
 const initials = (name: string) =>
@@ -62,6 +64,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
 					<p class="testi__num"><span data-count={stats.websites.value}>{stats.websites.value}</span><span class="testi__of">{stats.websites.suffix}</span></p>
 					<p class="testi__count">Websites built since {founded},<br />for clients in {stats.countries.value} countries</p>
 				</div>
+			)}
+			{quoteMode && site.reviewUrl && (
+				<a class="link link--green" href={site.reviewUrl} target="_blank" rel="noopener" data-reveal>Read all our public reviews <Icon name="arrow-up-right" /></a>
 			)}
 		</div>
 

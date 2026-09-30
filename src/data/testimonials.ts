@@ -11,8 +11,9 @@
 //   1. Send the client the `draft` below (or ask them for a few lines of
 //      their own) and ask if it can go on the website with their name.
 //   2. Paste their approved words into `quote`, fill in `name` and `role`,
-//      and set `approved: true`. The slide then shows the quote, 5 stars and
-//      their name. `photo` is optional (a square headshot).
+//      and set `approved: true`. `photo` is optional (a square headshot).
+//   3. Once three or more are approved, the section switches from project
+//      slides to quotes with name, role and 5 stars.
 export type Testimonial = {
 	project: string;
 	approved: boolean;
@@ -29,44 +30,37 @@ export const testimonials: Testimonial[] = [
 		project: 'jazbahost-com',
 		approved: false,
 		name: 'Pervaiz Akhtar',
-		role: 'CEO, Jazba Host',
-		draft:
-			'We sell website builds and hosting, and our old site made that confusing. IdeoXpert rebuilt it so both offers are clear, prices are upfront and every page leads to a quote. Clear communication from start to finish. 5 stars.',
+		role: 'Owner, Jazba Host',
+		draft: 'Our old site mixed up the website builds and the hosting plans. Now each one has its own page with a clear price, and every page ends with a way to ask for a quote.',
 	},
 	{
 		project: 'smbelectrical-ca',
 		approved: false,
-		draft:
-			'IdeoXpert built our website with a page for every electrical service we offer in Toronto. It looks professional, loads fast on phones and customers now find us for the exact job they need. Easy to work with, highly recommended.',
+		draft: 'We wanted a page for every job we do, from panel upgrades to floor heating. That is exactly what we got. Easy to work with, and quick to answer.',
 	},
 	{
 		project: 'abccranehire-com-au',
 		approved: false,
-		draft:
-			'We needed to show up when site managers search for crane hire in Perth, Rockingham and Mandurah. IdeoXpert built our WordPress site with location pages and a blog, and it is easy for us to keep updated. Great result.',
+		draft: 'We needed to show up when site managers in Rockingham and Mandurah look for crane hire. The new site has a page for each area, and we add blog posts ourselves.',
 	},
 	{
 		project: 'mut-umzug-de',
 		approved: false,
-		draft:
-			'IdeoXpert built our website with a page for every service and city we move to, in German. The site is fast, customers can request a quote in a minute, and the team was quick to respond to every change we asked for.',
+		draft: 'Every service and every city we move to now has its own page. Customers can ask for a quote from any page, and it takes a minute.',
 	},
 	{
 		project: 'thomwerk-nl',
 		approved: false,
-		draft:
-			'Candidates want to see jobs, not marketing. IdeoXpert put our vacancies on the homepage and made applying take a few clicks. Our recruiters can update jobs themselves every day. Exactly what we asked for.',
+		draft: 'Candidates see our vacancies the moment they land, and applying takes a few clicks. Our recruiters update the jobs themselves every day.',
 	},
 	{
 		project: 'fijianrealestate-com',
 		approved: false,
-		draft:
-			'Many of our buyers are overseas, so the website had to make browsing property in Fiji easy, in more than one language. IdeoXpert delivered a clean listings site that we can manage ourselves. Very happy with the work.',
+		draft: 'A lot of our buyers live overseas, so the site had to work in English and Chinese. Listings are easy to browse and we update them ourselves.',
 	},
 	{
 		project: 'gahealthcaretraining-com',
 		approved: false,
-		draft:
-			'Our students search for certified CPR and BLS classes near them. IdeoXpert built a website that lists every programme clearly and makes booking a seat simple. Professional, patient and on time.',
+		draft: 'Students can see every class we run, from BLS to PALS, and book a seat online. Every course has its own page now.',
 	},
 ];
