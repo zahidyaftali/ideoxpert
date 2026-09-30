@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
 import Select from '../components/Select.astro';
-import { site, services } from '../data/site';
+import { site, services, stats, founded } from '../data/site';
 import { projects, sectors } from '../data/projects';
 
 // Hero collage: centre project in its brand colour, one on each side.
@@ -33,7 +33,7 @@ const schema = [
 ---
 <BaseLayout
 	title="Web Design & Development Portfolio | IdeoXpert"
-	description={`${projects.length} websites designed and built by IdeoXpert for businesses in the UK, US, Canada, Australia, Germany, the Netherlands, Fiji and more.`}
+	description={`${projects.length} of the ${stats.websites.value}+ websites we have built since ${founded}, for businesses in the UK, US, Canada, Australia, Germany, the Netherlands and Fiji.`}
 	keywords="IdeoXpert portfolio, web design portfolio, web development projects, WordPress website examples, website case studies, web development agency Islamabad"
 	image={shot(center)}
 	pageType="CollectionPage"

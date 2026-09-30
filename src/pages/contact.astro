@@ -13,7 +13,7 @@ const steps = [
 ---
 <BaseLayout
 	title="Contact IdeoXpert | Free Website Consultation"
-	description="Contact IdeoXpert, a web development agency in Islamabad, Pakistan, about web design, development, SEO or e-commerce. We reply within 24 hours."
+	description={`Contact IdeoXpert, a web development agency in Islamabad, Pakistan, about web design, development, SEO or e-commerce. We reply ${site.replyTime}.`}
 	keywords="contact IdeoXpert, web development agency contact, free website quote, hire web developer, website design consultation, web solutions Pakistan, IdeoXpert contact"
 	image="/assets/images/ideo expert-02.png"
 	pageType="ContactPage"
@@ -26,7 +26,7 @@ const steps = [
 				<div class="contact__intro">
 					<div class="tex-layer tex-dots contact__dots" aria-hidden="true"></div>
 					<h1 class="h1" data-split>Let's talk about your project<span class="dot">.</span></h1>
-					<p class="contact__lead" data-reveal>Reach out to discuss your idea, get an estimate, or ask for honest advice. We reply within 24 hours.</p>
+					<p class="contact__lead" data-reveal>Reach out to discuss your idea, get an estimate, or ask for honest advice. We reply {site.replyTime}.</p>
 
 					<ol class="csteps" role="list" data-reveal-group="80">
 						{steps.map((s) => (
@@ -83,7 +83,7 @@ const steps = [
 					</div>
 					<Button type="submit" variant="primary" class="fform__submit">Send message</Button>
 					<p class="fform__status" data-form-status role="status" aria-live="polite" hidden></p>
-					<p class="fform__note">We reply within 24 hours.</p>
+					<p class="fform__note">We reply {site.replyTime}.</p>
 				</form>
 			</div>
 		</div>

@@ -22,6 +22,19 @@ export const site = {
 	phoneDisplay: '+92 301 9860329',
 	whatsapp: '923019860329',
 
+	/** How fast we answer a new enquiry (owner's fact sheet). */
+	replyTime: 'within 24 hours',
+
+	// Public reviews. The rating block only shows when both of these are filled
+	// with a real, public review page and its real numbers.
+	// [[FILL: Google Business Profile or Clutch URL with reviews under the IdeoXpert name]]
+	reviewUrl: '',
+	// [[FILL: real average rating and number of reviews on that page, e.g. { value: 4.9, count: 12 }]]
+	rating: null as { value: number; count: number } | null,
+
+	// [[FILL: Calendly or Cal.com link, if you start taking booked calls]]
+	calendarUrl: '',
+
 	// Only the city is published: the site says "based in Islamabad" and never
 	// shows a street address or map.
 	address: {
@@ -40,9 +53,9 @@ export const site = {
 	],
 } as const;
 
-// Countries we work in, shown with flags in the footer, the About menu and
-// the Contact page, and emitted as schema.org areaServed. Taken from where the
-// portfolio clients are. Flag files live in /public/assets/images/flags.
+// Countries we have delivered websites for, shown with flags in the footer and
+// the About menu. Only countries with clients in the portfolio (projects.ts).
+// Flag files live in /public/assets/images/flags.
 export const countries = [
 	{ code: 'us', name: 'United States' },
 	{ code: 'gb', name: 'United Kingdom' },
@@ -50,23 +63,20 @@ export const countries = [
 	{ code: 'au', name: 'Australia' },
 	{ code: 'de', name: 'Germany' },
 	{ code: 'nl', name: 'Netherlands' },
-	{ code: 'nz', name: 'New Zealand' },
-	{ code: 'ae', name: 'United Arab Emirates' },
 	{ code: 'fj', name: 'Fiji' },
-	{ code: 'pk', name: 'Pakistan' },
 ];
 
-// Headline figures. Used on the homepage, About page and service pages.
-// TODO: the old pages disagreed with each other (homepage: 50+ projects and
-// 4.8/5 from 100+ clients; service pages: 150+ clients and 270+ projects;
-// About: 300+ clients at 4.85). Check these against your records.
+/** The year IdeoXpert started taking client work. */
+export const founded = 2022;
+
+// Headline figures, from the owner's fact sheet. Every number on the site
+// reads from here, so the same fact never shows two different values.
 export const stats = {
-	years: { value: 6, suffix: '+', label: 'Years of experience' },
-	projects: { value: 50, suffix: '+', label: 'Completed projects' },
-	rating: { value: 4.8, suffix: '/5', label: 'Average client rating', reviews: '100+' },
-	support: { value: 24, suffix: '/7', label: 'Support when you need it' },
-	clients: { value: 150, suffix: '+', label: 'Clients have built their websites with us since 2022' },
-	delivered: { value: 270, suffix: '+', label: 'Client projects completed all over the world' },
+	years: { value: new Date().getFullYear() - founded, suffix: '+', label: 'Years in business' },
+	websites: { value: 500, suffix: '+', label: 'Websites built' },
+	countries: { value: countries.length, suffix: '', label: 'Countries with clients' },
+	reply: { value: 24, suffix: 'h', label: 'Reply time' },
+	// [[FILL: number of distinct clients. The owner's estimate is "400+"; confirm it before showing it anywhere.]]
 };
 
 export type Service = {

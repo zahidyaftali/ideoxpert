@@ -1,14 +1,9 @@
 ---
 // Four stepped bars that grow up from the baseline as they scroll into view.
-import { stats, countries } from '../data/site';
-import { projects } from '../data/projects';
+import { stats } from '../data/site';
 
-const bars = [
-	{ value: `${stats.years.value}+`, label: 'Years of experience' },
-	{ value: `${stats.rating.value}★`, label: 'Average client rating' },
-	{ value: `${countries.length}`, label: 'Countries we work in' },
-	{ value: `${projects.length}+`, label: 'Websites live' },
-];
+// Shortest to tallest, all from stats in site.ts.
+const bars = [stats.years, stats.countries, stats.reply, stats.websites].map((s) => ({ value: `${s.value}${s.suffix}`, label: s.label }));
 ---
 <section class="section bars-section">
 	<div class="container">

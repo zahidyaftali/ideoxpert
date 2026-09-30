@@ -64,7 +64,7 @@ const opts = (list: string[]) => list.map((v) => ({ value: v, label: v }));
 				</div>
 				<Button type="submit" variant="dark" class="fform__submit">Book my free session</Button>
 				<p class="fform__status" data-form-status role="status" aria-live="polite" hidden></p>
-				<p class="fform__note">We reply within 24 hours to confirm a time.</p>
+				<p class="fform__note">We reply {site.replyTime}.</p>
 			</form>
 		</div>
 	</div>

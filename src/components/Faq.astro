@@ -16,7 +16,7 @@ const { items, title = 'Common questions, honest answers<span class="dot">.</spa
 		<div class="faq__side">
 			<h2 class="h2" data-split set:html={title} />
 			<div class="faq__ask" data-reveal>
-				<p>Still have a question? Ask us directly, we reply within 24 hours.</p>
+				<p>Still have a question? Ask us directly. We reply {site.replyTime}.</p>
 				<a class="link link--green" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">Message us on WhatsApp <Icon name="arrow-right" /></a>
 			</div>
 		</div>

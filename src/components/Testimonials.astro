@@ -1,7 +1,7 @@
 ---
 import { testimonials as all, type Testimonial } from '../data/testimonials';
 import { projects } from '../data/projects';
-import { stats, countries } from '../data/site';
+import { stats, countries, site, founded } from '../data/site';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -46,15 +46,23 @@ const pad = (n: number) => String(n).padStart(2, '0');
 		<div class="testi__intro">
 			<span class="eyebrow" data-reveal>{eyebrow}</span>
 			<h2 class="h2" data-split set:html={title} />
-			<div class="testi__score" data-reveal>
-				<p class="testi__num"><span data-count={stats.rating.value}>{stats.rating.value}</span><span class="testi__of">/5</span></p>
-				<div>
-					<p class="testi__stars" aria-label={`Rated ${stats.rating.value} out of 5`}>
-						{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={16} />)}
-					</p>
-					<p class="testi__count">Reviewed by {stats.rating.reviews} clients</p>
+			{/* A rating only with a real, public review page behind it (site.ts). */}
+			{site.reviewUrl && site.rating ? (
+				<a class="testi__score" href={site.reviewUrl} target="_blank" rel="noopener" data-reveal>
+					<p class="testi__num"><span data-count={site.rating.value}>{site.rating.value}</span><span class="testi__of">/5</span></p>
+					<div>
+						<p class="testi__stars" aria-label={`Rated ${site.rating.value} out of 5`}>
+							{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={16} />)}
+						</p>
+						<p class="testi__count">From {site.rating.count} public reviews</p>
+					</div>
+				</a>
+			) : (
+				<div class="testi__score" data-reveal>
+					<p class="testi__num"><span data-count={stats.websites.value}>{stats.websites.value}</span><span class="testi__of">{stats.websites.suffix}</span></p>
+					<p class="testi__count">Websites built since {founded},<br />for clients in {stats.countries.value} countries</p>
 				</div>
-			</div>
+			)}
 		</div>
 
 		<div class="testi__stage">

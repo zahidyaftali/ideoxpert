@@ -3,14 +3,13 @@
 // for dark headers) use a dark silhouette so they show on a light background.
 // Logos were taken from each client's live website with the background
 // removed (see /public/assets/images/work/<id>/logo.png).
-import { projects, logoProjects } from '../data/projects';
-import { countries } from '../data/site';
+import { logoProjects } from '../data/projects';
 
 interface Props {
 	label?: string;
 }
 
-const { label = `Trusted by ${projects.length}+ businesses in ${countries.length} countries` } = Astro.props;
+const { label = 'Some of the businesses we have built websites for' } = Astro.props;
 const items = logoProjects;
 ---
 <section class="logos" aria-label="Our clients">

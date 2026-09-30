@@ -10,13 +10,13 @@ import HoldingBack from '../components/HoldingBack.astro';
 import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
-import { stats } from '../data/site';
+import { stats, site } from '../data/site';
 import { generalFaqs, serviceFaqs } from '../data/faqs';
 
 const heroStats = [
 	{ ...stats.years, icon: 'clock' },
-	{ ...stats.projects, label: 'Websites delivered', icon: 'globe' },
-	{ ...stats.rating, label: 'Client rating', icon: 'star' },
+	{ ...stats.websites, icon: 'globe' },
+	{ ...stats.countries, icon: 'pin' },
 ] as const;
 
 // "How much does a website cost?" answers what the old pricing block said.
@@ -45,7 +45,7 @@ const faqs = [generalFaqs[0], serviceFaqs[1], ...generalFaqs.slice(1)];
 							<Button href="/contact" variant="primary" magnetic>Get a free quote</Button>
 							<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
 						</div>
-						<p class="hero__note" data-reveal style="--d:450">Free consultation. We reply within 24 hours.</p>
+						<p class="hero__note" data-reveal style="--d:450">Free consultation. We reply {site.replyTime}.</p>
 					</div>
 
 					<dl class="hero__stats" data-reveal-group="80">

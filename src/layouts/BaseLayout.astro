@@ -7,6 +7,7 @@ import Footer from '../components/Footer.astro';
 import DiscoverySession from '../components/DiscoverySession.astro';
 import { site, services, countries, type Service } from '../data/site';
 import { TITLE_MAX, DESC_MAX } from '../data/seo';
+import { locations } from '../data/locations';
 
 type Crumb = { name: string; path: string };
 
@@ -62,7 +63,7 @@ const canonical = new URL(path, site.url).href;
 const absolute = (src: string) => new URL(encodeURI(src), site.url).href;
 const imageUrl = absolute(image);
 const orgId = `${site.url}/#organization`;
-const areaServed = countries.map((c) => ({ '@type': 'Country', name: c.name }));
+const areaServed = [...new Set([...countries.map((c) => c.name), ...locations.map((l) => l.country)])].map((name) => ({ '@type': 'Country', name }));
 
 const breadcrumbList = {
 	'@type': 'BreadcrumbList',
