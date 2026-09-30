@@ -118,6 +118,8 @@ type Money = Record<Currency, number>;
 export type HostingPlan = {
 	id: string;
 	name: string;
+	/** Label on the plan, e.g. "Most popular". */
+	tag: string;
 	desc: string;
 	popular: boolean;
 	monthly: Money;
@@ -133,6 +135,7 @@ export const hosting = {
 		{
 			id: 'basic',
 			name: 'Basic',
+			tag: 'One website',
 			desc: 'One brochure site, fully managed: hosting, SSL, backups and updates handled.',
 			popular: false,
 			monthly: { GBP: 8, USD: 11, EUR: 9 },
@@ -144,6 +147,7 @@ export const hosting = {
 		{
 			id: 'business',
 			name: 'Business',
+			tag: 'Most popular',
 			desc: 'For growing sites that need more room, faster servers and a quicker response.',
 			popular: true,
 			monthly: { GBP: 18, USD: 24, EUR: 21 },
@@ -155,6 +159,7 @@ export const hosting = {
 		{
 			id: 'enterprise',
 			name: 'Enterprise',
+			tag: 'For online stores',
 			desc: 'Built for online stores: checkout uptime, PCI-ready setup and room for traffic spikes.',
 			popular: false,
 			monthly: { GBP: 38, USD: 49, EUR: 44 },

@@ -7,18 +7,25 @@ interface Props {
 	items: Faq[];
 	title?: string;
 	id?: string;
+	/** Mono label above the title. */
+	kicker?: string;
+	/** One bordered frame with the list on the right, like the reference's "What's the catch?". */
+	framed?: boolean;
 }
 
-const { items, title = 'Common questions, honest answers<span class="dot">.</span>', id = 'faq' } = Astro.props;
+const { items, title = 'Common questions, honest answers<span class="dot">.</span>', id = 'faq', kicker, framed = false } = Astro.props;
 ---
-<section class="section faq" id={id}>
-	<div class="container faq__grid">
+<section class:list={['section faq', { 'faq--framed': framed }]} id={id}>
+	<div class="container">
+	<div class:list={['faq__grid', { brackets: framed }]}>
 		<div class="faq__side">
+			{kicker && <p class="kicker" data-reveal>{kicker}</p>}
 			<h2 class="h2" data-split set:html={title} />
 			<div class="faq__ask" data-reveal>
 				<p>Still have a question? Ask us directly. We reply {site.replyTime}.</p>
 				<a class="link link--green" href={whatsappLink()} target="_blank" rel="noopener">Message us on WhatsApp <Icon name="arrow-right" /></a>
 			</div>
+			{framed && <div class="faq__tex tex-dots" aria-hidden="true"></div>}
 		</div>
 
 		<div class="faq__list" data-acc-single data-reveal-group="70">
@@ -32,6 +39,7 @@ const { items, title = 'Common questions, honest answers<span class="dot">.</spa
 				</details>
 			))}
 		</div>
+	</div>
 	</div>
 </section>
 
@@ -145,6 +153,76 @@ const { items, title = 'Common questions, honest answers<span class="dot">.</spa
 
 	.acc__body {
 		overflow: hidden;
+	}
+
+	/* ---------- Framed variant ---------- */
+	.faq--framed .faq__grid {
+		gap: 0;
+		border: 1px solid var(--line);
+	}
+
+	.faq--framed .faq__side {
+		position: relative;
+		isolation: isolate;
+		align-content: start;
+		gap: 18px;
+		padding: clamp(24px, 3.6vw, 52px);
+		overflow: hidden;
+	}
+
+	.faq--framed .faq__list {
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1024px) {
+		.faq--framed .faq__grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 0;
+		}
+
+		.faq--framed .faq__side {
+			position: relative;
+			top: auto;
+			align-self: stretch;
+		}
+
+		.faq--framed .faq__list {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	.faq--framed .faq__ask {
+		background: transparent;
+		padding: 0;
+	}
+
+	.faq--framed .faq__tex {
+		position: absolute;
+		left: 10%;
+		right: 10%;
+		bottom: 8%;
+		z-index: -1;
+		height: 45%;
+		opacity: 0.55;
+		-webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 10%, transparent 68%);
+		mask-image: radial-gradient(ellipse at 50% 50%, #000 10%, transparent 68%);
+	}
+
+	.faq--framed .acc {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.faq--framed .acc:last-child {
+		border-bottom: 0;
+	}
+
+	.faq--framed .acc summary {
+		padding: 24px clamp(20px, 2.4vw, 32px);
+	}
+
+	.faq--framed .acc__body p {
+		padding: 0 clamp(20px, 2.4vw, 32px) 26px;
 	}
 
 	.acc__body p {

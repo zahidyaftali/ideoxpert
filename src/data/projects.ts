@@ -42,6 +42,20 @@ type Facts = {
 	accent: string | null;
 };
 
+/** Result screenshot, saved as result.webp in the project's image folder.
+ *  Figures must be readable in the screenshot itself. Blur anything private
+ *  (the client's customers) before adding one. */
+type Proof = {
+	w: number;
+	h: number;
+	/** Where the screenshot comes from, shown in the frame's address bar. */
+	source: string;
+	caption: string;
+	figures: { value: string; label: string }[];
+	/** 'brief' shows it in place of the brief's section image (TVDM); default is its own Results section. */
+	place?: 'results' | 'brief';
+};
+
 type Entry = {
 	id: string;
 	slug: string;
@@ -59,6 +73,8 @@ type Entry = {
 	client?: string;
 	/** A measured result the client can confirm, e.g. "Page 1 on Google for 'crane hire Rockingham'". Real results only. */
 	result?: string;
+	/** A screenshot of the result from the client's own dashboard (shared by the owner). */
+	proof?: Proof;
 	headline: string;
 	summary: string;
 	brief: string;
@@ -95,7 +111,16 @@ const recent: Entry[] = [
 		headline: 'GA Healthcare Training: CPR and BLS classes Georgia can book online',
 		summary: 'GA Healthcare Training runs American Heart Association BLS, ACLS, PALS and Heartsaver classes in Lilburn, Georgia, alongside nurse review courses and consulting. We built a website that lists every program and helps students book a seat.',
 		brief: 'Nurses and healthcare workers search for certified classes near them. The site needed to show every program clearly, rank locally and make booking a seat easy.',
-		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
+		result: '$152 in online class payments in the first week after launch',
+		proof: {
+			w: 1283, h: 522, source: 'gahealthcaretraining.com · WordPress admin · Payments',
+			caption: 'The payments page in the website’s WordPress admin, one week after launch (September 2026). Students book a class and pay online.',
+			figures: [
+				{ value: '$152', label: 'paid online for classes' },
+				{ value: '4', label: 'class payments through the site' },
+				{ value: '1 week', label: 'after launch' },
+			],
+		},
 	},
 	{
 		id: 'jazbaentertainment-com', slug: 'jazba-entertainment', client: 'Jazba', name: 'Jazba Entertainment', url: 'https://jazbaentertainment.com/',
@@ -119,7 +144,15 @@ const recent: Entry[] = [
 		headline: 'ABC Crane Hire: ranking crane hire across Perth and Peel',
 		summary: 'ABC Crane Hire supplies Franna, Tom Thumb, Hiab and 100-tonne mobile cranes across Perth and the Peel region. We built their WordPress website with location pages and a large blog, set up to rank for crane hire searches across Western Australia.',
 		brief: 'Site managers search "crane hire" plus their suburb. ABC Crane Hire needed to show up in Perth, Rockingham and Mandurah, and make it easy to call about a lift.',
-		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
+		result: '23.9K Google impressions and 93 clicks in 2 months',
+		proof: {
+			w: 1534, h: 612, source: 'Google Search Console · abccranehire.com.au',
+			caption: 'Google Search Console for abccranehire.com.au, July 29 to September 27, 2026.',
+			figures: [
+				{ value: '23.9K', label: 'times shown in Google search' },
+				{ value: '93', label: 'clicks from Google to the site' },
+			],
+		},
 	},
 	{
 		id: 'brightwayconsultsolutions-com', slug: 'brightway-consult-solutions', name: 'Brightway Consult Solutions', url: 'https://brightwayconsultsolutions.com/',
@@ -167,7 +200,15 @@ const recent: Entry[] = [
 		headline: 'TVDM: a Perth marketing agency’s website that sells its own results',
 		summary: 'True Vine Digital Marketing helps Perth businesses grow with web development, SEO, lead generation and AI. We built a website that practices what they preach: fast, clear on pricing and built around a free audit offer.',
 		brief: 'A marketing agency’s own site is its first case study. TVDM needed a website that ranks, explains its method and pricing, and books audits.',
-		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
+		result: '7.87K Google impressions and 30 clicks in 3 months',
+		proof: {
+			w: 1534, h: 612, source: 'Google Search Console · tvdm.au', place: 'brief',
+			caption: 'Google Search Console for tvdm.au, June 28 to September 27, 2026: 7.87K impressions and 30 clicks, with impressions climbing since late August.',
+			figures: [
+				{ value: '7.87K', label: 'times shown in Google search' },
+				{ value: '30', label: 'clicks from Google to the site' },
+			],
+		},
 	},
 	{
 		id: 'botl-com-au', slug: 'botl', name: 'BOTL', url: 'https://www.botl.com.au/', country: 'au',
@@ -175,7 +216,15 @@ const recent: Entry[] = [
 		headline: 'BOTL: Scripture-inspired fragrance, sold on Shopify',
 		summary: 'BOTL (Blessings of The Lord) makes Australian-made, Scripture-inspired perfume and cologne, sold as meaningful gifts for women and men. We built a custom Shopify theme for the store, with collections, gift pages and the founder’s story.',
 		brief: 'Gift buyers need to understand the idea behind each fragrance and buy it in a few taps. The store had to tell the BOTL story and still get people to checkout quickly.',
-		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
+		result: '22 orders on Shopify in just over 4 months',
+		proof: {
+			w: 1690, h: 840, source: 'Shopify admin · BOTL · Orders',
+			caption: 'The store’s Shopify orders page, September 2026. Customer names are blurred to protect their privacy.',
+			figures: [
+				{ value: '22', label: 'orders from May 19 to September 27, 2026' },
+				{ value: '19', label: 'placed on the online store we built' },
+			],
+		},
 	},
 ];
 

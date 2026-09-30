@@ -32,6 +32,7 @@ function render() {
 				? `${money(p.annualPerYear[cur], cur)} billed once a year`
 				: `${money(Math.round(p.monthly[cur] * 12 * 100) / 100, cur)} a year billed monthly · switch to annual and pay ${money(p.annualPerYear[cur], cur)}`;
 	});
+	$$('[data-annual-only]').forEach((el) => (el.hidden = billing !== 'annual'));
 	$$<HTMLAnchorElement>('[data-plan]').forEach((a) => (a.dataset.billingNow = billing));
 }
 
@@ -51,16 +52,17 @@ $$('[data-billing]').forEach((b) =>
 	}),
 );
 // "Choose Business": the form, set to hosting, with the plan in the message.
+// When the form handles it, the click stops here so Lenis's anchor handler
+// doesn't start a second scroll to #discovery.
+const handled = (e: Event, done: boolean) => {
+	if (!done) return;
+	e.preventDefault();
+	e.stopPropagation();
+};
 $$<HTMLAnchorElement>('[data-plan]').forEach((a) =>
-	a.addEventListener('click', (e) => {
-		const done = fillProjectForm({ service: 'Hosting & Domain', message: `I’d like the ${a.dataset.plan} hosting plan (${billing}).` });
-		if (done) e.preventDefault();
-	}),
+	a.addEventListener('click', (e) => handled(e, fillProjectForm({ service: 'Hosting & Domain', message: `I’d like the ${a.dataset.plan} hosting plan (${billing}).` }))),
 );
 $$<HTMLAnchorElement>('[data-care]').forEach((a) =>
-	a.addEventListener('click', (e) => {
-		const done = fillProjectForm({ service: 'Website Maintenance', message: `I’d like the ${a.dataset.care} plan.` });
-		if (done) e.preventDefault();
-	}),
+	a.addEventListener('click', (e) => handled(e, fillProjectForm({ service: 'Website Maintenance', message: `I’d like the ${a.dataset.care} plan.` }))),
 );
 render();

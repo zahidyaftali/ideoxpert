@@ -19,7 +19,7 @@ export type Location = {
 	points: { title: string; text: string }[];
 	faqs: { q: string; a: string }[];
 	projects: string[];
-	/** The country's best-known landmark (Wikimedia Commons, credited on /locations). */
+	/** The country's best-known landmark (Wikimedia Commons, credited on /photo-credits, linked in the footer). */
 	photo: { src: string; subject: string; author: string; license: string; licenseUrl: string; source: string };
 };
 

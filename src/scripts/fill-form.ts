@@ -17,7 +17,9 @@ export function fillProjectForm({ service, message, estimate, scroll = true }: F
 	}
 	if (scroll) {
 		const target = form.closest('section') ?? form;
-		if (lenis) lenis.scrollTo(target, { offset: -110 });
+		// A pixel position from the real scroll offset: Lenis's own offset can be
+		// stale after a native scroll, which made it stop short or overshoot.
+		if (lenis) lenis.scrollTo(target.getBoundingClientRect().top + window.scrollY - 110, { force: true });
 		else target.scrollIntoView({ block: 'start' });
 		setTimeout(() => form.querySelector<HTMLInputElement>('input[name="name"]')?.focus({ preventScroll: true }), lenis ? 900 : 50);
 	}

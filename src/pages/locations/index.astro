@@ -64,14 +64,6 @@ const schema = [
 					</li>
 				))}
 			</ul>
-			<p class="places__credits">
-				Photos from Wikimedia Commons, cropped:
-				{places.map((l, i) => (
-					<>
-						<a href={l.photo.source} target="_blank" rel="noopener">{l.photo.subject}</a> by {l.photo.author} (<a href={l.photo.licenseUrl} target="_blank" rel="noopener">{l.photo.license}</a>){i < places.length - 1 ? '; ' : '.'}
-					</>
-				))}
-			</p>
 		</div>
 	</section>
 </BaseLayout>
@@ -161,19 +153,6 @@ const schema = [
 	.place__cities {
 		color: var(--muted);
 		font-size: 0.9375rem;
-	}
-
-	.places__credits {
-		margin-top: clamp(32px, 4vw, 48px);
-		max-width: 110ch;
-		font-size: 0.75rem;
-		line-height: 1.6;
-		color: var(--muted);
-	}
-
-	.places__credits a {
-		text-decoration: underline;
-		text-underline-offset: 2px;
 	}
 
 	.place__go {

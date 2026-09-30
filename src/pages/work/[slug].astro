@@ -37,6 +37,11 @@ const [, built = ''] = p.summary.split(/(?<=\.)\s+(?=We )/);
 const caseLine = built && `${p.name} case study: ${built.charAt(0).toLowerCase()}${built.slice(1)}`;
 const pageDescription = caseLine && caseLine.length <= DESC_MAX ? caseLine : fitText(p.summary);
 const [s1] = f.sections;
+// Result screenshot from the client's dashboard: its own section, or (TVDM) in
+// place of the brief's section image.
+const proof = p.proof;
+const proofInBrief = proof?.place === 'brief';
+const proofAlt = proof && `Screenshot: ${proof.source}. ${proof.figures.map((g) => `${g.value} ${g.label}`).join(', ')}.`;
 
 const glance = [
 	f.pages > 1 && { value: String(f.pages), label: 'pages live on the site' },
@@ -129,7 +134,15 @@ const schema = [
 				<p class="brief__text" data-reveal>{p.brief}</p>
 			</div>
 			<div class="brief__body" data-autotabs="manual">
-				{s1 && (
+				{proof && proofInBrief ? (
+					<figure class="brief__proof" data-reveal>
+						<div class="brief__img">
+							<span class="shotband__bar" aria-hidden="true"><i></i><i></i><i></i><span>{proof.source}</span></span>
+							<img src={`${dir}/result.webp`} alt={proofAlt} width={proof.w} height={proof.h} loading="lazy" decoding="async" />
+						</div>
+						<figcaption><span class="kicker">Result_</span> {proof.caption}</figcaption>
+					</figure>
+				) : s1 && (
 					<figure class="brief__img" data-reveal="clip">
 						<img src={`${dir}/${s1.file}`} alt={`A section of the ${p.name} website`} width="1200" height={s1.h} loading="lazy" decoding="async" />
 					</figure>
@@ -168,6 +181,33 @@ const schema = [
 			</ol>
 		</div>
 	</section>
+
+	<!-- The results (reference: centered title, figure tiles, framed screenshot) -->
+	{proof && !proofInBrief && (
+		<section class="section results" id="results">
+			<div class="container">
+				<div class="results__head">
+					<p class="kicker" data-reveal>From the client’s own dashboard_</p>
+					<h2 class="h2" data-split>The results<span class="dot">.</span></h2>
+				</div>
+				<dl class="results__grid brackets" style={`--n:${proof.figures.length}`} data-reveal-group="80">
+					{proof.figures.map((g) => (
+						<div class="results__item" data-reveal>
+							<dt>{g.label}</dt>
+							<dd>{g.value}</dd>
+						</div>
+					))}
+				</dl>
+				<figure class="results__shot brackets" data-reveal>
+					<div class="results__frame">
+						<span class="shotband__bar" aria-hidden="true"><i></i><i></i><i></i><span>{proof.source}</span></span>
+						<img src={`${dir}/result.webp`} alt={proofAlt} width={proof.w} height={proof.h} loading="lazy" decoding="async" />
+					</div>
+					<figcaption>{proof.caption}</figcaption>
+				</figure>
+			</div>
+		</section>
+	)}
 
 	<!-- At a glance -->
 	<section class="section glance">
@@ -474,6 +514,24 @@ const schema = [
 		height: auto;
 	}
 
+	/* Result screenshot in place of the brief image (TVDM). */
+	.brief__proof {
+		display: grid;
+		gap: 14px;
+		margin: 0;
+	}
+
+	.brief__proof figcaption,
+	.results__shot figcaption {
+		font-size: 0.9375rem;
+		line-height: 1.55;
+		color: var(--muted);
+	}
+
+	.brief__proof .kicker {
+		margin-right: 6px;
+	}
+
 	.goal {
 		border-bottom: 1px solid var(--line);
 	}
@@ -589,6 +647,111 @@ const schema = [
 		.bitem:last-child:nth-child(odd) {
 			grid-column: 1 / -1;
 		}
+	}
+
+	/* ---------- The results ---------- */
+	.results__head {
+		display: grid;
+		justify-items: center;
+		gap: 14px;
+		margin-bottom: clamp(36px, 4vw, 56px);
+		text-align: center;
+	}
+
+	/* Figure tiles in one bracketed row, like the reference: the figure at the
+	   top, the green label at the bottom (dt comes first in the markup). */
+	.results__grid {
+		display: grid;
+		gap: 0;
+		max-width: calc(var(--n) * 340px);
+		margin: 0 auto;
+		border: 1px solid var(--line);
+	}
+
+	@media (min-width: 700px) {
+		.results__grid {
+			grid-template-columns: repeat(var(--n), 1fr);
+		}
+	}
+
+	.results__item {
+		position: relative;
+		isolation: isolate;
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: space-between;
+		gap: 40px;
+		min-height: 220px;
+		padding: clamp(22px, 2.4vw, 30px);
+		background: var(--card);
+	}
+
+	.results__item::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: url('/assets/images/textures/speckle.webp') center / 600px auto;
+		opacity: 0.18;
+	}
+
+	.results__item + .results__item {
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 700px) {
+		.results__item + .results__item {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	.results__item dd {
+		margin: 0;
+		font-family: var(--mono);
+		font-size: clamp(2.5rem, 1.8rem + 2vw, 3.5rem);
+		font-weight: 600;
+		line-height: 1;
+		letter-spacing: -0.04em;
+		color: var(--ink);
+	}
+
+	.results__item dt {
+		max-width: 22ch;
+		font-size: 1.125rem;
+		line-height: 1.4;
+		color: var(--green-ink);
+	}
+
+	.results__shot {
+		display: grid;
+		gap: 16px;
+		margin: clamp(48px, 6vw, 88px) 0 0;
+		padding: clamp(16px, 3vw, 40px);
+		border: 1px solid var(--line);
+	}
+
+	.results__frame {
+		overflow: hidden;
+		max-width: 1400px;
+		width: 100%;
+		margin-inline: auto;
+		background: var(--white);
+		border: 1px solid var(--line-2);
+		box-shadow: 0 50px 90px -60px rgba(7, 16, 11, 0.45);
+	}
+
+	.results__frame img,
+	.brief__proof img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.results__shot figcaption {
+		max-width: 1400px;
+		width: 100%;
+		margin-inline: auto;
 	}
 
 	/* ---------- At a glance ---------- */

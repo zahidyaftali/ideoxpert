@@ -191,14 +191,16 @@ const pad = (n: number) => String(n).padStart(2, '0');
 			button.setAttribute('aria-expanded', 'false');
 			if (refocus) button.focus();
 		};
-		const choose = (opt: HTMLLIElement) => {
+		// `refocus` is off when a script sets the value (select:set): focusing the
+		// button would jump the page to the form before the smooth scroll starts.
+		const choose = (opt: HTMLLIElement, refocus = true) => {
 			options.forEach((o) => o.setAttribute('aria-selected', String(o === opt)));
 			input.value = opt.dataset.value ?? '';
 			valueEl.textContent = input.value ? opt.querySelector('span')!.textContent : valueEl.dataset.placeholder!;
 			sync();
 			root.classList.remove('is-invalid');
 			root.dispatchEvent(new CustomEvent('change', { detail: input.value, bubbles: true }));
-			close(true);
+			close(refocus);
 		};
 
 		button.addEventListener('click', () => (list.hidden ? open() : close()));
@@ -232,7 +234,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 		// Lets other scripts set the value (e.g. "Show all projects").
 		root.addEventListener('select:set', (e) => {
 			const opt = options.find((o) => o.dataset.value === (e as CustomEvent).detail);
-			if (opt) choose(opt);
+			if (opt) choose(opt, false);
 		});
 		sync();
 	});

@@ -1,0 +1,24 @@
+---
+// Credits for the landmark photos on /locations. Most are CC BY or CC BY-SA,
+// which require the author and license to be credited, so keep this page
+// (it is linked from the footer) as long as those photos are used.
+import LegalPage from '../components/LegalPage.astro';
+import { locations } from '../data/locations';
+---
+<LegalPage
+	title="Photo Credits | IdeoXpert"
+	description="Credits and licenses for the landmark photos on IdeoXpert's Where we work pages, from Wikimedia Commons."
+	breadcrumbs={[{ name: 'Photo credits', path: '/photo-credits' }]}
+	heading="Photo credits"
+	updated="October 1, 2026"
+>
+	<h2 id="landmark-photos">Landmark photos</h2>
+	<p>The country photos on our Where we work pages come from Wikimedia Commons. We cropped them to fit; each one is used under the license shown.</p>
+	<ul>
+		{locations.map((l) => (
+			<li>
+				<strong>{l.country}:</strong> <a href={l.photo.source} target="_blank" rel="noopener">{l.photo.subject}</a>, by {l.photo.author}, <a href={l.photo.licenseUrl} target="_blank" rel="noopener">{l.photo.license}</a>
+			</li>
+		))}
+	</ul>
+</LegalPage>
