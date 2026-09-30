@@ -1,0 +1,352 @@
+---
+// "What is holding your website back?" Tabs for common problems; each panel
+// pairs the problem (left) with what we build and the result (card, right).
+// The three "what we build" lines are the feature titles from that service's page.
+import { services } from '../data/site';
+import { servicePageBySlug } from '../data/service-pages';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+
+const problems = [
+	{
+		tab: 'Invisible on Google',
+		now: 'People search for what you offer every day, but they find your competitors first.',
+		build: 'An SEO plan grounded in real keyword research, aimed at the searches that matter to you.',
+		then: 'Found by people who are looking for exactly what you offer, with a steady flow of enquiries.',
+		service: 'seo-optimization',
+	},
+	{
+		tab: 'Outdated website',
+		now: 'Your website looks dated, and you hesitate before sending the link to a client.',
+		build: 'A redesign that communicates your brand clearly and guides visitors to the actions that matter.',
+		then: 'A website you are proud to share: cleaner, easier to navigate, and bringing in more enquiries.',
+		service: 'website-design',
+	},
+	{
+		tab: 'Slow and hard to use',
+		now: 'Pages take too long to load and visitors leave before they see what you do.',
+		build: 'A fast, clean build on solid code, tested across phones, tablets and desktops before launch.',
+		then: 'Pages that load quickly on any device, so visitors stay, read and get in touch.',
+		service: 'website-development',
+	},
+	{
+		tab: 'Waiting on a developer',
+		now: 'Every text change or new page means emailing someone and waiting for days.',
+		build: 'A content management system set up around how your team works, with training at handover.',
+		then: 'Your team adds pages, posts and updates on its own. No code, no waiting.',
+		service: 'cms-development',
+	},
+	{
+		tab: 'Not on mobile',
+		now: 'Your customers live on their phones, but your business is not there yet.',
+		build: 'Android and iOS apps designed screen by screen, then built, tested and submitted to the stores.',
+		then: 'Your business in every pocket, on Google Play and the App Store.',
+		service: 'mobile-app-development',
+	},
+].map((p) => ({
+	...p,
+	serviceName: services.find((s) => s.slug === p.service)!.name,
+	features: servicePageBySlug(p.service)!.features.slice(0, 3).map((f) => f.title),
+}));
+---
+<section class="section holding" data-autotabs style="--dur:9s">
+	<div class="container">
+		<div class="holding__head">
+			<h2 class="h2" data-split>What is holding your website back?</h2>
+			<p class="subtitle" data-reveal>Pick the one that sounds like you and we will show you the way forward.</p>
+		</div>
+
+		<div class="holding__tabs" role="tablist" aria-label="Common problems" data-reveal>
+			{problems.map((p, i) => (
+				<button class:list={['htab', { 'is-active': i === 0 }]} role="tab" data-tab>
+					<span class="tab__bar"><i></i></span>
+					{p.tab}
+				</button>
+			))}
+		</div>
+
+		<div class="holding__panels" data-pause-on-hover data-reveal>
+			{problems.map((p, i) => (
+				<div class:list={['hpanel', { 'is-active': i === 0 }]} data-panel role="tabpanel">
+					<div class="hpanel__copy">
+						<span class="hpanel__label"><Icon name="alert" size={18} /> The problem</span>
+						<h3 class="hpanel__title">{p.tab}</h3>
+						<p class="hpanel__text">{p.now}</p>
+						<div class="btn-row">
+							<Button href={`/${p.service}`} variant="dark">See how we fix it</Button>
+							<button type="button" class="link hpanel__next" data-tab-next>Next problem <Icon name="arrow-right" /></button>
+						</div>
+					</div>
+
+					<div class="hpanel__visual">
+						<div class="hcard">
+							<div class="hcard__head">
+								<span class="hcard__kicker">What we build</span>
+								<p class="hcard__service">{p.serviceName}</p>
+								<p class="hcard__build">{p.build}</p>
+							</div>
+							<ul class="hcard__list" role="list">
+								{p.features.map((f) => (
+									<li><Icon name="check" size={16} class="hcard__tick" />{f}</li>
+								))}
+							</ul>
+							<div class="hcard__result">
+								<span class="hcard__kicker">Where you will be</span>
+								<p>{p.then}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.holding__head {
+		display: grid;
+		justify-items: center;
+		gap: 16px;
+		margin-bottom: clamp(36px, 4vw, 56px);
+		text-align: center;
+	}
+
+	.holding__head .subtitle {
+		margin-inline: auto;
+	}
+
+	/* ---------- Tabs ---------- */
+	.holding__tabs {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		border: 1px solid var(--line);
+		border-bottom: 0;
+	}
+
+	.htab {
+		position: relative;
+		padding: 20px 16px;
+		border-right: 1px solid var(--line);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		color: var(--muted);
+		background: var(--paper);
+		transition:
+			color 0.3s,
+			background 0.3s;
+	}
+
+	.htab:last-child {
+		border-right: 0;
+	}
+
+	.htab:hover {
+		color: var(--ink);
+	}
+
+	.htab.is-active {
+		color: var(--ink);
+		background: var(--card);
+	}
+
+	.htab :global(.tab__bar) {
+		background: transparent;
+	}
+
+	@media (max-width: 899px) {
+		.holding__tabs {
+			display: flex;
+			overflow-x: auto;
+			scrollbar-width: none;
+		}
+
+		.holding__tabs::-webkit-scrollbar {
+			display: none;
+		}
+
+		.htab {
+			flex: none;
+			white-space: nowrap;
+		}
+	}
+
+	/* ---------- Panels ---------- */
+	.holding__panels {
+		display: grid;
+		border: 1px solid var(--line);
+		background: var(--card);
+	}
+
+	.hpanel {
+		grid-area: 1 / 1;
+		display: grid;
+		visibility: hidden;
+	}
+
+	.hpanel.is-active {
+		visibility: visible;
+	}
+
+	@media (min-width: 1024px) {
+		.hpanel {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.hpanel__copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 18px;
+		padding: clamp(28px, 4vw, 64px);
+		opacity: 0;
+		transform: translateY(12px);
+		transition:
+			opacity 0.3s,
+			transform 0.5s var(--ease-out);
+	}
+
+	.hpanel__label {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.9375rem;
+		font-weight: 550;
+		color: #c2412c;
+	}
+
+	.hpanel__title {
+		font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.75rem);
+		line-height: 1.05;
+		letter-spacing: -0.045em;
+		font-weight: 400;
+	}
+
+	.hpanel__text {
+		max-width: 42ch;
+		font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	.hpanel__copy .btn-row {
+		margin-top: 10px;
+		gap: 24px;
+	}
+
+	.hpanel__next {
+		font-size: 0.9375rem;
+	}
+
+	.hpanel__visual {
+		display: grid;
+		place-items: center;
+		padding: clamp(24px, 4vw, 64px);
+		min-height: 440px;
+		background: url('/assets/images/textures/wash.webp') center / cover;
+		overflow: hidden;
+		clip-path: inset(0 0 0 100%);
+		transition: clip-path 0.7s var(--ease-in-out);
+	}
+
+	.hpanel.is-active .hpanel__copy {
+		opacity: 1;
+		transform: none;
+		transition:
+			opacity 0.5s var(--ease-out) 0.1s,
+			transform 0.7s var(--ease-out) 0.1s;
+	}
+
+	.hpanel.is-active .hpanel__visual {
+		clip-path: inset(0 0 0 0);
+	}
+
+	/* ---------- Dark card ---------- */
+	.hcard {
+		display: grid;
+		gap: 22px;
+		width: min(100%, 520px);
+		padding: clamp(22px, 2.4vw, 32px);
+		background: var(--night);
+		color: var(--on-night-muted);
+		box-shadow: 0 40px 80px -30px rgba(7, 16, 11, 0.55);
+	}
+
+	.hcard__kicker {
+		font-size: 0.8125rem;
+		font-weight: 550;
+		color: var(--green);
+	}
+
+	.hcard__service {
+		margin-top: 4px;
+		font-size: 1.5rem;
+		font-weight: 500;
+		letter-spacing: -0.035em;
+		color: var(--on-night);
+	}
+
+	.hcard__build {
+		margin-top: 8px;
+		font-size: 0.9375rem;
+		line-height: 1.55;
+	}
+
+	.hcard__list {
+		display: grid;
+		margin: 0;
+		border: 1px solid var(--night-line);
+	}
+
+	.hcard__list li {
+		display: grid;
+		grid-template-columns: 16px 1fr;
+		align-items: center;
+		gap: 14px;
+		padding: 14px 16px;
+		border-bottom: 1px solid var(--night-line);
+		color: var(--on-night);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		opacity: 0;
+		transform: translateX(-10px);
+		transition:
+			opacity 0.3s,
+			transform 0.5s var(--ease-out);
+	}
+
+	.hcard__list li:last-child {
+		border-bottom: 0;
+	}
+
+	.hpanel.is-active .hcard__list li {
+		opacity: 1;
+		transform: none;
+	}
+
+	.hpanel.is-active .hcard__list li:nth-child(1) {
+		transition-delay: 0.35s;
+	}
+
+	.hpanel.is-active .hcard__list li:nth-child(2) {
+		transition-delay: 0.45s;
+	}
+
+	.hpanel.is-active .hcard__list li:nth-child(3) {
+		transition-delay: 0.55s;
+	}
+
+	.hcard__list :global(.hcard__tick) {
+		color: var(--green);
+	}
+
+	.hcard__result p {
+		margin-top: 6px;
+		color: var(--on-night);
+		font-size: 1.0625rem;
+		line-height: 1.5;
+		letter-spacing: -0.01em;
+	}
+</style>

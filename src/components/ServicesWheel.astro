@@ -1,0 +1,322 @@
+---
+// Homepage hero visual: what we do as four slices around the IdeoXpert mark.
+// The active slice lifts out, a thin line leads to its label, and the quote
+// below changes with it. Tabs (or hovering a slice) switch it.
+import { serviceIcons } from '../data/service-icons';
+import Icon from './Icon.astro';
+
+// Wheel geometry: centre (280, 220), radius 165 (hub 66), in a 560 x 440 viewBox so
+// labels have room outside the circle. Icons sit at the centroid of their
+// quarter ring (about 110 from the centre on the diagonal).
+const groups = [
+	{
+		tab: 'Design',
+		label: 'Design websites',
+		icon: 'website-design',
+		quote: 'Our website doesn’t look like the business we are.',
+		answer: 'Website design that shows your brand at its best and guides visitors to get in touch.',
+		link: { href: '/website-design', text: 'Website design' },
+		wedge: 'M280 220 L280 55 A165 165 0 0 0 115 220 Z',
+		icon_at: [202, 142],
+		arm: 'M182 122 L133 73 H40',
+		text: { x: 40, y: 62, anchor: 'start' },
+		shift: [-8, -8],
+	},
+	{
+		tab: 'Build',
+		label: 'Build & develop',
+		icon: 'website-development',
+		quote: 'We need a website that’s fast and easy to update.',
+		answer: 'Custom, WordPress and CMS websites, plus Android and iOS apps, built on clean code.',
+		link: { href: '/website-development', text: 'Website development' },
+		wedge: 'M280 220 L280 55 A165 165 0 0 1 445 220 Z',
+		icon_at: [358, 142],
+		arm: 'M378 122 L427 73 H520',
+		text: { x: 520, y: 62, anchor: 'end' },
+		shift: [8, -8],
+	},
+	{
+		tab: 'Rank',
+		label: 'Rank on Google',
+		icon: 'seo-optimization',
+		quote: 'Customers can’t find us on Google.',
+		answer: 'SEO plans grounded in real keyword research that bring the right visitors, month after month.',
+		link: { href: '/seo-optimization', text: 'SEO optimization' },
+		wedge: 'M280 220 L445 220 A165 165 0 0 1 280 385 Z',
+		icon_at: [358, 298],
+		arm: 'M378 318 L427 367 H520',
+		text: { x: 520, y: 390, anchor: 'end' },
+		shift: [8, 8],
+	},
+	{
+		tab: 'Maintain',
+		label: 'Host & maintain',
+		icon: 'hosting-domain',
+		quote: 'Nobody looks after our website once it’s live.',
+		answer: 'Hosting, domains, SSL, updates and backups handled for you, so your site stays fast and secure.',
+		link: { href: '/website-maintenance', text: 'Website maintenance' },
+		wedge: 'M280 220 L280 385 A165 165 0 0 1 115 220 Z',
+		icon_at: [202, 298],
+		arm: 'M182 318 L133 367 H40',
+		text: { x: 40, y: 390, anchor: 'start' },
+		shift: [-8, 8],
+	},
+];
+---
+<div class="wheel-panel" data-autotabs style="--dur:5.5s">
+	<div class="wheel" data-depth="-8">
+		<svg viewBox="0 0 560 440" role="img" aria-label="What we do: design, build, rank and maintain websites">
+			<defs>
+				<filter id="hub-shadow" x="-40%" y="-40%" width="180%" height="180%">
+					<feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.08" />
+				</filter>
+			</defs>
+			{groups.map((g, i) => (
+				<g class:list={['slice', { 'is-active': i === 0 }]} data-panel={i} data-tab-go={i} style={`--tx:${g.shift[0]}px;--ty:${g.shift[1]}px`}>
+					<path class="slice__shape" d={g.wedge} />
+					<svg class="slice__icon" x={g.icon_at[0] - 22} y={g.icon_at[1] - 22} width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={serviceIcons[g.icon]} />
+				</g>
+			))}
+			<circle cx="280" cy="220" r="66" fill="#fff" filter="url(#hub-shadow)" />
+			<image href="/assets/images/icon-256.png" x="248" y="188" width="64" height="64" />
+			{groups.map((g, i) => (
+				<g class:list={['arm', { 'is-active': i === 0 }]} data-panel={i} aria-hidden="true">
+					<path d={g.arm} pathLength="1" />
+					<text x={g.text.x} y={g.text.y} text-anchor={g.text.anchor}>{g.label}</text>
+				</g>
+			))}
+		</svg>
+	</div>
+
+	<div class="wheel-tabs" role="tablist" aria-label="What we do">
+		{groups.map((g, i) => (
+			<button class:list={['wtab', { 'is-active': i === 0 }]} role="tab" data-tab>
+				<span class="tab__bar"><i></i></span>
+				{g.tab}
+			</button>
+		))}
+	</div>
+
+	<div class="wheel-quotes" data-pause-on-hover>
+		{groups.map((g, i) => (
+			<div class:list={['wquote', { 'is-active': i === 0 }]} data-panel={i} role="tabpanel">
+				<p class="wquote__q"><span class="wquote__mark" aria-hidden="true">&ldquo;</span>{g.quote}</p>
+				<p class="wquote__a">{g.answer}</p>
+				<a class="link link--green" href={g.link.href}>{g.link.text} <Icon name="arrow-right" /></a>
+			</div>
+		))}
+	</div>
+</div>
+
+<style>
+	.wheel-panel {
+		display: grid;
+		grid-template-rows: 1fr auto auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.wheel {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		place-items: center;
+		padding: clamp(24px, 3vw, 48px) clamp(16px, 3vw, 48px);
+		overflow: hidden;
+	}
+
+	/* Fine dot grid behind the wheel, fading out at the edges. */
+	.wheel::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background-image: radial-gradient(rgba(0, 0, 0, 0.14) 1px, transparent 1.3px);
+		background-size: 18px 18px;
+		-webkit-mask-image: radial-gradient(ellipse 55% 60% at 50% 50%, #000 20%, transparent 75%);
+		mask-image: radial-gradient(ellipse 55% 60% at 50% 50%, #000 20%, transparent 75%);
+	}
+
+	.wheel svg {
+		width: min(100%, 600px);
+		height: auto;
+		overflow: visible;
+	}
+
+	/* Slices */
+	.slice {
+		cursor: pointer;
+		color: #8a8e8c;
+		transition: transform 0.6s var(--ease-out);
+	}
+
+	.slice__shape {
+		fill: #ebebeb;
+		stroke: var(--paper);
+		stroke-width: 6;
+		stroke-linejoin: round;
+		transition:
+			fill 0.45s ease,
+			filter 0.45s ease;
+	}
+
+	.slice:hover .slice__shape {
+		fill: #e2e2e2;
+	}
+
+	.slice.is-active {
+		transform: translate(var(--tx), var(--ty));
+		color: #fff;
+	}
+
+	.slice.is-active .slice__shape {
+		fill: var(--green);
+		filter: drop-shadow(0 14px 18px rgba(45, 180, 83, 0.28));
+	}
+
+	.slice__icon {
+		transition: color 0.3s;
+	}
+
+	/* Line out to the label, drawn when its slice becomes active. */
+	.arm path {
+		fill: none;
+		stroke: var(--ink);
+		stroke-width: 1.2;
+		stroke-dasharray: 1;
+		stroke-dashoffset: 1;
+		transition: stroke-dashoffset 0.25s ease;
+	}
+
+	.arm text {
+		font-family: var(--font);
+		font-size: 17px;
+		font-weight: 550;
+		letter-spacing: -0.01em;
+		fill: var(--ink);
+		opacity: 0;
+		transition: opacity 0.25s ease;
+	}
+
+	.arm.is-active path {
+		stroke-dashoffset: 0;
+		transition: stroke-dashoffset 0.6s var(--ease-out) 0.25s;
+	}
+
+	.arm.is-active text {
+		opacity: 1;
+		transition: opacity 0.4s ease 0.55s;
+	}
+
+	/* Tab row: bordered cells, the active one lifts to the card colour. */
+	.wheel-tabs {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.wtab {
+		position: relative;
+		padding: 18px 8px;
+		border-right: 1px solid var(--line);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		color: var(--muted);
+		transition:
+			color 0.3s,
+			background 0.3s;
+	}
+
+	.wtab:last-child {
+		border-right: 0;
+	}
+
+	.wtab:hover,
+	.wtab.is-active {
+		color: var(--ink);
+	}
+
+	.wtab.is-active {
+		background: var(--card);
+	}
+
+	.wtab :global(.tab__bar) {
+		background: transparent;
+	}
+
+	/* Quote box */
+	.wheel-quotes {
+		display: grid;
+		background: var(--card);
+	}
+
+	.wquote {
+		grid-area: 1 / 1;
+		display: grid;
+		gap: 8px;
+		justify-items: center;
+		padding: clamp(22px, 2.4vw, 32px) clamp(20px, 3vw, 40px);
+		text-align: center;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(8px);
+		transition:
+			opacity 0.3s,
+			transform 0.45s var(--ease-out),
+			visibility 0s linear 0.3s;
+	}
+
+	.wquote.is-active {
+		opacity: 1;
+		visibility: visible;
+		transform: none;
+		transition:
+			opacity 0.45s var(--ease-out) 0.1s,
+			transform 0.6s var(--ease-out) 0.1s,
+			visibility 0s;
+	}
+
+	.wquote__q {
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		line-height: 1.35;
+	}
+
+	.wquote__mark {
+		margin-right: 4px;
+		color: var(--green);
+		font-weight: 700;
+	}
+
+	.wquote__a {
+		max-width: 50ch;
+		color: var(--muted);
+		font-size: 0.9375rem;
+	}
+
+	.wquote .link {
+		margin-top: 4px;
+		font-size: 0.9375rem;
+	}
+
+	/* Phones: 2 x 2 tabs, like the reference. */
+	@media (max-width: 599px) {
+		.wheel-tabs {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.wtab:nth-child(2) {
+			border-right: 0;
+		}
+
+		.wtab:nth-child(-n + 2) {
+			border-bottom: 1px solid var(--line);
+		}
+
+		.arm text {
+			font-size: 22px;
+		}
+	}
+</style>

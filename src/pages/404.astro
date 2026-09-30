@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { services } from '../data/site';
+---
+<BaseLayout
+	title="Page not found | IdeoXpert"
+	description="The page you are looking for does not exist or has moved. Browse IdeoXpert's services or get in touch."
+	noindex
+	discovery={false}
+>
+	<section class="section section--flush nf">
+		<div class="container">
+			<div class="frame brackets nf__frame">
+				<div class="tex-layer tex-dots nf__dots" aria-hidden="true"></div>
+				<p class="nf__code" aria-hidden="true" data-reveal="scale">404<span class="dot">.</span></p>
+				<h1 class="h2" data-split>This page doesn't exist<span class="dot">.</span></h1>
+				<p class="nf__lead" data-reveal>The page may have moved, or the link may be out of date. These might help:</p>
+				<div class="btn-row nf__actions" data-reveal>
+					<Button href="/" variant="primary">Go to the homepage</Button>
+					<Button href="/contact" variant="ghost" icon={false}>Contact us</Button>
+				</div>
+				<ul class="nf__links" role="list" data-reveal>
+					{services.map((s) => <li><a href={`/${s.slug}`}>{s.name}</a></li>)}
+				</ul>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.nf {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(56px, 7vw, 104px);
+	}
+
+	.nf__frame {
+		isolation: isolate;
+		display: grid;
+		justify-items: center;
+		gap: 22px;
+		padding: clamp(56px, 8vw, 120px) clamp(20px, 4vw, 64px);
+		text-align: center;
+	}
+
+	.nf__dots {
+		-webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, #000 10%, transparent 70%);
+		mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, #000 10%, transparent 70%);
+	}
+
+	.nf__code {
+		font-size: clamp(6rem, 3rem + 14vw, 14rem);
+		line-height: 0.85;
+		font-weight: 700;
+		letter-spacing: -0.07em;
+	}
+
+	.nf__lead {
+		max-width: 48ch;
+		color: var(--ink-soft);
+	}
+
+	.nf__actions {
+		justify-content: center;
+	}
+
+	.nf__links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 8px;
+		max-width: 760px;
+		margin: 16px 0 0;
+	}
+
+	.nf__links a {
+		display: inline-block;
+		padding: 8px 14px;
+		border: 1px solid var(--line-2);
+		border-radius: 999px;
+		font-size: 0.875rem;
+		transition:
+			background 0.3s,
+			color 0.3s,
+			border-color 0.3s;
+	}
+
+	.nf__links a:hover {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--white);
+	}
+</style>

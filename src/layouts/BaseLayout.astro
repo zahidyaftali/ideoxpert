@@ -1,0 +1,210 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import DiscoverySession from '../components/DiscoverySession.astro';
+import { site, services, countries, type Service } from '../data/site';
+import { TITLE_MAX, DESC_MAX } from '../data/seo';
+
+type Crumb = { name: string; path: string };
+
+interface Props {
+	title: string;
+	description: string;
+	keywords?: string;
+	/** Social share image, path under /public or absolute URL. */
+	image?: string;
+	/** schema.org type of this page. */
+	pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+	/** Breadcrumb trail after "Home". */
+	breadcrumbs?: Crumb[];
+	/** Set on service pages to emit a schema.org Service. */
+	service?: Service & { description: string };
+	/** Additional JSON-LD nodes for this page. */
+	schema?: Record<string, unknown>[];
+	/** Image to preload for faster first paint (hero image). */
+	preloadImage?: string;
+	/** Show the "Book your discovery session" form above the footer (default on). */
+	discovery?: boolean;
+	/** Service to preselect in that form. */
+	discoveryService?: string;
+	/** Blog articles: og:type "article" plus published/modified dates. */
+	article?: { published: Date; modified?: Date; section?: string };
+	noindex?: boolean;
+}
+
+const {
+	title,
+	description,
+	keywords,
+	image = site.defaultImage,
+	pageType = 'WebPage',
+	breadcrumbs = [],
+	service,
+	schema = [],
+	preloadImage,
+	discovery = true,
+	discoveryService,
+	article,
+	noindex = false,
+} = Astro.props;
+
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+
+// Keep search snippets whole: flag over-long titles and descriptions in the build log.
+if (!noindex && (title.length > TITLE_MAX || description.length > DESC_MAX)) {
+	console.warn(`[seo] ${path}: title ${title.length}/${TITLE_MAX}, description ${description.length}/${DESC_MAX}`);
+}
+
+const canonical = new URL(path, site.url).href;
+const absolute = (src: string) => new URL(encodeURI(src), site.url).href;
+const imageUrl = absolute(image);
+const orgId = `${site.url}/#organization`;
+const areaServed = countries.map((c) => ({ '@type': 'Country', name: c.name }));
+
+const breadcrumbList = {
+	'@type': 'BreadcrumbList',
+	itemListElement: [{ name: 'Home', path: '/' }, ...breadcrumbs].map((c, i) => ({
+		'@type': 'ListItem',
+		position: i + 1,
+		name: c.name,
+		item: new URL(c.path, site.url).href,
+	})),
+};
+
+const graph: Record<string, unknown>[] = [
+	{
+		'@type': ['Organization', 'ProfessionalService'],
+		'@id': orgId,
+		name: site.name,
+		url: `${site.url}/`,
+		logo: { '@type': 'ImageObject', url: absolute(site.logo) },
+		image: absolute(site.defaultImage),
+		description: site.description,
+		disambiguatingDescription:
+			'IdeoXpert is a web development agency based in Islamabad, Pakistan. It is not affiliated with IDEO, the US design firm.',
+		email: site.email,
+		telephone: site.phone,
+		address: {
+			'@type': 'PostalAddress',
+			addressLocality: site.address.locality,
+			addressRegion: site.address.region,
+			addressCountry: site.address.country,
+		},
+		areaServed,
+		sameAs: site.socials.map((s) => s.url),
+		hasOfferCatalog: {
+			'@type': 'OfferCatalog',
+			name: 'Software & Digital Services',
+			itemListElement: services.map((s) => ({
+				'@type': 'Offer',
+				itemOffered: { '@type': 'Service', name: s.name, url: `${site.url}/${s.slug}` },
+			})),
+		},
+	},
+	{
+		'@type': 'WebSite',
+		'@id': `${site.url}/#website`,
+		url: `${site.url}/`,
+		name: site.name,
+		description: site.tagline,
+		publisher: { '@id': orgId },
+	},
+	{
+		'@type': pageType,
+		'@id': `${canonical}#webpage`,
+		url: canonical,
+		name: title,
+		description,
+		isPartOf: { '@id': `${site.url}/#website` },
+		about: { '@id': orgId },
+		breadcrumb: breadcrumbList,
+	},
+];
+
+if (service) {
+	graph.push({
+		'@type': 'Service',
+		'@id': `${canonical}#service`,
+		name: service.name,
+		serviceType: service.name,
+		description: service.description,
+		url: canonical,
+		provider: { '@id': orgId },
+		areaServed,
+	});
+}
+
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...graph, ...schema] });
+---
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{title}</title>
+	<meta name="author" content={site.name}>
+	<meta name="description" content={description}>
+	{keywords && <meta name="keywords" content={keywords}>}
+	<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'}>
+	<link rel="canonical" href={canonical}>
+
+	<!-- Local SEO: city only, no street address or coordinates -->
+	<meta name="geo.region" content="PK-IS">
+	<meta name="geo.placename" content="Islamabad, Pakistan">
+
+	<!-- Open Graph -->
+	<meta property="og:type" content={article ? 'article' : 'website'}>
+	{article && <meta property="article:published_time" content={article.published.toISOString()}>}
+	{article && <meta property="article:modified_time" content={(article.modified ?? article.published).toISOString()}>}
+	{article?.section && <meta property="article:section" content={article.section}>}
+	<meta property="og:url" content={canonical}>
+	<meta property="og:title" content={title}>
+	<meta property="og:description" content={description}>
+	<meta property="og:image" content={imageUrl}>
+	<meta property="og:site_name" content={site.name}>
+	<meta property="og:locale" content="en_US">
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content={title}>
+	<meta name="twitter:description" content={description}>
+	<meta name="twitter:image" content={imageUrl}>
+
+	<meta name="theme-color" content={site.themeColor}>
+	<link rel="alternate" type="application/rss+xml" title="IdeoXpert blog" href="/blog/rss.xml">
+	<link rel="icon" type="image/png" sizes="192x192" href="/assets/images/icon-192.png">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	{preloadImage && <link rel="preload" as="image" href={preloadImage}>}
+
+	<!-- Animations hide content until the motion script runs. If that script
+	     never runs (blocked, errored), show everything after a moment. -->
+	<script is:inline>
+		document.documentElement.classList.add('js');
+		setTimeout(function () {
+			if (!document.documentElement.classList.contains('motion-ready')) document.documentElement.classList.remove('js');
+		}, 2500);
+	</script>
+
+	<!-- Structured data: one consistent description of the agency on every page -->
+	<script type="application/ld+json" set:html={jsonLd} />
+</head>
+
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
+	<Header path={path} />
+
+	<main id="main">
+		<slot />
+		{discovery && <DiscoverySession service={discoveryService} />}
+	</main>
+
+	<Footer />
+
+	<script>
+		import '../scripts/motion';
+	</script>
+</body>
+</html>

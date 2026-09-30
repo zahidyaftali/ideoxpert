@@ -1,0 +1,105 @@
+---
+// Three client screenshots stacked and fanned out, used as the visual in the
+// industry and location heroes.
+import type { Project } from '../data/projects';
+
+interface Props {
+	projects: Project[];
+}
+
+const shots = Astro.props.projects.slice(0, 3);
+---
+<div class:list={['wstack', `wstack--${shots.length}`]} aria-hidden="true">
+	{shots.map((p, i) => (
+		<figure class="wstack__shot" style={`--d:${200 + i * 140}`} data-reveal>
+			<span class="wstack__bar"><i></i><i></i><i></i><em>{p.domain}</em></span>
+			<img src={p.thumb} srcset={p.srcset} sizes="(min-width: 1000px) 520px, 80vw" alt="" width="1440" height="900" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+		</figure>
+	))}
+</div>
+
+<style>
+	/* A fixed preferred width (capped by the parent) so it keeps its size even
+	   inside a shrink-to-fit wrapper. */
+	.wstack {
+		position: relative;
+		width: 640px;
+		max-width: 100%;
+		aspect-ratio: 1 / 0.82;
+	}
+
+	/* Back to front: k = 0 is the front screenshot. */
+	.wstack__shot {
+		position: absolute;
+		width: 78%;
+		margin: 0;
+		overflow: hidden;
+		background: #fff;
+		border-radius: var(--r-sm);
+		box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+	}
+
+	.wstack__shot:nth-child(1) {
+		left: 0;
+		bottom: 0;
+		z-index: 3;
+	}
+
+	.wstack__shot:nth-child(2) {
+		right: 0;
+		top: 16%;
+		z-index: 2;
+		width: 70%;
+	}
+
+	.wstack__shot:nth-child(3) {
+		left: 12%;
+		top: 0;
+		z-index: 1;
+		width: 62%;
+		opacity: 0.85;
+	}
+
+	.wstack--1 .wstack__shot:nth-child(1) {
+		width: 100%;
+		top: 50%;
+		bottom: auto;
+		translate: 0 -50%;
+	}
+
+	.wstack__bar {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		height: 26px;
+		padding: 0 10px;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+		font-size: 0.6875rem;
+		color: #6b6f6d;
+		background: #fff;
+	}
+
+	.wstack__bar i {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: #e5e5e5;
+	}
+
+	.wstack__bar em {
+		margin-left: auto;
+		margin-right: auto;
+		font-style: normal;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.wstack__shot img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 1440 / 900;
+		object-fit: cover;
+		object-position: top;
+	}
+</style>

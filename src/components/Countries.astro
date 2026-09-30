@@ -1,0 +1,81 @@
+---
+// Countries we work in, each with its flag. Countries with their own page
+// link to it. `names={false}` shows flags only.
+import { countries } from '../data/site';
+import { locationByCode } from '../data/locations';
+
+interface Props {
+	names?: boolean;
+	class?: string;
+}
+
+const { names = true, class: className } = Astro.props;
+---
+<ul class:list={['countries', { 'countries--flags': !names }, className]} role="list">
+	{countries.map((c) => {
+		const page = locationByCode(c.code);
+		const inner = (
+			<>
+				<img src={`/assets/images/flags/${c.code}.svg`} alt={names ? '' : c.name} width="22" height="16" loading="lazy" decoding="async" />
+				{names && <span>{c.name}</span>}
+			</>
+		);
+		return (
+			<li title={names ? undefined : c.name}>
+				{page ? <a href={`/locations/${page.slug}`}>{inner}</a> : inner}
+			</li>
+		);
+	})}
+</ul>
+
+<style>
+	.countries {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px 24px;
+		margin: 0;
+	}
+
+	.countries li {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.9375rem;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	.countries a {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		transition: color 0.3s;
+	}
+
+	.countries a:hover {
+		color: var(--green);
+	}
+
+	.countries img {
+		width: 22px;
+		height: 16px;
+		object-fit: cover;
+		border-radius: 2px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+		flex: none;
+	}
+
+	.countries--flags {
+		gap: 8px;
+	}
+
+	.countries--flags img {
+		width: 28px;
+		height: 21px;
+		transition: transform 0.35s var(--ease-spring);
+	}
+
+	.countries--flags li:hover img {
+		transform: translateY(-3px) scale(1.08);
+	}
+</style>

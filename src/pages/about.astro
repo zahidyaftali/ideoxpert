@@ -1,0 +1,379 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import PixelMosaic from '../components/PixelMosaic.astro';
+import StatBars from '../components/StatBars.astro';
+import { site } from '../data/site';
+import { generalFaqs, faqSchema } from '../data/faqs';
+
+const values = [
+	{ title: 'Real collaboration', text: 'We work closely with every client — not just at the start, but through every stage until the project is done right.' },
+	{ title: 'Results that matter', text: 'Everything we build is designed to perform — faster load times, better rankings, more enquiries, and a stronger presence online.' },
+	{ title: 'Design that puts users first', text: 'We design with your actual users in mind — every layout, every interaction, every screen size.' },
+	{ title: 'Clear and honest communication', text: 'We keep you informed at every step. No jargon, no surprises — just straightforward updates and honest advice throughout.' },
+];
+
+// Back to front: the last photo is the large one in front.
+const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/assets/images/about/02.webp', '/assets/images/about/16.webp', '/assets/images/about/14.webp', '/assets/images/about/15.webp'];
+---
+<BaseLayout
+	title="About IdeoXpert | Web Development Agency, Islamabad"
+	description="IdeoXpert is a web development agency in Islamabad, Pakistan. Meet the team and see how we build websites, apps and SEO that deliver real results."
+	keywords="about IdeoXpert, web development agency Islamabad, web design agency Pakistan, web solutions Pakistan, website development Islamabad, mobile app development Pakistan, about us, IdeoXpert team"
+	image="/assets/images/about/14.jpg"
+	pageType="AboutPage"
+	breadcrumbs={[{ name: 'About Us', path: '/about' }]}
+	schema={[faqSchema(generalFaqs)]}
+>
+	<PageHero
+		crumbs={[{ name: 'About Us', path: '/about' }]}
+		title='About IdeoXpert, a web development agency in Islamabad<span class="dot">.</span>'
+		lead="We work with businesses of all sizes, from first-time founders getting their website off the ground to established companies levelling up online. Design, development, apps, SEO and hosting, done by one team that genuinely cares about the outcome."
+	>
+		<Fragment slot="actions">
+			<Button href="/contact" variant="primary" magnetic>Get a free quote</Button>
+			<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
+			{site.storyVideoUrl && (
+				<a class="link" href={site.storyVideoUrl} target="_blank" rel="noopener"><Icon name="play" /> Watch our story</a>
+			)}
+		</Fragment>
+
+		<!-- Photo deck: cards stacked like a pyramid behind the front photo -->
+		<div slot="aside" class="deck" aria-hidden="true" data-reveal-group="90">
+			{deck.map((src, i) => (
+				<figure class="deck__card" style={`--k:${i};--n:${deck.length}`} data-reveal>
+					<img src={src} alt="" width="800" height="600" loading={i === deck.length - 1 ? 'eager' : 'lazy'} decoding="async" />
+				</figure>
+			))}
+		</div>
+	</PageHero>
+
+	<!-- Mission: quote, pixel mosaic, photo (like the reference) -->
+	<section class="section mission">
+		<div class="container">
+			<div class="frame brackets mission__frame">
+				<div class="mission__copy">
+					<span class="mission__tag">Our mission</span>
+					<Icon name="quote" size={32} class="mission__mark" />
+					<p class="mission__quote" data-reveal>Build things that work, for people who depend on them: websites that load fast, rank on Google and bring in customers, from a team that stays with you after launch.</p>
+				</div>
+				<div class="mission__mosaic" aria-hidden="true"><PixelMosaic seed={7} cols={6} rows={9} /></div>
+				<figure class="mission__photo" data-reveal="clip">
+					<img src="/assets/images/about/15.webp" alt="The IdeoXpert team discussing a website project" width="1600" height="900" loading="lazy" decoding="async" />
+				</figure>
+			</div>
+		</div>
+	</section>
+
+	<!-- What you can expect: tabs on the left, the value on the right -->
+	<section class="section values" data-autotabs style="--dur:7s">
+		<div class="container">
+			<div class="values__head">
+				<h2 class="h2" data-split>What you can expect from us<span class="dot">.</span></h2>
+				<p class="subtitle" data-reveal>Four things we hold ourselves to on every project, whatever its size.</p>
+			</div>
+			<div class="frame values__frame" data-reveal>
+				<div class="values__tabs" role="tablist" aria-orientation="vertical" aria-label="Our values">
+					{values.map((v, i) => (
+						<button class:list={['vtab', { 'is-active': i === 0 }]} role="tab" data-tab>
+							<span class="vtab__title">{v.title}</span>
+							<span class="vtab__num">[{i + 1}]</span>
+							<span class="vtab__bar"><span class="tab__bar"><i></i></span></span>
+						</button>
+					))}
+				</div>
+				<div class="values__panels" data-pause-on-hover>
+					<div class="tex-layer tex-dots values__dots" aria-hidden="true"></div>
+					{values.map((v, i) => (
+						<div class:list={['vpanel', { 'is-active': i === 0 }]} data-panel role="tabpanel">
+							<span class="vpanel__kicker">{v.title}</span>
+							<p class="vpanel__text">{v.text}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Who we are -->
+	<section class="section who">
+		<div class="container who__grid">
+			<div class="who__copy">
+				<h2 class="h2" data-split>Who we are at IdeoXpert<span class="dot">.</span></h2>
+				<p class="who__lead" data-reveal>
+					We started with one simple goal: helping businesses build an online presence they can be genuinely proud of. Over the years we have grown into a full-service web development agency covering website design and custom development, mobile apps, SEO, WordPress, CMS platforms and reliable hosting.
+				</p>
+				<p class="muted" data-reveal>
+					We put real effort into every project, no matter the size. A small business getting its first website deserves the same care as a large company rebuilding from the ground up. That is how we have always worked, and it is what keeps our clients coming back.
+				</p>
+				<div class="btn-row" data-reveal>
+					<Button href="/services" variant="dark">Explore our services</Button>
+					<Button href="/contact" variant="ghost" icon={false}>Get a free quote</Button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<StatBars />
+
+	<Testimonials />
+
+	<Faq items={generalFaqs} />
+</BaseLayout>
+
+<style>
+	/* ---------- Photo deck ---------- */
+	.deck {
+		position: relative;
+		width: min(100%, 620px);
+		aspect-ratio: 1 / 0.86;
+	}
+
+	/* Card k of n: each one further back is narrower and sits higher, so only
+	   its top edge shows above the card in front. */
+	.deck__card {
+		position: absolute;
+		left: 50%;
+		bottom: calc((var(--n) - 1 - var(--k)) * 7%);
+		width: calc(40% + var(--k) * 12%);
+		height: 62%;
+		margin: 0;
+		translate: -50% 0;
+		overflow: hidden;
+		border-radius: var(--r-sm);
+		box-shadow: 0 -10px 24px -14px rgba(0, 0, 0, 0.35);
+	}
+
+	.deck__card img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* ---------- Mission ---------- */
+	.mission__frame {
+		display: grid;
+		overflow: hidden;
+	}
+
+	@media (min-width: 1024px) {
+		.mission__frame {
+			grid-template-columns: 1fr 0.45fr 1.05fr;
+			min-height: 460px;
+		}
+	}
+
+	.mission__copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 22px;
+		padding: clamp(28px, 4vw, 64px);
+	}
+
+	.mission__tag {
+		padding: 8px 14px;
+		background: var(--green);
+		color: var(--ink);
+		font-size: 0.9375rem;
+		font-weight: 600;
+	}
+
+	.mission__copy :global(.mission__mark) {
+		color: var(--ink);
+		margin-top: auto;
+	}
+
+	.mission__quote {
+		max-width: 34ch;
+		font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+		line-height: 1.35;
+		letter-spacing: -0.025em;
+	}
+
+	.mission__mosaic {
+		position: relative;
+		min-height: 120px;
+	}
+
+	.mission__mosaic :global(.mosaic) {
+		position: absolute;
+		inset: 0;
+	}
+
+	.mission__photo {
+		margin: 0;
+		min-height: 280px;
+		overflow: hidden;
+	}
+
+	.mission__photo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* ---------- Values ---------- */
+	.values__head {
+		display: grid;
+		justify-items: center;
+		gap: 16px;
+		margin-bottom: clamp(36px, 4vw, 56px);
+		text-align: center;
+	}
+
+	.values__frame {
+		display: grid;
+	}
+
+	@media (min-width: 1024px) {
+		.values__frame {
+			grid-template-columns: 0.9fr 1.1fr;
+		}
+	}
+
+	.values__tabs {
+		display: grid;
+		align-content: start;
+	}
+
+	.vtab {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: clamp(22px, 2.6vw, 34px) clamp(22px, 2.4vw, 32px);
+		border-bottom: 1px solid var(--line);
+		text-align: left;
+		transition: background 0.3s;
+	}
+
+	.vtab:hover {
+		background: var(--paper-2);
+	}
+
+	.vtab__title {
+		font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+		font-weight: 500;
+		letter-spacing: -0.035em;
+		color: var(--muted);
+		transition: color 0.3s;
+	}
+
+	.vtab.is-active .vtab__title,
+	.vtab:hover .vtab__title {
+		color: var(--ink);
+	}
+
+	.vtab__num {
+		font-size: 0.9375rem;
+		color: var(--muted);
+	}
+
+	/* Progress runs along the bottom edge of the active tab. */
+	.vtab__bar {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -1px;
+		height: 2px;
+	}
+
+	.vtab__bar :global(.tab__bar) {
+		inset: 0;
+		height: 2px;
+		background: transparent;
+	}
+
+	.values__panels {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		min-height: 320px;
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1024px) {
+		.values__panels {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	.values__dots {
+		-webkit-mask-image: radial-gradient(ellipse 80% 80% at 80% 20%, #000 10%, transparent 70%);
+		mask-image: radial-gradient(ellipse 80% 80% at 80% 20%, #000 10%, transparent 70%);
+		opacity: 0.7;
+	}
+
+	.vpanel {
+		grid-area: 1 / 1;
+		display: grid;
+		align-content: center;
+		gap: 20px;
+		padding: clamp(28px, 4vw, 64px);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(12px);
+		transition:
+			opacity 0.3s,
+			transform 0.5s var(--ease-out),
+			visibility 0s linear 0.3s;
+	}
+
+	.vpanel.is-active {
+		opacity: 1;
+		visibility: visible;
+		transform: none;
+		transition:
+			opacity 0.5s var(--ease-out) 0.1s,
+			transform 0.7s var(--ease-out) 0.1s,
+			visibility 0s;
+	}
+
+	.vpanel__kicker {
+		font-size: 0.9375rem;
+		font-weight: 600;
+		color: var(--green-ink);
+	}
+
+	.vpanel__text {
+		max-width: 30ch;
+		font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.375rem);
+		line-height: 1.25;
+		letter-spacing: -0.035em;
+	}
+
+	/* ---------- Who we are ---------- */
+	/* Heading on the left, text on the right. */
+	.who__copy {
+		display: grid;
+		gap: 22px;
+		justify-items: start;
+		align-items: start;
+	}
+
+	@media (min-width: 1024px) {
+		.who__copy {
+			grid-template-columns: 1fr 1fr;
+			column-gap: 96px;
+		}
+
+		.who__copy > :first-child {
+			grid-row: span 3;
+		}
+	}
+
+	.who__lead {
+		font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+		line-height: 1.5;
+		letter-spacing: -0.015em;
+	}
+
+</style>

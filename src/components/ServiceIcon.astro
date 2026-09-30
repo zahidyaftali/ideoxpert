@@ -1,0 +1,11 @@
+---
+import { serviceIcons } from '../data/service-icons';
+
+interface Props {
+	slug: string;
+	size?: number;
+}
+
+const { slug, size = 44 } = Astro.props;
+---
+<svg class="svc-icon" viewBox="0 0 44 44" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={serviceIcons[slug] ?? serviceIcons['website-development']} />

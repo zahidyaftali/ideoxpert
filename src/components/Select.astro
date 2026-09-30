@@ -1,0 +1,239 @@
+---
+// Custom dropdown in the brand style (replaces the browser's default select).
+// Works inside forms through a hidden input, and fires a "change" event on the
+// root element with the new value in `event.detail`.
+import Icon from './Icon.astro';
+
+interface Option {
+	value: string;
+	label: string;
+	count?: number;
+}
+
+interface Props {
+	name: string;
+	label: string;
+	placeholder: string;
+	options: Option[];
+	selected?: string;
+	/** Include an option that clears the choice (e.g. "All industries"). */
+	allLabel?: string;
+	id?: string;
+	class?: string;
+	[key: string]: unknown;
+}
+
+const { name, label, placeholder, options, selected = '', allLabel, id = `sel-${name}`, class: className, ...rest } = Astro.props;
+const list = allLabel ? [{ value: '', label: allLabel }, ...options] : options;
+const current = options.find((o) => o.value === selected);
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<div class:list={['select', className]} data-select {...rest}>
+	<span class="select__label" id={`${id}-label`}>{label}</span>
+	<input type="hidden" name={name} value={selected} />
+	<button type="button" class="select__button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby={`${id}-label ${id}-value`} id={`${id}-button`}>
+		<span class="select__value" id={`${id}-value`} data-placeholder={placeholder}>{current?.label ?? placeholder}</span>
+		<Icon name="chevron-down" size={18} class="select__chev" />
+	</button>
+	<ul class="select__list" role="listbox" aria-labelledby={`${id}-label`} tabindex="-1" hidden>
+		{list.map((o) => (
+			<li role="option" class="select__option" data-value={o.value} aria-selected={o.value === selected ? 'true' : 'false'} tabindex="-1">
+				<span>{o.label}</span>
+				{'count' in o && typeof o.count === 'number' && <span class="select__count">[{pad(o.count)}]</span>}
+			</li>
+		))}
+	</ul>
+</div>
+
+<style>
+	.select {
+		position: relative;
+		display: grid;
+		gap: 10px;
+	}
+
+	.select__label {
+		font-size: 0.9375rem;
+		font-weight: 550;
+	}
+
+	.select__button {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		width: 100%;
+		min-height: 54px;
+		padding: 0 18px;
+		border: 1px solid var(--line-2);
+		background: var(--card);
+		font-size: 1rem;
+		text-align: left;
+		transition:
+			border-color 0.25s,
+			box-shadow 0.25s;
+	}
+
+	.select__button:hover {
+		border-color: var(--ink);
+	}
+
+	.select__button:focus-visible,
+	.select.is-open .select__button {
+		outline: none;
+		border-color: var(--green);
+		box-shadow: 0 0 0 3px rgba(45, 180, 83, 0.16);
+	}
+
+	.select__value {
+		color: var(--ink);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.select:not(.has-value) .select__value {
+		color: var(--muted);
+	}
+
+	.select__button :global(.select__chev) {
+		flex: none;
+		color: var(--muted);
+		transition: transform 0.35s var(--ease-out);
+	}
+
+	.select.is-open .select__button :global(.select__chev) {
+		transform: rotate(180deg);
+	}
+
+	.select__list {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		z-index: 30;
+		max-height: 360px;
+		margin: 0;
+		padding: 0;
+		overflow-y: auto;
+		list-style: none;
+		background: var(--card);
+		border: 1px solid var(--line-2);
+		border-top: 0;
+		box-shadow: 0 30px 50px -30px rgba(0, 0, 0, 0.35);
+		animation: select-in 0.25s var(--ease-out);
+		overscroll-behavior: contain;
+	}
+
+	@keyframes select-in {
+		from {
+			opacity: 0;
+			transform: translateY(-6px);
+		}
+	}
+
+	.select__option {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 16px 18px;
+		border-top: 1px solid var(--line);
+		cursor: pointer;
+		font-size: 0.9375rem;
+		font-weight: 500;
+		transition:
+			background 0.2s,
+			color 0.2s;
+	}
+
+	.select__option:hover,
+	.select__option:focus {
+		outline: none;
+		background: var(--green-50);
+		color: var(--green-ink);
+	}
+
+	.select__option[aria-selected='true'] {
+		background: var(--green-50);
+		color: var(--green-ink);
+	}
+
+	.select__count {
+		color: var(--muted);
+		font-weight: 400;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.select.is-invalid .select__button {
+		border-color: #c2412c;
+	}
+</style>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-select]').forEach((root) => {
+		const button = root.querySelector<HTMLButtonElement>('.select__button')!;
+		const list = root.querySelector<HTMLUListElement>('.select__list')!;
+		const input = root.querySelector<HTMLInputElement>('input[type="hidden"]')!;
+		const valueEl = root.querySelector<HTMLElement>('.select__value')!;
+		const options = [...list.querySelectorAll<HTMLLIElement>('[role="option"]')];
+
+		const sync = () => root.classList.toggle('has-value', input.value !== '');
+		const open = (focusSelected = true) => {
+			list.hidden = false;
+			root.classList.add('is-open');
+			button.setAttribute('aria-expanded', 'true');
+			if (focusSelected) (options.find((o) => o.getAttribute('aria-selected') === 'true') ?? options[0]).focus();
+		};
+		const close = (refocus = false) => {
+			list.hidden = true;
+			root.classList.remove('is-open');
+			button.setAttribute('aria-expanded', 'false');
+			if (refocus) button.focus();
+		};
+		const choose = (opt: HTMLLIElement) => {
+			options.forEach((o) => o.setAttribute('aria-selected', String(o === opt)));
+			input.value = opt.dataset.value ?? '';
+			valueEl.textContent = input.value ? opt.querySelector('span')!.textContent : valueEl.dataset.placeholder!;
+			sync();
+			root.classList.remove('is-invalid');
+			root.dispatchEvent(new CustomEvent('change', { detail: input.value, bubbles: true }));
+			close(true);
+		};
+
+		button.addEventListener('click', () => (list.hidden ? open() : close()));
+		button.addEventListener('keydown', (e) => {
+			if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) {
+				e.preventDefault();
+				open();
+			}
+		});
+		options.forEach((opt, i) => {
+			opt.addEventListener('click', () => choose(opt));
+			opt.addEventListener('keydown', (e) => {
+				if (e.key === 'ArrowDown') (options[i + 1] ?? opt).focus();
+				else if (e.key === 'ArrowUp') (options[i - 1] ?? opt).focus();
+				else if (e.key === 'Home') options[0].focus();
+				else if (e.key === 'End') options[options.length - 1].focus();
+				else if (e.key === 'Enter' || e.key === ' ') choose(opt);
+				else if (e.key === 'Escape' || e.key === 'Tab') close(e.key === 'Escape');
+				else return;
+				e.preventDefault();
+			});
+		});
+		document.addEventListener('pointerdown', (e) => !root.contains(e.target as Node) && close());
+		root.closest('form')?.addEventListener('reset', () => {
+			const initial = options.find((o) => o.dataset.value === '') ?? null;
+			options.forEach((o) => o.setAttribute('aria-selected', String(o === initial)));
+			input.value = '';
+			valueEl.textContent = valueEl.dataset.placeholder!;
+			sync();
+		});
+		// Lets other scripts set the value (e.g. "Show all projects").
+		root.addEventListener('select:set', (e) => {
+			const opt = options.find((o) => o.dataset.value === (e as CustomEvent).detail);
+			if (opt) choose(opt);
+		});
+		sync();
+	});
+</script>

@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Select from '../components/Select.astro';
+import { site, services } from '../data/site';
+
+const steps = [
+	{ icon: 'phone', title: 'We talk it through', text: 'Tell us what you need on a call, WhatsApp or email. We listen first and ask the right questions.' },
+	{ icon: 'check', title: 'We plan it with you', text: 'You get a clear scope, timeline and quote, with no hidden charges.' },
+	{ icon: 'spark', title: 'We design, build and launch', text: 'We keep you updated at every stage, and stay with you after launch.' },
+] as const;
+---
+<BaseLayout
+	title="Contact IdeoXpert | Free Website Consultation"
+	description="Contact IdeoXpert, a web development agency in Islamabad, Pakistan, about web design, development, SEO or e-commerce. We reply within 24 hours."
+	keywords="contact IdeoXpert, web development agency contact, free website quote, hire web developer, website design consultation, web solutions Pakistan, IdeoXpert contact"
+	image="/assets/images/ideo expert-02.png"
+	pageType="ContactPage"
+	discovery={false}
+	breadcrumbs={[{ name: 'Contact Us', path: '/contact' }]}
+>
+	<section class="section section--flush contact">
+		<div class="container">
+			<div class="frame brackets contact__frame">
+				<div class="contact__intro">
+					<div class="tex-layer tex-dots contact__dots" aria-hidden="true"></div>
+					<h1 class="h1" data-split>Let's talk about your project<span class="dot">.</span></h1>
+					<p class="contact__lead" data-reveal>Reach out to discuss your idea, get an estimate, or ask for honest advice. We reply within 24 hours.</p>
+
+					<ol class="csteps" role="list" data-reveal-group="80">
+						{steps.map((s) => (
+							<li class="cstep" data-reveal>
+								<span class="cstep__icon"><Icon name={s.icon} size={18} /></span>
+								<div>
+									<h2 class="cstep__title">{s.title}</h2>
+									<p>{s.text}</p>
+								</div>
+							</li>
+						))}
+					</ol>
+
+					<div class="ccards" data-reveal-group="80">
+						<a class="ccard" href={`mailto:${site.email}`} data-reveal>
+							<span class="ccard__label"><Icon name="mail" size={16} /> Email us</span>
+							<strong>{site.email}</strong>
+						</a>
+						<a class="ccard" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" data-reveal>
+							<span class="ccard__label"><Icon name="whatsapp" size={16} /> Call or WhatsApp</span>
+							<strong>{site.phoneDisplay}</strong>
+						</a>
+					</div>
+				</div>
+
+				<form class="fform contact__form" action="/api/send-mail.php" method="post" novalidate data-mail-form id="form">
+					<input type="hidden" name="form" value="contact" />
+					<input type="hidden" name="ts" value="" />
+					<div class="fform__trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+					<div class="fform__row">
+						<div class="ffield">
+							<label for="f-name">Your name <span>*</span></label>
+							<input id="f-name" type="text" name="name" placeholder="Full name" autocomplete="name" required />
+						</div>
+						<div class="ffield">
+							<label for="f-email">Email <span>*</span></label>
+							<input id="f-email" type="email" name="email" placeholder="name@company.com" autocomplete="email" required />
+						</div>
+					</div>
+					<div class="fform__row">
+						<div class="ffield">
+							<label for="f-phone">Phone / WhatsApp</label>
+							<input id="f-phone" type="tel" name="phone" placeholder="+92 300 1234567" autocomplete="tel" />
+						</div>
+						<div class="ffield">
+							<label for="f-company">Company or website</label>
+							<input id="f-company" type="text" name="company" placeholder="yourcompany.com" autocomplete="organization" />
+						</div>
+					</div>
+					<Select name="service" id="f-service" label="What do you need?" placeholder="Choose a service" options={[...services.map((x) => ({ value: x.name, label: x.name })), { value: 'Not sure yet', label: 'Not sure yet' }]} />
+					<div class="ffield">
+						<label for="f-message">Tell us about your project <span>*</span></label>
+						<textarea id="f-message" name="message" rows="5" placeholder="A few lines about your business and what you want to achieve" required></textarea>
+					</div>
+					<Button type="submit" variant="primary" class="fform__submit">Send message</Button>
+					<p class="fform__status" data-form-status role="status" aria-live="polite" hidden></p>
+					<p class="fform__note">We reply within 24 hours.</p>
+				</form>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.contact {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(56px, 7vw, 104px);
+	}
+
+	.contact__frame {
+		display: grid;
+	}
+
+	@media (min-width: 1024px) {
+		.contact__frame {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.contact__intro {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		gap: 28px;
+		align-content: start;
+		justify-items: start;
+		padding: clamp(32px, 5vw, 80px) clamp(24px, 4.5vw, 72px);
+	}
+
+	.contact__dots {
+		-webkit-mask-image: radial-gradient(ellipse 70% 50% at 20% 10%, #000 10%, transparent 70%);
+		mask-image: radial-gradient(ellipse 70% 50% at 20% 10%, #000 10%, transparent 70%);
+		opacity: 0.8;
+	}
+
+	.contact__lead {
+		max-width: 46ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	.csteps {
+		display: grid;
+		gap: 24px;
+		margin: 8px 0 0;
+	}
+
+	.cstep {
+		display: grid;
+		grid-template-columns: 40px 1fr;
+		gap: 16px;
+	}
+
+	.cstep__icon {
+		display: grid;
+		place-items: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--green-50);
+		color: var(--green-ink);
+	}
+
+	.cstep__title {
+		margin-bottom: 4px;
+		font-size: 1.1875rem;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		color: var(--green-ink);
+	}
+
+	.cstep p {
+		color: var(--ink-soft);
+		max-width: 48ch;
+	}
+
+	.ccards {
+		display: grid;
+		gap: 12px;
+		width: 100%;
+		margin-top: 8px;
+	}
+
+	@media (min-width: 640px) {
+		.ccards {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.ccard {
+		display: grid;
+		gap: 10px;
+		padding: 20px;
+		background: var(--paper-2);
+		transition: background 0.3s;
+	}
+
+	.ccard:hover {
+		background: var(--green-100);
+	}
+
+	.ccard__label {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.ccard strong {
+		font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+		overflow-wrap: anywhere;
+	}
+
+	/* ---------- Form ---------- */
+	.contact__form {
+		padding: clamp(28px, 4.5vw, 64px);
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1024px) {
+		.contact__form {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+</style>
+
+<script>
+	import '../scripts/mail-form';
+</script>

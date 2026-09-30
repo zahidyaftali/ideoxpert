@@ -1,0 +1,10 @@
+# robots.txt for IdeoXpert
+# https://ideoxpert.com/robots.txt
+#
+# All crawlers are welcome, including search engines and AI assistants
+# (Googlebot, Bingbot, GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot).
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ideoxpert.com/sitemap.xml

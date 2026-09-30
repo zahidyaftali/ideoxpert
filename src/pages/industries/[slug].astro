@@ -1,0 +1,610 @@
+---
+// Industry page (/industries/<slug>), laid out like the reference: dark hero,
+// what we build, figures, success stories, what makes it work, FAQ.
+import type { GetStaticPaths } from 'astro';
+import fs from 'node:fs';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import ServiceIcon from '../../components/ServiceIcon.astro';
+import WorkStack from '../../components/WorkStack.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Faq from '../../components/Faq.astro';
+import { industries, type Industry } from '../../data/industries';
+import { projects } from '../../data/projects';
+import { services, countries, site } from '../../data/site';
+import { faqSchema } from '../../data/faqs';
+
+export const getStaticPaths = (() => industries.map((industry) => ({ params: { slug: industry.slug }, props: { industry } }))) satisfies GetStaticPaths;
+
+interface Props {
+	industry: Industry;
+}
+
+const { industry: ind } = Astro.props;
+const work = ind.projects.map((id) => projects.find((p) => p.id === id)!).filter(Boolean);
+const svc = ind.services.map((slug) => services.find((s) => s.slug === slug)!).filter(Boolean);
+const countryNames = [...new Set(work.map((p) => p.country).filter(Boolean))].map((c) => countries.find((x) => x.code === c)!.name);
+const pagesLive = work.reduce((n, p) => n + p.facts.pages, 0);
+const seoReady = work.filter((p) => p.facts.seo.good).length;
+// White cut-out logos (logo-white.png) for the dark hero, only the ones that
+// read well small (the same set as the client marquee). Each is sized by its
+// shape so wide wordmarks and square badges look about equally heavy.
+const logos = work
+	.filter((p) => p.facts.logo?.marquee)
+	.slice(0, 5)
+	.map((p) => {
+		const png = fs.readFileSync(`public/assets/images/work/${p.id}/logo-white.png`);
+		const ratio = png.readUInt32BE(16) / png.readUInt32BE(20);
+		// Same area for every logo, between 18 and 40px tall and at most 150px wide.
+		const height = Math.round(Math.min(40, 150 / ratio, Math.max(18, Math.sqrt(2900 / ratio))));
+		return { p, width: Math.round(height * ratio), height };
+	});
+const others = industries.filter((i) => i.slug !== ind.slug);
+
+const figures = [
+	{ value: String(work.length), label: `websites built for ${ind.audience}` },
+	{ value: String(Math.max(countryNames.length, 1)), label: countryNames.length > 1 ? 'countries' : 'country and counting' },
+	pagesLive > 0 && { value: `${pagesLive}`, label: 'pages live across these sites' },
+	seoReady > 0 && { value: `${seoReady}/${work.length}`, label: 'set up with SEO from launch' },
+].filter(Boolean) as { value: string; label: string }[];
+
+const schema = [
+	{
+		'@type': 'ItemList',
+		name: `${ind.name} websites by IdeoXpert`,
+		itemListElement: work.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/work/${p.slug}`, name: p.headline })),
+	},
+	faqSchema(ind.faqs),
+];
+const crumbs = [
+	{ name: 'Industries', path: '/industries' },
+	{ name: ind.name, path: `/industries/${ind.slug}` },
+];
+---
+<BaseLayout title={ind.meta.title} description={ind.meta.description} keywords={ind.meta.keywords} image={work[0]?.image} pageType="CollectionPage" breadcrumbs={crumbs} schema={schema}>
+	<!-- Hero -->
+	<section class="ihero">
+		<div class="container">
+		<div class="ihero__box grain grain--dark">
+		<div class="aurora ihero__aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+		<div class="ihero__grid">
+			<div class="ihero__copy">
+				<nav class="ihero__crumbs" aria-label="Breadcrumb" data-reveal>
+					<a href="/">Home</a> <Icon name="arrow-right" size={12} /> <a href="/industries">Industries</a> <Icon name="arrow-right" size={12} /> <span aria-current="page">{ind.name}</span>
+				</nav>
+				<h1 class="h1 ihero__title" data-split>{ind.title}</h1>
+				<p class="ihero__lead" data-reveal style="--d:200">{ind.lead}</p>
+				<div class="btn-row" data-reveal style="--d:300">
+					<Button href="#discovery" variant="primary">Get in touch</Button>
+					<Button href="#work" variant="ghost-light" icon={false}>See the work</Button>
+				</div>
+				{logos.length > 0 && (
+					<ul class="ihero__logos" role="list" data-reveal style="--d:400">
+						{logos.map(({ p, width, height }) => (
+							<li><img src={`/assets/images/work/${p.id}/logo-white.webp`} alt={p.name} width={width} height={height} loading="lazy" decoding="async" /></li>
+						))}
+					</ul>
+				)}
+			</div>
+			<div class="ihero__visual">
+				<WorkStack projects={work} />
+			</div>
+		</div>
+		</div>
+		</div>
+	</section>
+
+	<!-- What we build -->
+	<section class="section ibuild">
+		<div class="container">
+			<div class="ibuild__head">
+				<h2 class="h2" data-split>What we build for {ind.audience}</h2>
+				<p class="subtitle" data-reveal>Everything a {ind.name.toLowerCase()} website needs, from the first design to the day-to-day upkeep.</p>
+			</div>
+			<ul class="ibuild__grid" role="list" data-reveal-group="60">
+				{ind.builds.map((b) => (
+					<li class="icard" data-reveal>
+						<span class="icard__tex" aria-hidden="true"></span>
+						<ServiceIcon slug={b.icon} size={40} />
+						<h3 class="icard__title">{b.title}</h3>
+						<p>{b.text}</p>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Figures -->
+	<section class="section section--dark grain ifig">
+		<div class="container ifig__grid">
+			<div class="ifig__copy">
+				<h2 class="h2" data-split>Real work for real {ind.name.toLowerCase()} businesses</h2>
+				<p data-reveal>Every figure here comes from live websites we built{countryNames.length ? `, for clients in ${countryNames.join(', ').replace(/, ([^,]*)$/, ' and $1')}` : ''}.</p>
+				<div data-reveal><Button href="/portfolio" variant="light">All projects</Button></div>
+			</div>
+			<dl class="ifig__stats" data-reveal-group="80">
+				{figures.map((f) => (
+					<div class="ifig__stat" data-reveal>
+						<dd>{f.value}</dd>
+						<dt>{f.label}</dt>
+					</div>
+				))}
+			</dl>
+		</div>
+	</section>
+
+	<!-- Success stories -->
+	<section class="section iwork" id="work">
+		<div class="container">
+			<div class="iwork__head">
+				<h2 class="h2" data-split>Success stories</h2>
+				<a class="link link--green" href="/portfolio" data-reveal>View all work <Icon name="arrow-right" /></a>
+			</div>
+			<ul class="iwork__grid" role="list">
+				{work.map((p, i) => (
+					<li data-reveal style={`--d:${(i % 3) * 70}`}><ProjectCard project={p} /></li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<!-- What makes it work: dark card + accordion, like the reference -->
+	<section class="section ineeds">
+		<div class="container ineeds__grid">
+			<div class="ineeds__card grain grain--dark" data-reveal>
+				<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+				<h2 class="h2 ineeds__title">What makes a {ind.name.toLowerCase()} website work</h2>
+				<p>The things that decide whether a visitor becomes a customer, and how we handle each one.</p>
+				<ul class="ineeds__svc" role="list">
+					{svc.map((s) => <li><a href={`/${s.slug}`}>{s.name} <Icon name="arrow-up-right" size={14} /></a></li>)}
+				</ul>
+			</div>
+			<div class="ineeds__list" data-acc-single>
+				{ind.needs.map((n, i) => (
+					<details class="acc ineed" open={i === 0} data-reveal>
+						<summary>
+							<span class="ineed__q">{n.title}</span>
+							<span class="acc__icon" aria-hidden="true"></span>
+						</summary>
+						<div class="acc__body"><p>{n.text}</p></div>
+					</details>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<Faq items={ind.faqs} title={`Questions from ${ind.audience}`} />
+
+	<!-- Other industries -->
+	<section class="section section--tight iother">
+		<div class="container">
+			<h2 class="iother__title">Other industries we work with</h2>
+			<ul class="iother__list" role="list">
+				{others.map((o) => <li><a href={`/industries/${o.slug}`}>{o.name} <Icon name="arrow-up-right" size={16} /></a></li>)}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	/* ---------- Hero ---------- */
+	/* Dark framed block below the header (keeps the menu readable). */
+	.ihero {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(24px, 3vw, 48px);
+	}
+
+	.ihero__box {
+		position: relative;
+		isolation: isolate;
+		padding: clamp(36px, 5vw, 80px) clamp(24px, 4.5vw, 72px);
+		background: var(--night);
+		color: var(--on-night-muted);
+		overflow: hidden;
+		--heading: var(--on-night);
+		--line: var(--night-line);
+	}
+
+	.ihero__aurora i {
+		--o: 0.5;
+	}
+
+	.ihero__grid {
+		display: grid;
+		gap: 56px;
+		align-items: center;
+	}
+
+	@media (min-width: 1024px) {
+		.ihero__grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 72px;
+		}
+	}
+
+	.ihero__copy {
+		display: grid;
+		gap: 26px;
+		justify-items: start;
+	}
+
+	.ihero__crumbs {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.875rem;
+	}
+
+	.ihero__crumbs a:hover,
+	.ihero__crumbs [aria-current] {
+		color: var(--on-night);
+	}
+
+	.ihero__title {
+		max-width: 16ch;
+		color: var(--on-night);
+	}
+
+	.ihero__lead {
+		max-width: 52ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.6;
+		color: rgba(238, 243, 239, 0.82);
+	}
+
+	.ihero__logos {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 18px 32px;
+		margin: 12px 0 0;
+		padding-top: 24px;
+		border-top: 1px solid var(--night-line);
+	}
+
+	.ihero__logos img {
+		display: block;
+		object-fit: contain;
+		opacity: 0.78;
+		transition: opacity 0.3s;
+	}
+
+	.ihero__logos img:hover {
+		opacity: 1;
+	}
+
+	.ihero__visual {
+		display: grid;
+		place-items: center;
+	}
+
+	/* Let the columns shrink on phones (the screenshot stack has a 640px preferred width). */
+	.ihero__grid > * {
+		min-width: 0;
+	}
+
+	/* ---------- What we build ---------- */
+	.ibuild__head {
+		display: grid;
+		gap: 16px;
+		margin-bottom: clamp(36px, 4vw, 56px);
+	}
+
+	.ibuild__grid {
+		display: grid;
+		margin: 0;
+		border-top: 1px solid var(--line);
+		border-left: 1px solid var(--line);
+	}
+
+	@media (min-width: 700px) {
+		.ibuild__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.ibuild__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.icard {
+		position: relative;
+		isolation: isolate;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		min-height: 280px;
+		padding: clamp(24px, 2.4vw, 32px);
+		border-right: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+		overflow: hidden;
+		transition: background 0.3s;
+	}
+
+	.icard:hover {
+		background: var(--card);
+	}
+
+	.icard__tex {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: -1;
+		width: 45%;
+		height: 55%;
+		background-image: radial-gradient(rgba(0, 0, 0, 0.14) 1px, transparent 1.2px);
+		background-size: 6px 6px;
+		-webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 20%, transparent 75%);
+		mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 20%, transparent 75%);
+	}
+
+	.icard :global(.svc-icon) {
+		color: var(--ink);
+		margin-bottom: auto;
+	}
+
+	.icard__title {
+		margin-top: 40px;
+		font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+	}
+
+	.icard p {
+		color: var(--muted);
+		line-height: 1.6;
+	}
+
+	/* ---------- Figures ---------- */
+	.ifig__grid {
+		display: grid;
+		gap: 48px;
+		align-items: center;
+	}
+
+	@media (min-width: 1024px) {
+		.ifig__grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 96px;
+		}
+	}
+
+	.ifig__copy {
+		display: grid;
+		gap: 22px;
+		justify-items: start;
+	}
+
+	.ifig__copy p {
+		max-width: 46ch;
+		color: var(--on-night-muted);
+	}
+
+	.ifig__stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px 32px;
+		margin: 0;
+	}
+
+	.ifig__stat {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 8px;
+		padding-top: 18px;
+		border-top: 1px solid var(--night-line);
+	}
+
+	.ifig__stat dd {
+		margin: 0;
+		font-size: clamp(2.5rem, 1.6rem + 2.6vw, 4.25rem);
+		line-height: 1;
+		letter-spacing: -0.05em;
+		font-weight: 500;
+		color: var(--on-night);
+	}
+
+	.ifig__stat dt {
+		font-size: 0.9375rem;
+	}
+
+	/* ---------- Work ---------- */
+	.iwork__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: clamp(32px, 4vw, 48px);
+	}
+
+	.iwork__grid {
+		display: grid;
+		gap: 20px;
+		margin: 0;
+	}
+
+	@media (min-width: 700px) {
+		.iwork__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.iwork__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	/* ---------- Needs ---------- */
+	.ineeds__grid {
+		display: grid;
+		gap: 32px;
+		align-items: start;
+	}
+
+	@media (min-width: 1024px) {
+		.ineeds__grid {
+			grid-template-columns: 0.9fr 1.1fr;
+			gap: 56px;
+		}
+
+		.ineeds__card {
+			position: sticky;
+			top: 110px;
+		}
+	}
+
+	.ineeds__card {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		gap: 20px;
+		padding: clamp(28px, 3.5vw, 48px);
+		background: var(--night);
+		color: var(--on-night-muted);
+		overflow: hidden;
+		--heading: var(--on-night);
+	}
+
+	.ineeds__card .aurora i {
+		--o: 0.45;
+	}
+
+	.ineeds__title {
+		font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem);
+	}
+
+	.ineeds__svc {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 8px 0 0;
+	}
+
+	.ineeds__svc a {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px;
+		border: 1px solid var(--night-line);
+		color: var(--on-night);
+		font-size: 0.875rem;
+		transition:
+			background 0.3s,
+			color 0.3s;
+	}
+
+	.ineeds__svc a:hover {
+		background: var(--green);
+		border-color: var(--green);
+		color: var(--ink);
+	}
+
+	.ineeds__list {
+		border-top: 1px solid var(--line-2);
+	}
+
+	.ineed {
+		border-bottom: 1px solid var(--line-2);
+	}
+
+	.ineed summary {
+		display: grid;
+		grid-template-columns: 1fr 28px;
+		align-items: center;
+		gap: 12px;
+		padding: 24px 0;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.ineed summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.ineed__q {
+		font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+		font-weight: 500;
+		letter-spacing: -0.025em;
+	}
+
+	.ineed :global(.acc__body) p {
+		padding: 0 40px 24px 0;
+		color: var(--muted);
+		line-height: 1.65;
+	}
+
+	/* Plus/minus icon (same as the FAQ). */
+	.ineed .acc__icon {
+		position: relative;
+		width: 28px;
+		height: 28px;
+		border: 1px solid var(--line-2);
+		border-radius: 50%;
+	}
+
+	.ineed .acc__icon::before,
+	.ineed .acc__icon::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 10px;
+		height: 1.5px;
+		margin: -0.75px 0 0 -5px;
+		background: currentColor;
+		transition: transform 0.4s var(--ease-out);
+	}
+
+	.ineed .acc__icon::after {
+		transform: rotate(90deg);
+	}
+
+	.ineed[open] .acc__icon {
+		background: var(--green);
+		border-color: var(--green);
+	}
+
+	.ineed[open] .acc__icon::after {
+		transform: none;
+	}
+
+	/* ---------- Other industries ---------- */
+	.iother__title {
+		margin-bottom: 20px;
+		font-size: 1.25rem;
+		font-weight: 500;
+	}
+
+	.iother__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin: 0;
+	}
+
+	.iother__list a {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		height: 50px;
+		padding: 0 20px;
+		border: 1px solid var(--line-2);
+		font-size: 1rem;
+		transition:
+			background 0.3s,
+			color 0.3s,
+			border-color 0.3s;
+	}
+
+	.iother__list a:hover {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--white);
+	}
+</style>

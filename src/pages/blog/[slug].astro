@@ -1,0 +1,577 @@
+---
+// Blog article (/blog/<slug>), laid out like the reference: centred title and
+// meta, share row, article with a sticky "On this page" panel and CTA, FAQs,
+// similar posts, then the discovery form (from BaseLayout).
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, readingTime, cover, formatDate, type Post } from '../../data/blog';
+import { site, services } from '../../data/site';
+import { faqSchema } from '../../data/faqs';
+import { withBrand } from '../../data/seo';
+
+export const getStaticPaths = (async () => {
+	const posts = await getPosts();
+	return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+	post: Post;
+	posts: Post[];
+}
+
+const { post, posts } = Astro.props;
+const { Content, headings } = await render(post);
+const d = post.data;
+const toc = headings.filter((h) => h.depth === 2);
+const service = services.find((s) => s.slug === d.service);
+const url = `${site.url}/blog/${post.id}`;
+const minutes = readingTime(post);
+// Same category first, then the newest of the rest.
+const similar = [...posts.filter((p) => p !== post && p.data.category === d.category), ...posts.filter((p) => p !== post && p.data.category !== d.category)].slice(0, 3);
+const share = [
+	{ name: 'LinkedIn', icon: 'linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}` },
+	{ name: 'Facebook', icon: 'facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}` },
+	{ name: 'X', icon: 'x', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(d.title)}` },
+	{ name: 'WhatsApp', icon: 'whatsapp', href: `https://wa.me/?text=${encodeURIComponent(`${d.title} ${url}`)}` },
+] as const;
+
+const schema = [
+	{
+		'@type': 'BlogPosting',
+		'@id': `${url}#article`,
+		headline: d.title,
+		description: d.description,
+		image: new URL(cover(post), site.url).href,
+		datePublished: d.published.toISOString(),
+		dateModified: (d.updated ?? d.published).toISOString(),
+		articleSection: d.category,
+		keywords: d.keywords,
+		wordCount: (post.body ?? '').split(/\s+/).filter(Boolean).length,
+		author: { '@id': `${site.url}/#organization` },
+		publisher: { '@id': `${site.url}/#organization` },
+		mainEntityOfPage: { '@id': `${url}#webpage` },
+		isPartOf: { '@id': `${site.url}/blog#blog` },
+	},
+	...(d.faqs.length ? [faqSchema(d.faqs)] : []),
+];
+---
+<BaseLayout
+	title={withBrand(d.metaTitle ?? d.title)}
+	description={d.description}
+	keywords={d.keywords}
+	image={cover(post)}
+	breadcrumbs={[
+		{ name: 'Blog', path: '/blog' },
+		{ name: d.title, path: `/blog/${post.id}` },
+	]}
+	schema={schema}
+	article={{ published: d.published, modified: d.updated, section: d.category }}
+	discoveryService={service?.name}
+>
+	<article class="post">
+		<header class="container phead">
+			<a class="phead__back" href="/blog"><Icon name="arrow-left" size={14} /> Blog</a>
+			<span class="phead__cat">{d.category}</span>
+			<h1 class="h1 phead__title" data-split>{d.title}</h1>
+			<p class="phead__meta">
+				<Icon name="calendar" size={15} />
+				<span>Published <time datetime={d.published.toISOString()}>{formatDate(d.published)}</time></span>
+				{d.updated && <span>· Updated <time datetime={d.updated.toISOString()}>{formatDate(d.updated)}</time></span>}
+				<span>· {minutes} min read</span>
+			</p>
+		</header>
+
+		<div class="container">
+			<div class="pbar">
+				<ul class="pshare" role="list" aria-label="Share this article">
+					{share.map((s) => (
+						<li><a href={s.href} target="_blank" rel="noopener" aria-label={`Share on ${s.name}`}><Icon name={s.icon} size={16} /></a></li>
+					))}
+					<li><button type="button" aria-label="Copy link" data-copy-link={url}><Icon name="link" size={16} /></button></li>
+				</ul>
+				<p class="pbar__by">Written by <a href="/about">the IdeoXpert team</a></p>
+			</div>
+
+			<div class="pgrid">
+				<div class="prose" data-reveal>
+					<Content />
+
+					{d.faqs.length > 0 && (
+						<section class="pfaq" aria-labelledby="faqs">
+							<h2 id="faqs">FAQs</h2>
+							<div data-acc-single>
+								{d.faqs.map((f, i) => (
+									<details class="acc pfaq__item">
+										<summary><span>{i + 1}. {f.q}</span><span class="acc__icon" aria-hidden="true"></span></summary>
+										<div class="acc__body"><p>{f.a}</p></div>
+									</details>
+								))}
+							</div>
+						</section>
+					)}
+				</div>
+
+				<aside class="paside">
+					<details class="ptoc" open>
+						<summary>On this page <Icon name="plus" size={16} /></summary>
+						<ol role="list">
+							{toc.map((h) => <li><a href={`#${h.slug}`} data-toc={h.slug}>{h.text}</a></li>)}
+							{d.faqs.length > 0 && <li><a href="#faqs" data-toc="faqs">FAQs</a></li>}
+						</ol>
+					</details>
+					{service && (
+						<div class="pcta">
+							<p class="pcta__title">Need help with {service.name.toLowerCase()}?</p>
+							<p class="pcta__text">{service.summary}</p>
+							<Button href={`/${service.slug}`} variant="dark" size="sm">See the service</Button>
+							<a class="link link--green pcta__alt" href="#discovery">Or book a free call <Icon name="arrow-right" /></a>
+						</div>
+					)}
+				</aside>
+			</div>
+		</div>
+	</article>
+
+	<section class="section psim">
+		<div class="container">
+			<div class="psim__head">
+				<h2 class="h2" data-split>Similar posts</h2>
+				<a class="link link--green" href="/blog">All articles <Icon name="arrow-right" /></a>
+			</div>
+			<ul class="psim__grid" role="list">
+				{similar.map((p) => (
+					<li>
+						<a class="scard" href={`/blog/${p.id}`}>
+							<span class="scard__img"><img src={cover(p)} alt="" width="1200" height="630" loading="lazy" decoding="async" /></span>
+							<span class="scard__tag">{p.data.category}</span>
+							<span class="scard__title">{p.data.title}</span>
+							<span class="scard__desc">{p.data.description}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	// Copy-link button and "On this page" highlight.
+	document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((b) =>
+		b.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(b.dataset.copyLink!);
+				b.classList.add('is-done');
+				setTimeout(() => b.classList.remove('is-done'), 1600);
+			} catch {}
+		}),
+	);
+	const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')].map((a) => [a.dataset.toc!, a]));
+	const io = new IntersectionObserver(
+		(entries) => {
+			for (const e of entries) {
+				if (!e.isIntersecting) continue;
+				links.forEach((a) => a.classList.remove('is-current'));
+				links.get(e.target.id)?.classList.add('is-current');
+			}
+		},
+		{ rootMargin: '-20% 0px -70% 0px' },
+	);
+	document.querySelectorAll('.prose h2[id]').forEach((h) => io.observe(h));
+</script>
+
+<style>
+	.phead {
+		display: grid;
+		justify-items: center;
+		gap: 20px;
+		padding-top: calc(var(--topbar-h) + var(--header-h) + clamp(28px, 4vw, 56px));
+		padding-bottom: clamp(32px, 4vw, 48px);
+		text-align: center;
+	}
+
+	.phead__back {
+		justify-self: start;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.phead__back:hover {
+		color: var(--ink);
+	}
+
+	.phead__cat {
+		padding: 6px 12px;
+		background: var(--paper-2);
+		font-size: 0.8125rem;
+		font-weight: 550;
+		color: var(--green-ink);
+	}
+
+	.phead__title {
+		max-width: 22ch;
+		font-size: clamp(2rem, 1.2rem + 2.8vw, 3.75rem);
+	}
+
+	.phead__meta {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 6px;
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	/* Share bar */
+	.pbar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 16px 0;
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.pshare {
+		display: flex;
+		gap: 6px;
+		margin: 0;
+	}
+
+	.pshare a,
+	.pshare button {
+		display: grid;
+		place-items: center;
+		width: 38px;
+		height: 38px;
+		border: 1px solid var(--line-2);
+		color: var(--ink);
+		transition:
+			background 0.3s,
+			color 0.3s,
+			border-color 0.3s;
+	}
+
+	.pshare a:hover,
+	.pshare button:hover,
+	.pshare button:global(.is-done) {
+		background: var(--green);
+		border-color: var(--green);
+	}
+
+	.pbar__by {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.pbar__by a {
+		color: var(--ink);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	/* Article + aside */
+	.pgrid {
+		display: grid;
+		gap: 40px;
+		padding-block: clamp(36px, 4vw, 56px) clamp(56px, 7vw, 96px);
+	}
+
+	@media (min-width: 1024px) {
+		.pgrid {
+			grid-template-columns: minmax(0, 1fr) 320px;
+			gap: clamp(48px, 6vw, 96px);
+		}
+
+		.paside {
+			position: sticky;
+			top: 110px;
+			align-self: start;
+		}
+	}
+
+	.prose {
+		max-width: 74ch;
+		font-size: 1.0625rem;
+		line-height: 1.75;
+		color: var(--ink-soft);
+	}
+
+	.prose :global(h2) {
+		margin: 48px 0 14px;
+		font-size: clamp(1.5rem, 1.2rem + 0.9vw, 2rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+		line-height: 1.2;
+		color: var(--ink);
+		scroll-margin-top: 110px;
+	}
+
+	.prose :global(h3) {
+		margin: 28px 0 8px;
+		font-size: 1.1875rem;
+		font-weight: 600;
+		letter-spacing: -0.015em;
+		color: var(--ink);
+	}
+
+	.prose :global(p),
+	.prose :global(ul),
+	.prose :global(ol) {
+		margin: 0 0 18px;
+	}
+
+	.prose :global(ul),
+	.prose :global(ol) {
+		padding-left: 22px;
+	}
+
+	.prose :global(li) {
+		margin-bottom: 8px;
+	}
+
+	.prose :global(li)::marker {
+		color: var(--green-ink);
+	}
+
+	.prose :global(strong) {
+		color: var(--ink);
+		font-weight: 600;
+	}
+
+	.prose :global(a) {
+		color: var(--green-ink);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.prose :global(a:hover) {
+		color: var(--ink);
+	}
+
+	/* FAQs */
+	.pfaq {
+		margin-top: 56px;
+	}
+
+	.pfaq__item {
+		border: 1px solid var(--line);
+		margin-bottom: 8px;
+		background: var(--card);
+	}
+
+	.pfaq__item summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 16px 20px;
+		cursor: pointer;
+		list-style: none;
+		font-weight: 550;
+		color: var(--ink);
+	}
+
+	.pfaq__item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.pfaq__item :global(.acc__body) p {
+		padding: 0 20px 18px;
+		margin: 0;
+	}
+
+	.pfaq__item .acc__icon {
+		position: relative;
+		flex: none;
+		width: 24px;
+		height: 24px;
+	}
+
+	.pfaq__item .acc__icon::before,
+	.pfaq__item .acc__icon::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 12px;
+		height: 1.5px;
+		margin: -0.75px 0 0 -6px;
+		background: currentColor;
+		transition: transform 0.4s var(--ease-out);
+	}
+
+	.pfaq__item .acc__icon::after {
+		transform: rotate(90deg);
+	}
+
+	.pfaq__item[open] .acc__icon::after {
+		transform: none;
+	}
+
+	/* Aside */
+	.paside {
+		display: grid;
+		gap: 16px;
+	}
+
+	.ptoc {
+		border: 1px solid var(--line);
+		background: var(--card);
+	}
+
+	.ptoc summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 20px;
+		cursor: pointer;
+		list-style: none;
+		font-size: 0.9375rem;
+		font-weight: 550;
+	}
+
+	.ptoc summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.ptoc[open] summary :global(svg) {
+		transform: rotate(45deg);
+	}
+
+	.ptoc summary :global(svg) {
+		transition: transform 0.3s;
+	}
+
+	.ptoc ol {
+		display: grid;
+		gap: 2px;
+		margin: 0;
+		padding: 0 20px 16px;
+		border-top: 1px solid var(--line);
+		padding-top: 12px;
+	}
+
+	.ptoc a {
+		display: block;
+		padding: 6px 0 6px 12px;
+		border-left: 2px solid transparent;
+		font-size: 0.875rem;
+		line-height: 1.4;
+		color: var(--muted);
+		transition:
+			color 0.3s,
+			border-color 0.3s;
+	}
+
+	.ptoc a:hover,
+	.ptoc a:global(.is-current) {
+		color: var(--ink);
+		border-left-color: var(--green);
+	}
+
+	.pcta {
+		display: grid;
+		gap: 12px;
+		justify-items: start;
+		padding: 22px 20px;
+		border: 1px solid var(--line);
+		background: var(--card);
+	}
+
+	.pcta__title {
+		font-size: 1.125rem;
+		font-weight: 550;
+		letter-spacing: -0.02em;
+	}
+
+	.pcta__text {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.pcta__alt {
+		font-size: 0.875rem;
+	}
+
+	/* Similar posts */
+	.psim__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: clamp(28px, 3vw, 40px);
+	}
+
+	.psim__grid {
+		display: grid;
+		gap: 20px;
+		margin: 0;
+	}
+
+	@media (min-width: 800px) {
+		.psim__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.scard {
+		display: grid;
+		gap: 10px;
+		align-content: start;
+		height: 100%;
+		padding-bottom: 8px;
+	}
+
+	.scard__img {
+		display: block;
+		overflow: hidden;
+		border: 1px solid var(--line);
+	}
+
+	.scard__img img {
+		width: 100%;
+		height: auto;
+		transition: transform 0.8s var(--ease-out);
+	}
+
+	.scard:hover .scard__img img {
+		transform: scale(1.03);
+	}
+
+	.scard__tag {
+		justify-self: start;
+		margin-top: 6px;
+		padding: 4px 10px;
+		background: var(--green-50);
+		color: var(--green-ink);
+		font-size: 0.8125rem;
+		font-weight: 550;
+	}
+
+	.scard__title {
+		font-size: 1.125rem;
+		font-weight: 550;
+		letter-spacing: -0.02em;
+		line-height: 1.3;
+	}
+
+	.scard:hover .scard__title {
+		color: var(--green-ink);
+	}
+
+	.scard__desc {
+		font-size: 0.875rem;
+		color: var(--muted);
+		line-height: 1.55;
+	}
+</style>

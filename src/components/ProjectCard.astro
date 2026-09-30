@@ -1,0 +1,161 @@
+---
+// Portfolio card, as on the reference: screenshot with a "View case study"
+// button on hover, the project title, two lines on what we delivered, and
+// the industry.
+import type { Project } from '../data/projects';
+import Icon from './Icon.astro';
+
+interface Props {
+	project: Project;
+	featured?: boolean;
+	eager?: boolean;
+}
+
+const { project: p, featured = false, eager = false } = Astro.props;
+---
+<article class="pcard">
+	<a class="pcard__media" href={`/work/${p.slug}`} aria-label={`${p.name} case study`}>
+		<img src={p.thumb} srcset={p.srcset} sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw" alt={`${p.name} website by IdeoXpert`} width="960" height="600" loading={eager ? 'eager' : 'lazy'} decoding="async" draggable="false" />
+		{featured && <span class="pcard__badge"><Icon name="spark" size={14} /> Featured case study</span>}
+		<span class="pcard__overlay" aria-hidden="true">
+			<span class="pcard__btn"><Icon name="eye" size={18} /> View case study</span>
+		</span>
+	</a>
+	<div class="pcard__body">
+		<h3 class="pcard__title"><a href={`/work/${p.slug}`}>{p.headline}</a></h3>
+		<ul class="pcard__lines" role="list">
+			{p.lines.map((l) => <li><strong>{l.strong}</strong> {l.text}</li>)}
+		</ul>
+		<span class="pcard__tag">{p.industry}</span>
+	</div>
+</article>
+
+<style>
+	.pcard {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		background: var(--paper);
+		border: 1px solid var(--line);
+		transition: background 0.3s;
+	}
+
+	.pcard:hover {
+		background: var(--card);
+	}
+
+	.pcard__media {
+		position: relative;
+		display: block;
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+		background: var(--paper-2);
+	}
+
+	.pcard__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 0;
+		transition: transform 0.9s var(--ease-out);
+		user-select: none;
+	}
+
+	.pcard__badge {
+		position: absolute;
+		top: 14px;
+		left: 14px;
+		z-index: 2;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 7px 12px;
+		background: var(--green);
+		color: var(--ink);
+		font-size: 0.8125rem;
+		font-weight: 600;
+	}
+
+	.pcard__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		display: grid;
+		place-items: center;
+		background: rgba(13, 18, 16, 0.5);
+		opacity: 0;
+		transition: opacity 0.4s var(--ease-out);
+	}
+
+	.pcard__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 22px;
+		background: var(--green);
+		color: var(--ink);
+		font-size: 0.9375rem;
+		font-weight: 600;
+		transform: translateY(12px);
+		transition: transform 0.5s var(--ease-out);
+	}
+
+	.pcard__media:hover img,
+	.pcard__media:focus-visible img {
+		transform: scale(1.04);
+	}
+
+	.pcard__media:hover .pcard__overlay,
+	.pcard__media:focus-visible .pcard__overlay {
+		opacity: 1;
+	}
+
+	.pcard__media:hover .pcard__btn,
+	.pcard__media:focus-visible .pcard__btn {
+		transform: none;
+	}
+
+	.pcard__body {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+		flex: 1;
+		padding: clamp(20px, 2vw, 28px);
+	}
+
+	.pcard__title {
+		font-size: clamp(1.25rem, 1.05rem + 0.55vw, 1.625rem);
+		line-height: 1.22;
+		letter-spacing: -0.03em;
+		font-weight: 500;
+		text-wrap: balance;
+	}
+
+	.pcard__title a:hover {
+		color: var(--green-ink);
+	}
+
+	.pcard__lines {
+		display: grid;
+		gap: 6px;
+		margin: 0;
+		font-size: 0.9375rem;
+		line-height: 1.45;
+		color: var(--muted);
+	}
+
+	.pcard__lines strong {
+		color: var(--green-ink);
+		font-weight: 600;
+	}
+
+	.pcard__tag {
+		margin-top: auto;
+		padding: 7px 12px;
+		background: var(--paper-2);
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--ink-soft);
+	}
+</style>

@@ -1,0 +1,3786 @@
+{
+	"jazbahost-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 435
+			},
+			{
+				"file": "s2.webp",
+				"h": 876
+			},
+			{
+				"file": "s3.webp",
+				"h": 702
+			},
+			{
+				"file": "s4.webp",
+				"h": 463
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 3.98,
+			"marquee": true
+		},
+		"pages": 22,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": false,
+		"host": "Vercel",
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 8,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "HTML5",
+				"si": "siHtml5"
+			},
+			{
+				"name": "JavaScript",
+				"si": "siJavascript"
+			},
+			{
+				"name": "Vercel",
+				"si": "siVercel"
+			}
+		],
+		"built": [
+			{
+				"title": "Custom-coded, no page builder",
+				"text": "Jazba Host is hand-coded and deployed on Vercel, so pages stay light, load quickly and are free of template bloat."
+			},
+			{
+				"title": "22 pages, one clear structure",
+				"text": "Visitors find their way through Home, About, Services, Portfolio, Pricing and Contact, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Jazba Host offers."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#ec2d09"
+	},
+	"jazba-studio": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 962
+			},
+			{
+				"file": "s2.webp",
+				"h": 836
+			},
+			{
+				"file": "s3.webp",
+				"h": 668
+			},
+			{
+				"file": "s4.webp",
+				"h": 644
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 0.8,
+			"marquee": true
+		},
+		"pages": 2,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 3,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Jazba Studio team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "A clear, simple structure",
+				"text": "The menu keeps things simple: Rooms, Services, Equipment Rental, Locations and Book Studio Time."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#4e2e05"
+	},
+	"gahealthcaretraining-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 615
+			},
+			{
+				"file": "s2.webp",
+				"h": 459
+			},
+			{
+				"file": "s3.webp",
+				"h": 693
+			},
+			{
+				"file": "s4.webp",
+				"h": 504
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 3.91,
+			"marquee": true
+		},
+		"pages": 35,
+		"posts": 1,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": "Hostinger",
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the GA Healthcare Training team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "35 pages, one clear structure",
+				"text": "Visitors find their way through Home, About Us, Our Core Values, Meet the CEO, Student Testimonials and Trainings, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what GA Healthcare Training offers."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the GA Healthcare Training inbox."
+			}
+		],
+		"accent": null
+	},
+	"jazbaentertainment-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 1003
+			},
+			{
+				"file": "s2.webp",
+				"h": 788
+			},
+			{
+				"file": "s3.webp",
+				"h": 872
+			},
+			{
+				"file": "s4.webp",
+				"h": 412
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1.26,
+			"marquee": false
+		},
+		"pages": 0,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 6,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": false
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Jazba Entertainment team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "A clear, simple structure",
+				"text": "The menu keeps things simple: About, Services, Events, Studio, Artists and Contact."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#4d3616"
+	},
+	"jazbatickets-com": {
+		"sections": [],
+		"mobile": true,
+		"logo": {
+			"light": true,
+			"ratio": 2.76,
+			"marquee": true
+		},
+		"pages": 0,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": false,
+		"host": "Vercel",
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 6,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": false
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "HTML5",
+				"si": "siHtml5"
+			},
+			{
+				"name": "JavaScript",
+				"si": "siJavascript"
+			},
+			{
+				"name": "Tailwind CSS",
+				"si": "siTailwindcss"
+			},
+			{
+				"name": "Vercel",
+				"si": "siVercel"
+			}
+		],
+		"built": [
+			{
+				"title": "Custom-coded, no page builder",
+				"text": "Jazba Tickets is hand-coded with Tailwind CSS and deployed on Vercel, so pages stay light, load quickly and are free of template bloat."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Jazba Tickets inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": null
+	},
+	"abccranehire-com-au": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 673
+			},
+			{
+				"file": "s2.webp",
+				"h": 865
+			},
+			{
+				"file": "s3.webp",
+				"h": 479
+			},
+			{
+				"file": "s4.webp",
+				"h": 747
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 6.67,
+			"marquee": true
+		},
+		"pages": 8,
+		"posts": 141,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Rank Math",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Rank Math",
+				"img": "/assets/images/tools/rank-math.png"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the ABC Crane Hire team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "8 pages, one clear structure",
+				"text": "Visitors find their way through Home, About Us, Crane Hire, Locations, Crane Hire Perth and Crane Hire Rockingham, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Rank Math manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what ABC Crane Hire offers."
+			},
+			{
+				"title": "A blog with 141 articles",
+				"text": "Regular articles answer the questions customers search for and give Google fresh content to index."
+			}
+		],
+		"accent": "#2e5a85"
+	},
+	"brightwayconsultsolutions-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 702
+			},
+			{
+				"file": "s2.webp",
+				"h": 758
+			},
+			{
+				"file": "s3.webp",
+				"h": 893
+			},
+			{
+				"file": "s4.webp",
+				"h": 688
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1.8,
+			"marquee": true
+		},
+		"pages": 6,
+		"posts": 3,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 5,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Brightway Consult Solutions team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "6 pages, one clear structure",
+				"text": "Visitors find their way through About, Services, Invest, Brands, Events and CEO Message, with every page a click or two from the menu."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Brightway Consult Solutions inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#252e47"
+	},
+	"brightwaygroup-org": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 1022
+			},
+			{
+				"file": "s2.webp",
+				"h": 623
+			},
+			{
+				"file": "s3.webp",
+				"h": 547
+			},
+			{
+				"file": "s4.webp",
+				"h": 695
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": true,
+			"ratio": 7.97,
+			"marquee": true
+		},
+		"pages": 11,
+		"posts": 3,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 5,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Brightway Group team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "11 pages, one clear structure",
+				"text": "Visitors find their way through Home, About Us, CEO Message, Services, Companies and Contact Us, with every page a click or two from the menu."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Brightway Group inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#4a372d"
+	},
+	"ransfordaddo-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 702
+			},
+			{
+				"file": "s2.webp",
+				"h": 663
+			},
+			{
+				"file": "s3.webp",
+				"h": 630
+			},
+			{
+				"file": "s4.webp",
+				"h": 812
+			}
+		],
+		"mobile": true,
+		"logo": null,
+		"pages": 11,
+		"posts": 4,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 3,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Dr. Ransford Addo team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "11 pages, one clear structure",
+				"text": "Visitors find their way through DR. RANSFORD M. K. ADDO, Home, About, Book, Event and Advertise, with every page a click or two from the menu."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Dr. Ransford Addo inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#29364f"
+	},
+	"fijianrealestate-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 768
+			},
+			{
+				"file": "s2.webp",
+				"h": 564
+			},
+			{
+				"file": "s3.webp",
+				"h": 410
+			},
+			{
+				"file": "s4.webp",
+				"h": 396
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 3.58,
+			"marquee": true
+		},
+		"pages": 22,
+		"posts": 0,
+		"languages": 2,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": "Hostinger",
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 4,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": false
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Fijian Real Estate team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "22 pages, one clear structure",
+				"text": "Visitors find their way through FijianReal Estate, Home, Buy, International Properties, International Broker and About Fiji, with every page a click or two from the menu."
+			},
+			{
+				"title": "2 languages",
+				"text": "The site is available in 2 languages, so overseas visitors can read it in their own."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Fijian Real Estate inbox."
+			}
+		],
+		"accent": "#06324e"
+	},
+	"myrentfiji-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 595
+			},
+			{
+				"file": "s2.webp",
+				"h": 568
+			},
+			{
+				"file": "s3.webp",
+				"h": 403
+			},
+			{
+				"file": "s4.webp",
+				"h": 448
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1,
+			"marquee": false
+		},
+		"pages": 24,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": "Hostinger",
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 4,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": false
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the MyRent Fiji team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "24 pages, one clear structure",
+				"text": "Visitors find their way through Tenant checks, Marketplace, Rentals and Pricing, with every page a click or two from the menu."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the MyRent Fiji inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#0e3a44"
+	},
+	"tvdm-au": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 464
+			},
+			{
+				"file": "s2.webp",
+				"h": 488
+			},
+			{
+				"file": "s3.webp",
+				"h": 690
+			},
+			{
+				"file": "s4.webp",
+				"h": 547
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": true,
+			"ratio": 2.65,
+			"marquee": true
+		},
+		"pages": 36,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the TVDM team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "36 pages, one clear structure",
+				"text": "Visitors find their way through Home, About, Services, Portfolio, Pricing and Blog, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what TVDM offers."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			}
+		],
+		"accent": "#334859"
+	},
+	"iuvedalife-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 834
+			},
+			{
+				"file": "s2.webp",
+				"h": 833
+			},
+			{
+				"file": "s3.webp",
+				"h": 520
+			},
+			{
+				"file": "s4.webp",
+				"h": 742
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1.16,
+			"marquee": true
+		},
+		"pages": 68,
+		"posts": 3,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": true,
+		"host": "Hostinger",
+		"seo": {
+			"good": true,
+			"plugin": "Rank Math",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "WooCommerce",
+				"si": "siWoocommerce"
+			},
+			{
+				"name": "Rank Math",
+				"img": "/assets/images/tools/rank-math.png"
+			},
+			{
+				"name": "WPForms",
+				"img": "/assets/images/tools/wpforms.png"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			},
+			{
+				"name": "PayPal",
+				"si": "siPaypal"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the IUVEDA Life team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "68 pages, one clear structure",
+				"text": "Visitors find their way through Home, Library, Pillars, Gallery, Quiz and Blog, with every page a click or two from the menu."
+			},
+			{
+				"title": "Online shop",
+				"text": "A WooCommerce store with PayPal checkout, managed from the same dashboard as the rest of the site."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Rank Math manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what IUVEDA Life offers."
+			}
+		],
+		"accent": "#4f5028"
+	},
+	"thomwerk-nl": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 561
+			},
+			{
+				"file": "s2.webp",
+				"h": 583
+			},
+			{
+				"file": "s3.webp",
+				"h": 798
+			},
+			{
+				"file": "s4.webp",
+				"h": 746
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 3.46,
+			"marquee": true
+		},
+		"pages": 50,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 3,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Thomwerk team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "50 pages, one clear structure",
+				"text": "Visitors find their way through Home, Over ons, Vacatures, Nieuws and Contact, with every page a click or two from the menu."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Thomwerk inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#2b374d"
+	},
+	"zero-trip-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 476
+			},
+			{
+				"file": "s2.webp",
+				"h": 524
+			},
+			{
+				"file": "s3.webp",
+				"h": 525
+			},
+			{
+				"file": "s4.webp",
+				"h": 711
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 0.83,
+			"marquee": false
+		},
+		"pages": 9,
+		"posts": 7,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Yoast SEO",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Zero-Trip Wedge team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "9 pages, one clear structure",
+				"text": "Visitors find their way through Home, About, Product, Training, Case Studies and Media, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Yoast SEO manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Zero-Trip Wedge offers."
+			},
+			{
+				"title": "A blog with 7 articles",
+				"text": "Regular articles answer the questions customers search for and give Google fresh content to index."
+			}
+		],
+		"accent": "#50683b"
+	},
+	"die-chaoskiller-berlin-de": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 676
+			},
+			{
+				"file": "s2.webp",
+				"h": 618
+			},
+			{
+				"file": "s3.webp",
+				"h": 542
+			},
+			{
+				"file": "s4.webp",
+				"h": 546
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 0.94,
+			"marquee": false
+		},
+		"pages": 14,
+		"posts": 1,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Rank Math",
+			"passed": 6,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Rank Math",
+				"img": "/assets/images/tools/rank-math.png"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Chaos-Killer Berlin team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "14 pages, one clear structure",
+				"text": "Visitors find their way through Home, Über uns, Dienstleistungen, Haushaltsauflösungen, Entrümpelung and Umzüge und Transport, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Rank Math manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Chaos-Killer Berlin offers."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#473227"
+	},
+	"handwerk-am-rhein-de": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 530
+			},
+			{
+				"file": "s2.webp",
+				"h": 818
+			},
+			{
+				"file": "s3.webp",
+				"h": 463
+			},
+			{
+				"file": "s4.webp",
+				"h": 558
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": true,
+			"ratio": 4.85,
+			"marquee": true
+		},
+		"pages": 46,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": "Cloudflare",
+		"seo": {
+			"good": true,
+			"plugin": "Rank Math",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Rank Math",
+				"img": "/assets/images/tools/rank-math.png"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			},
+			{
+				"name": "Cloudflare",
+				"si": "siCloudflare"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Handwerk am Rhein team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "46 pages, one clear structure",
+				"text": "Visitors find their way through Home, In Ihrer Nähe, Fenster, Türen, Insektenschutz and Downloads, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Rank Math manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Handwerk am Rhein offers."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Handwerk am Rhein inbox."
+			}
+		],
+		"accent": "#3c645d"
+	},
+	"flessner-sicherheitsdienst-de": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 721
+			},
+			{
+				"file": "s2.webp",
+				"h": 393
+			},
+			{
+				"file": "s3.webp",
+				"h": 718
+			},
+			{
+				"file": "s4.webp",
+				"h": 528
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 0.75,
+			"marquee": false
+		},
+		"pages": 679,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": false,
+		"host": "IONOS",
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "HTML5",
+				"si": "siHtml5"
+			},
+			{
+				"name": "JavaScript",
+				"si": "siJavascript"
+			},
+			{
+				"name": "Tailwind CSS",
+				"si": "siTailwindcss"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "Custom-coded, no page builder",
+				"text": "Fleßner Sicherheitsdienst is hand-coded with Tailwind CSS and deployed on IONOS, so pages stay light, load quickly and are free of template bloat."
+			},
+			{
+				"title": "679 pages, one clear structure",
+				"text": "Visitors find their way through Startseite, Schutz & Bewachung, Objektschutz, Baustellenbewachung, Veranstaltungsschutz and Brandwache, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Fleßner Sicherheitsdienst offers."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			}
+		],
+		"accent": "#1a2e67"
+	},
+	"caisd-africa": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 825
+			},
+			{
+				"file": "s2.webp",
+				"h": 615
+			},
+			{
+				"file": "s3.webp",
+				"h": 980
+			},
+			{
+				"file": "s4.webp",
+				"h": 634
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 3.37,
+			"marquee": true
+		},
+		"pages": 0,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 4,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": false
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": false
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the CAISD team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "A clear, simple structure",
+				"text": "The menu keeps things simple: Contact, Articles, Podcasts, Donate Here, About Us and Institutional Events."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": null
+	},
+	"zahidyaftali-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 406
+			},
+			{
+				"file": "s2.webp",
+				"h": 540
+			},
+			{
+				"file": "s3.webp",
+				"h": 1033
+			},
+			{
+				"file": "s4.webp",
+				"h": 463
+			}
+		],
+		"mobile": true,
+		"logo": null,
+		"pages": 1,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": false,
+		"host": "Vercel",
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "HTML5",
+				"si": "siHtml5"
+			},
+			{
+				"name": "JavaScript",
+				"si": "siJavascript"
+			},
+			{
+				"name": "Tailwind CSS",
+				"si": "siTailwindcss"
+			},
+			{
+				"name": "Vercel",
+				"si": "siVercel"
+			}
+		],
+		"built": [
+			{
+				"title": "Custom-coded, no page builder",
+				"text": "Zahid Ali Yaftali is hand-coded with Tailwind CSS and deployed on Vercel, so pages stay light, load quickly and are free of template bloat."
+			},
+			{
+				"title": "A clear, simple structure",
+				"text": "The menu keeps things simple: Home, Services, About, Portfolio, Process and Tech Stack."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Zahid Ali Yaftali offers."
+			},
+			{
+				"title": "Online booking",
+				"text": "Visitors book a call or consultation straight from the site with Calendly, with no back-and-forth emails."
+			}
+		],
+		"accent": "#3f59e2"
+	},
+	"archdermatology-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 992
+			},
+			{
+				"file": "s2.webp",
+				"h": 450
+			},
+			{
+				"file": "s3.webp",
+				"h": 759
+			},
+			{
+				"file": "s4.webp",
+				"h": 629
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1.86,
+			"marquee": true
+		},
+		"pages": 10,
+		"posts": 4,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Yoast SEO",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Arch Dermatology team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "10 pages, one clear structure",
+				"text": "Visitors find their way through Home, About, Services, Resources, Before Your Visit and Financial Policy, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Yoast SEO manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Arch Dermatology offers."
+			},
+			{
+				"title": "Analytics from day one",
+				"text": "Google Analytics tracks visits and enquiries, so the team can see what is working."
+			}
+		],
+		"accent": "#97c6f5"
+	},
+	"flechtarbeiten-de": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 907
+			},
+			{
+				"file": "s2.webp",
+				"h": 934
+			},
+			{
+				"file": "s3.webp",
+				"h": 531
+			},
+			{
+				"file": "s4.webp",
+				"h": 853
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 4.38,
+			"marquee": true
+		},
+		"pages": 25,
+		"posts": 1,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": true,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Yoast SEO",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "WooCommerce",
+				"si": "siWoocommerce"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "WPForms",
+				"img": "/assets/images/tools/wpforms.png"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			},
+			{
+				"name": "PayPal",
+				"si": "siPaypal"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Flechtarbeiten team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "25 pages, one clear structure",
+				"text": "Visitors find their way through telefonische Beratung, ONLINESHOP, Startseite, Geflechtreparatur, Tecta Geflecht Reparatur and Thonet Geflecht Reparatur, with every page a click or two from the menu."
+			},
+			{
+				"title": "Online shop",
+				"text": "A WooCommerce store with PayPal checkout, managed from the same dashboard as the rest of the site."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Yoast SEO manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Flechtarbeiten offers."
+			}
+		],
+		"accent": "#ec6c21"
+	},
+	"maisonluma-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 645
+			},
+			{
+				"file": "s2.webp",
+				"h": 765
+			},
+			{
+				"file": "s3.webp",
+				"h": 679
+			},
+			{
+				"file": "s4.webp",
+				"h": 639
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 8.82,
+			"marquee": true
+		},
+		"pages": 30,
+		"posts": 3,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": true,
+		"host": "Hostinger",
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 4,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "WooCommerce",
+				"si": "siWoocommerce"
+			},
+			{
+				"name": "PayPal",
+				"si": "siPaypal"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Maison LŪMA team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "30 pages, one clear structure",
+				"text": "Visitors find their way through Accueil, À propos, Le Rituel Maison LUMA, Boutique, Le Journal and FAQ’s, with every page a click or two from the menu."
+			},
+			{
+				"title": "Online shop",
+				"text": "A WooCommerce store with PayPal checkout, managed from the same dashboard as the rest of the site."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Maison LŪMA inbox."
+			}
+		],
+		"accent": "#694e34"
+	},
+	"priveluxadvisory-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 885
+			},
+			{
+				"file": "s2.webp",
+				"h": 726
+			},
+			{
+				"file": "s3.webp",
+				"h": 493
+			},
+			{
+				"file": "s4.webp",
+				"h": 658
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": true,
+			"ratio": 0.8,
+			"marquee": false
+		},
+		"pages": 14,
+		"posts": 1,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 4,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Privé LUX Advisory team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "14 pages, one clear structure",
+				"text": "Visitors find their way through Home, My Testimony, Luxe Realty, Luxe Capital, Luxe Assurance and Luxe Wealth, with every page a click or two from the menu."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": null
+	},
+	"quincyforcongress-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 640
+			},
+			{
+				"file": "s2.webp",
+				"h": 369
+			},
+			{
+				"file": "s3.webp",
+				"h": 845
+			},
+			{
+				"file": "s4.webp",
+				"h": 503
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1.59,
+			"marquee": true
+		},
+		"pages": 52,
+		"posts": 2,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Yoast SEO",
+			"passed": 8,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Quincy for Congress team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "52 pages, one clear structure",
+				"text": "Visitors find their way through Meet Quincy, Issues, Issues & Positions — FAQ, Events, MEDIA and Contact us, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Yoast SEO manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Quincy for Congress offers."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Quincy for Congress inbox."
+			}
+		],
+		"accent": "#59462d"
+	},
+	"infinitecalculators-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 667
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1,
+			"marquee": false
+		},
+		"pages": 29,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": false,
+		"host": "Hostinger",
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 8,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "HTML5",
+				"si": "siHtml5"
+			},
+			{
+				"name": "JavaScript",
+				"si": "siJavascript"
+			},
+			{
+				"name": "Tailwind CSS",
+				"si": "siTailwindcss"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "Custom-coded, no page builder",
+				"text": "Infinite Calculators is hand-coded with Tailwind CSS and deployed on Hostinger, so pages stay light, load quickly and are free of template bloat."
+			},
+			{
+				"title": "29 pages, one clear structure",
+				"text": "Visitors find their way through Time & Date, Home & DIY, Money, School, Islamic 2 calculators and Christian 1 calculator, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what Infinite Calculators offers."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#b3eb73"
+	},
+	"csfmcleaning-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 642
+			},
+			{
+				"file": "s2.webp",
+				"h": 583
+			},
+			{
+				"file": "s3.webp",
+				"h": 659
+			},
+			{
+				"file": "s4.webp",
+				"h": 475
+			}
+		],
+		"mobile": true,
+		"logo": null,
+		"pages": 21,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 2,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the CSFM Cleaning team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "21 pages, one clear structure",
+				"text": "Visitors find their way through Home, About, Services, FAQs and Contact, with every page a click or two from the menu."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#011b49"
+	},
+	"4tsstudio-org": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 803
+			},
+			{
+				"file": "s2.webp",
+				"h": 1025
+			},
+			{
+				"file": "s3.webp",
+				"h": 418
+			},
+			{
+				"file": "s4.webp",
+				"h": 540
+			}
+		],
+		"mobile": true,
+		"logo": null,
+		"pages": 12,
+		"posts": 1,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": true,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 2,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "WooCommerce",
+				"si": "siWoocommerce"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the T-Shirt Studio team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "12 pages, one clear structure",
+				"text": "Visitors find their way through Home, About, Custom Shop, Quick Order and Local Store, with every page a click or two from the menu."
+			},
+			{
+				"title": "Online shop",
+				"text": "A WooCommerce store, managed from the same dashboard as the rest of the site."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": null
+	},
+	"djschilderwerken-nl": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 437
+			},
+			{
+				"file": "s2.webp",
+				"h": 742
+			},
+			{
+				"file": "s3.webp",
+				"h": 647
+			},
+			{
+				"file": "s4.webp",
+				"h": 366
+			}
+		],
+		"mobile": true,
+		"logo": null,
+		"pages": 11,
+		"posts": 1,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 3,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "WPForms",
+				"img": "/assets/images/tools/wpforms.png"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the DJ Schilderwerken team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "11 pages, one clear structure",
+				"text": "Visitors find their way through Startpagina, Over Ons, Diensten, Binnen schilderwerk, Buiten schilderwerk and Houtrotsanering, with every page a click or two from the menu."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": null
+	},
+	"casa-suerte-nl": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 624
+			},
+			{
+				"file": "s2.webp",
+				"h": 661
+			},
+			{
+				"file": "s3.webp",
+				"h": 618
+			},
+			{
+				"file": "s4.webp",
+				"h": 688
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": true,
+			"ratio": 2.33,
+			"marquee": true
+		},
+		"pages": 10,
+		"posts": 0,
+		"languages": 1,
+		"translated": true,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": "Yoast SEO",
+			"passed": 4,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Casa Suerte team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "10 pages, one clear structure",
+				"text": "Visitors find their way through Home, Over ons, Appartement, Wat te doen, Prijzen and Contact, with every page a click or two from the menu."
+			},
+			{
+				"title": "Multilingual",
+				"text": "A language switcher translates every page, so international guests can read the site in their own language."
+			},
+			{
+				"title": "Analytics from day one",
+				"text": "Google Analytics tracks visits and enquiries, so the team can see what is working."
+			}
+		],
+		"accent": "#0e3851"
+	},
+	"redxpink-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 625
+			},
+			{
+				"file": "s2.webp",
+				"h": 652
+			},
+			{
+				"file": "s3.webp",
+				"h": 1010
+			},
+			{
+				"file": "s4.webp",
+				"h": 642
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 2.05,
+			"marquee": true
+		},
+		"pages": 8,
+		"posts": 4,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 3,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Red X Pink team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "8 pages, one clear structure",
+				"text": "Visitors find their way through Home, About Us, Service, Brand Growth ‍Management and Blog, with every page a click or two from the menu."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#92694f"
+	},
+	"smbelectrical-ca": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 652
+			},
+			{
+				"file": "s2.webp",
+				"h": 406
+			},
+			{
+				"file": "s3.webp",
+				"h": 464
+			},
+			{
+				"file": "s4.webp",
+				"h": 654
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 1.97,
+			"marquee": true
+		},
+		"pages": 37,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": "Yoast SEO",
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "WPForms",
+				"img": "/assets/images/tools/wpforms.png"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the SMB Electrical team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "37 pages, one clear structure",
+				"text": "Visitors find their way through +1 416-371-7399, Home, Electrician Services, Residential Electrician, Commercial Electrician and Electrical Repair, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "Yoast SEO manages titles and descriptions page by page. The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what SMB Electrical offers."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the SMB Electrical inbox."
+			}
+		],
+		"accent": "#00225b"
+	},
+	"vanguardstrengthfitness-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 350
+			},
+			{
+				"file": "s2.webp",
+				"h": 529
+			},
+			{
+				"file": "s3.webp",
+				"h": 555
+			}
+		],
+		"mobile": true,
+		"logo": null,
+		"pages": 7,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": "Hostinger",
+		"seo": {
+			"good": false,
+			"plugin": null,
+			"passed": 3,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": false
+				},
+				{
+					"label": "One H1 heading",
+					"pass": false
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": false
+				},
+				{
+					"label": "Structured data",
+					"pass": false
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Hostinger",
+				"si": "siHostinger"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Vanguard Strength team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Vanguard Strength inbox."
+			},
+			{
+				"title": "Responsive on every screen",
+				"text": "Layouts, menus and images adapt from a small phone to a wide desktop, tested on real devices."
+			}
+		],
+		"accent": "#5070ee"
+	},
+	"mut-umzug-de": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 714
+			},
+			{
+				"file": "s2.webp",
+				"h": 948
+			},
+			{
+				"file": "s3.webp",
+				"h": 571
+			},
+			{
+				"file": "s4.webp",
+				"h": 773
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 3.01,
+			"marquee": true
+		},
+		"pages": 69,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 7,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": false
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "HTML5",
+				"si": "siHtml5"
+			},
+			{
+				"name": "JavaScript",
+				"si": "siJavascript"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "Custom-coded, no page builder",
+				"text": "MUT Umzug is hand-coded, so pages stay light, load quickly and are free of template bloat."
+			},
+			{
+				"title": "69 pages, one clear structure",
+				"text": "Visitors find their way through ÜBER UNS, LEISTUNGEN, AUßENAUFZUG, ENTRÜMPELUNGEN, EUROPA UMZUG and FIRMENUMZUG, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what MUT Umzug offers."
+			},
+			{
+				"title": "WhatsApp chat",
+				"text": "A WhatsApp button lets visitors start a conversation instantly from their phone."
+			}
+		],
+		"accent": null
+	},
+	"istanbulrestaurantbirmingham-com": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 954
+			},
+			{
+				"file": "s2.webp",
+				"h": 884
+			},
+			{
+				"file": "s3.webp",
+				"h": 713
+			},
+			{
+				"file": "s4.webp",
+				"h": 788
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 2.3,
+			"marquee": true
+		},
+		"pages": 0,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": false,
+			"plugin": "Yoast SEO",
+			"passed": 6,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": false
+				},
+				{
+					"label": "Image alt text",
+					"pass": false
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Yoast SEO",
+				"si": "siYoast"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the Istanbul Restaurant team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "A clear, simple structure",
+				"text": "The menu keeps things simple: Home, About Us, Our Menu, Gallery, Contact Us and BOOK A TABLE."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the Istanbul Restaurant inbox."
+			},
+			{
+				"title": "Analytics from day one",
+				"text": "Google Analytics tracks visits and enquiries, so the team can see what is working."
+			}
+		],
+		"accent": "#4d3129"
+	}
+}

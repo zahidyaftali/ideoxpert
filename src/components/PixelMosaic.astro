@@ -1,0 +1,81 @@
+---
+// Square mosaic for service heroes: dense on the right, breaking up to the
+// left, filled with one brand gradient across the whole block. A few cells
+// fade in and out. `seed` gives each service its own pattern.
+interface Props {
+	seed?: number;
+	cols?: number;
+	rows?: number;
+}
+
+const { seed = 1, cols = 12, rows = 13 } = Astro.props;
+
+// Small deterministic PRNG, so the pattern is the same on every build.
+let s = seed * 9301 + 49297;
+const rand = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+
+const cells: { x: number; y: number; kind: 'fill' | 'blink' | 'glow' }[] = [];
+for (let y = 0; y < rows; y++) {
+	for (let x = 0; x < cols; x++) {
+		// Probability rises from ~0 at the left edge to ~0.97 at the right.
+		const p = Math.pow(x / (cols - 1), 1.15) * 0.97;
+		const r = rand();
+		if (r < p) cells.push({ x, y, kind: rand() < 0.08 ? 'glow' : 'fill' });
+		else if (r < p + 0.06 && x > cols * 0.35) cells.push({ x, y, kind: 'blink' });
+	}
+}
+const size = 100;
+---
+<svg class="mosaic" viewBox={`0 0 ${cols * size} ${rows * size}`} preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+	<defs>
+		<linearGradient id={`mg-${seed}`} x1="0" y1="0" x2={cols * size} y2={rows * size} gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#9fe46b" />
+			<stop offset="0.35" stop-color="#2db453" />
+			<stop offset="0.75" stop-color="#16b39c" />
+			<stop offset="1" stop-color="#2db453" />
+		</linearGradient>
+		<radialGradient id={`mglow-${seed}`}>
+			<stop offset="0" stop-color="#e9ffd9" stop-opacity="0.95" />
+			<stop offset="0.35" stop-color="#b9ef6a" stop-opacity="0.55" />
+			<stop offset="1" stop-color="#2db453" stop-opacity="0" />
+		</radialGradient>
+	</defs>
+	<g fill={`url(#mg-${seed})`}>
+		{cells.map((c, i) => (
+			<rect
+				class:list={['mosaic__cell', { 'mosaic__cell--blink': c.kind === 'blink' }]}
+				x={c.x * size}
+				y={c.y * size}
+				width={size + 0.5}
+				height={size + 0.5}
+				style={c.kind === 'blink' ? `animation-delay:${((i * 7) % 40) / 10}s` : undefined}
+			/>
+		))}
+	</g>
+	{cells.filter((c) => c.kind === 'glow').map((c) => (
+		<circle cx={c.x * size + 50} cy={c.y * size + 30} r="42" fill={`url(#mglow-${seed})`} />
+	))}
+</svg>
+
+<style>
+	.mosaic {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.mosaic__cell--blink {
+		animation: blink 4s ease-in-out infinite;
+	}
+
+	@keyframes blink {
+		0%,
+		100% {
+			opacity: 0;
+		}
+		45%,
+		60% {
+			opacity: 1;
+		}
+	}
+</style>

@@ -1,0 +1,482 @@
+---
+// One template for all nine service pages. Content lives in
+// src/data/service-pages.ts, tools in src/data/tools.ts; each page keeps its
+// original URL (/website-design etc.).
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import PixelMosaic from '../components/PixelMosaic.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import StatBars from '../components/StatBars.astro';
+import ToolsGrid from '../components/ToolsGrid.astro';
+import RecentWork from '../components/RecentWork.astro';
+import { servicePages, type ServicePage } from '../data/service-pages';
+import { services, serviceBySlug } from '../data/site';
+import { toolsByService } from '../data/tools';
+import { projects } from '../data/projects';
+import { getPosts, cover, readingTime } from '../data/blog';
+
+export const getStaticPaths = (() =>
+	servicePages.map((page) => ({ params: { service: page.slug }, props: { page } }))) satisfies GetStaticPaths;
+
+interface Props {
+	page: ServicePage;
+}
+
+const { page } = Astro.props;
+const service = serviceBySlug(page.slug)!;
+const number = services.indexOf(service) + 1;
+const pad = (n: number) => String(n).padStart(2, '0');
+const steps = page.approach.steps;
+// Case studies that used this service (shown when there are at least three).
+const related = projects.filter((p) => p.services.includes(page.slug)).slice(0, 8);
+// Blog articles about this service.
+const guides = (await getPosts()).filter((p) => p.data.service === page.slug);
+const crumbs = [
+	{ name: 'Services', path: '/services' },
+	{ name: service.name, path: `/${page.slug}` },
+];
+---
+<BaseLayout
+	title={page.meta.title}
+	description={page.meta.description}
+	keywords={page.meta.keywords}
+	image={page.meta.image}
+	breadcrumbs={crumbs}
+	service={{ ...service, description: page.meta.schemaDescription }}
+	discoveryService={service.name}
+>
+	<!-- Hero: copy on the left, pixel mosaic running to the right edge -->
+	<section class="section section--flush shero">
+		<div class="container">
+			<div class="frame brackets shero__frame">
+				<div class="shero__copy">
+					<nav class="crumbs" aria-label="Breadcrumb" data-reveal>
+						<a href="/">Home</a> <Icon name="arrow-right" size={12} /> <a href="/services">Services</a> <Icon name="arrow-right" size={12} /> <span aria-current="page">{service.name}</span>
+					</nav>
+					<h1 class="shero__title" data-split set:html={`${page.title.lead} ${page.title.em}<span class="dot">.</span>`} />
+					<p class="shero__lead" data-reveal style="--d:200">{page.intro}</p>
+					<div class="btn-row" data-reveal style="--d:300">
+						<Button href="#discovery" variant="dark">Get in touch</Button>
+						<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
+					</div>
+				</div>
+				<div class="shero__art" data-reveal="fade" style="--d:150">
+					<PixelMosaic seed={number} />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<LogoMarquee />
+
+	<!-- Overview -->
+	<section class="section overview">
+		<div class="container overview__grid">
+			<h2 class="h2" data-split>{page.overview.title}<span class="dot">.</span></h2>
+			<div class="overview__text">
+				{page.overview.paragraphs.map((p, i) => <p class:list={['overview__p', { 'overview__p--lead': i === 0 }]} data-reveal>{p}</p>)}
+			</div>
+		</div>
+	</section>
+
+	<!-- What you get -->
+	<section class="section section--white features">
+		<div class="container">
+			<div class="features__head">
+				<h2 class="h2" data-split>What you get<span class="dot">.</span></h2>
+				<p class="subtitle" data-reveal>Whether you are a small startup or a large enterprise, this is built in from day one.</p>
+			</div>
+			<ol class="frows" role="list">
+				{page.features.map((f, i) => (
+					<li class="frow" data-reveal>
+						<span class="frow__num">{pad(i + 1)}</span>
+						<h3 class="frow__title">{f.title}</h3>
+						<p class="frow__text">{f.text}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<StatBars />
+
+	<!-- Approach: heading stays put while the steps scroll past -->
+	<section class="section approach">
+		<div class="container">
+			<div class="frame approach__frame">
+				<div class="approach__side">
+					<div class="approach__sticky">
+						<h2 class="h2" data-split>{page.approach.title}<span class="dot">.</span></h2>
+						{page.approach.intro && <p class="subtitle" data-reveal>{page.approach.intro}</p>}
+						<div data-reveal><Button href="#discovery" variant="dark">Get in touch</Button></div>
+					</div>
+				</div>
+				<div class="approach__steps">
+					<span class="approach__rail" aria-hidden="true"><i data-draw></i></span>
+					<ol class="approach__list" role="list">
+						{steps.map((s, i) => (
+							<li class="astep">
+								<span class="astep__count">{pad(i + 1)} / {pad(steps.length)}</span>
+								<h3 class="astep__title" data-split>{s.title}</h3>
+								<p class="astep__text" data-reveal>{s.text}</p>
+							</li>
+						))}
+					</ol>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<ToolsGrid tools={toolsByService[page.slug]} />
+
+	{guides.length > 0 && (
+		<section class="section section--tight guides">
+			<div class="container">
+				<div class="guides__head">
+					<h2 class="h3">Guides on {service.name.toLowerCase()}</h2>
+					<a class="link link--green" href="/blog">All articles <Icon name="arrow-right" /></a>
+				</div>
+				<ul class="guides__list" role="list">
+					{guides.map((g) => (
+						<li>
+							<a class="guide" href={`/blog/${g.id}`}>
+								<img src={cover(g)} alt="" width="1200" height="630" loading="lazy" decoding="async" />
+								<span class="guide__body">
+									<span class="guide__title">{g.data.title}</span>
+									<span class="guide__meta">{readingTime(g)} min read</span>
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+	)}
+
+	<RecentWork
+		title={related.length >= 3 ? 'Related work<span class="dot">.</span>' : undefined}
+		subtitle={related.length >= 3 ? `Case studies where ${service.name.toLowerCase()} was part of the project.` : 'A few of the websites we have recently designed and built.'}
+		items={related.length >= 3 ? related : undefined}
+	/>
+
+</BaseLayout>
+
+<style>
+	/* ---------- Guides ---------- */
+	.guides__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: 24px;
+	}
+
+	.guides__list {
+		display: grid;
+		gap: 16px;
+		margin: 0;
+	}
+
+	@media (min-width: 800px) {
+		.guides__list {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.guide {
+		display: grid;
+		grid-template-columns: 180px 1fr;
+		gap: 20px;
+		align-items: center;
+		padding: 14px;
+		border: 1px solid var(--line);
+		transition: background 0.3s;
+	}
+
+	.guide:hover {
+		background: var(--card);
+	}
+
+	.guide img {
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--line);
+	}
+
+	.guide__body {
+		display: grid;
+		gap: 6px;
+	}
+
+	.guide__title {
+		font-weight: 550;
+		letter-spacing: -0.02em;
+		line-height: 1.3;
+	}
+
+	.guide:hover .guide__title {
+		color: var(--green-ink);
+	}
+
+	.guide__meta {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	@media (max-width: 499px) {
+		.guide {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* ---------- Hero ---------- */
+	.shero {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(40px, 5vw, 72px);
+	}
+
+	.shero__frame {
+		display: grid;
+		overflow: hidden;
+	}
+
+	@media (min-width: 1024px) {
+		.shero__frame {
+			grid-template-columns: 1.15fr 0.85fr;
+			min-height: min(calc(100svh - var(--topbar-h) - var(--header-h) - 40px), 820px);
+		}
+	}
+
+	.shero__copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 28px;
+		padding: clamp(32px, 5vw, 80px) clamp(24px, 4.5vw, 72px);
+	}
+
+	.shero__title {
+		max-width: 15ch;
+		font-size: clamp(2.5rem, 1.3rem + 3.6vw, 5rem);
+		line-height: 1.02;
+		letter-spacing: -0.05em;
+		font-weight: 400;
+		text-wrap: balance;
+	}
+
+	.shero__lead {
+		max-width: 50ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+
+	.shero__art {
+		position: relative;
+		min-height: 280px;
+	}
+
+	/* The pattern is cropped to fit, so its left edge fades out instead of
+	   showing half-cut squares. */
+	.shero__art :global(.mosaic) {
+		position: absolute;
+		inset: 0;
+		-webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 22%, #000 40%);
+		mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 22%, #000 40%);
+	}
+
+	.crumbs {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.crumbs a:hover {
+		color: var(--green-ink);
+	}
+
+	.crumbs [aria-current] {
+		color: var(--ink);
+	}
+
+	/* ---------- Overview ---------- */
+	.overview__grid {
+		display: grid;
+		gap: 32px;
+	}
+
+	@media (min-width: 1024px) {
+		.overview__grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 96px;
+		}
+	}
+
+	.overview__text {
+		display: grid;
+		gap: 20px;
+	}
+
+	.overview__p {
+		max-width: 62ch;
+		color: var(--muted);
+	}
+
+	.overview__p--lead {
+		font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+		line-height: 1.45;
+		letter-spacing: -0.02em;
+		color: var(--ink);
+	}
+
+	/* ---------- What you get: numbered rows ---------- */
+	.features__head {
+		display: grid;
+		gap: 16px;
+		margin-bottom: clamp(32px, 4vw, 56px);
+	}
+
+	.frows {
+		margin: 0;
+	}
+
+	.frow {
+		display: grid;
+		gap: 12px;
+		padding: clamp(28px, 3.5vw, 48px) 0;
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 900px) {
+		.frow {
+			grid-template-columns: 0.4fr 1fr 1.2fr;
+			gap: 32px;
+			align-items: start;
+		}
+	}
+
+	.frow__num {
+		font-size: 0.9375rem;
+		font-weight: 600;
+		color: var(--green-ink);
+	}
+
+	.frow__title {
+		font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+		font-weight: 500;
+	}
+
+	.frow__text {
+		max-width: 52ch;
+		font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--muted);
+	}
+
+	/* ---------- Approach ---------- */
+	.approach__frame {
+		display: grid;
+	}
+
+	@media (min-width: 1024px) {
+		.approach__frame {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.approach__side {
+		padding: clamp(28px, 4vw, 64px);
+	}
+
+	.approach__sticky {
+		display: grid;
+		gap: 22px;
+		justify-items: start;
+	}
+
+	@media (min-width: 1024px) {
+		.approach__sticky {
+			position: sticky;
+			top: 120px;
+		}
+	}
+
+	.approach__steps {
+		position: relative;
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1024px) {
+		.approach__steps {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	.approach__list {
+		margin: 0;
+	}
+
+	/* Green line down the divider that fills as you scroll. */
+	.approach__rail {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: -1px;
+		width: 2px;
+		display: none;
+	}
+
+	@media (min-width: 1024px) {
+		.approach__rail {
+			display: block;
+		}
+	}
+
+	.approach__rail i {
+		position: absolute;
+		inset: 0;
+		background: var(--green);
+		transform-origin: 50% 0;
+	}
+
+	.astep {
+		display: grid;
+		gap: 16px;
+		padding: clamp(28px, 4vw, 56px);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.astep:last-child {
+		border-bottom: 0;
+	}
+
+	.astep__count {
+		font-size: 0.875rem;
+		color: var(--muted);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.astep__title {
+		font-size: clamp(1.625rem, 1.2rem + 1.3vw, 2.5rem);
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+		font-weight: 500;
+	}
+
+	.astep__text {
+		max-width: 48ch;
+		font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+		line-height: 1.6;
+		color: var(--muted);
+	}
+</style>

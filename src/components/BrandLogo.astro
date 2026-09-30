@@ -1,0 +1,26 @@
+---
+// A brand logo: inline Simple Icons SVG in the brand colour, or an image file.
+import * as icons from 'simple-icons';
+
+interface Props {
+	si?: string;
+	img?: string;
+	name: string;
+	size?: number;
+	class?: string;
+}
+
+const { si, img, name, size = 40, class: className } = Astro.props;
+const icon = si ? (icons as unknown as Record<string, { path: string; hex: string }>)[si] : undefined;
+// Near-black brand colours (Apple, Squarespace) use the page ink instead.
+const luminance = (hex: string) => {
+	const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+	return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const fill = icon && luminance(icon.hex) > 40 ? `#${icon.hex}` : 'var(--ink)';
+---
+{icon ? (
+	<svg class={className} viewBox="0 0 24 24" width={size} height={size} fill={fill} role="img" aria-label={name}><path d={icon.path} /></svg>
+) : (
+	<img class={className} src={img} alt={name} height={size} style={`height:${size}px;width:auto;max-width:${size * 4}px`} loading="lazy" decoding="async" />
+)}

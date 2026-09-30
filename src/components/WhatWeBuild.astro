@@ -1,0 +1,348 @@
+---
+// Service cards. Hovering a card floods it with brand green from the bottom,
+// lifts the text and reveals the actions (on touch screens they always show).
+import { services } from '../data/site';
+import ServiceIcon from './ServiceIcon.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	showAllLink?: boolean;
+	id?: string;
+}
+
+const {
+	title = 'What we build<span class="dot">.</span>',
+	subtitle = 'One team for your website, from the first design to the day-to-day upkeep. Nothing gets handed off between agencies.',
+	showAllLink = true,
+	id,
+} = Astro.props;
+---
+<section class="section wwb" id={id} data-carousel>
+	<div class="container">
+		<div class="wwb__head">
+			<div class="stack">
+				<h2 class="h2" data-split set:html={title} />
+				<p class="subtitle" data-reveal>{subtitle}</p>
+			</div>
+			{showAllLink && <a class="link wwb__all" href="/services" data-reveal>Explore all services <Icon name="arrow-right" /></a>}
+		</div>
+
+		<ul class="wwb__grid" role="list" data-reveal-group="50" data-carousel-track>
+			{services.map((s) => (
+				<li class="wcard" data-reveal>
+					<span class="wcard__fx" aria-hidden="true"></span>
+					<span class="wcard__icon"><ServiceIcon slug={s.slug} /></span>
+					<div class="wcard__body">
+						<div class="wcard__text">
+							<h3 class="wcard__title"><a href={`/${s.slug}`}>{s.name}</a></h3>
+							<p class="wcard__desc">{s.summary}</p>
+						</div>
+						<div class="wcard__actions">
+							<div class="wcard__actions-inner">
+								<a class="wbtn" href={`/${s.slug}`}>Learn more <Icon name="arrow-right" size={14} /></a>
+								<a class="wbtn" href="/contact">Get a quote <Icon name="arrow-right" size={14} /></a>
+							</div>
+						</div>
+					</div>
+				</li>
+			))}
+		</ul>
+
+		<!-- Phones: the cards become a swipeable row with arrows, like the reference. -->
+		<div class="wwb__nav">
+			<button type="button" class="wwb__arrow" data-carousel-prev aria-label="Previous service"><Icon name="arrow-left" size={18} /></button>
+			<button type="button" class="wwb__arrow" data-carousel-next aria-label="Next service"><Icon name="arrow-right" size={18} /></button>
+		</div>
+	</div>
+</section>
+
+<style>
+	.wwb__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 24px 48px;
+		margin-bottom: clamp(40px, 5vw, 64px);
+	}
+
+	.wwb__all {
+		flex: none;
+	}
+
+	/* Cards share borders: the grid draws top/left, each card right/bottom. */
+	.wwb__grid {
+		display: grid;
+		margin: 0;
+		border-top: 1px solid var(--line);
+		border-left: 1px solid var(--line);
+	}
+
+	@media (min-width: 700px) {
+		.wwb__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.wwb__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.wwb__grid::after {
+		--bo: -6px;
+	}
+
+	.wcard {
+		position: relative;
+		isolation: isolate;
+		display: flex;
+		flex-direction: column;
+		min-height: clamp(320px, 28vw, 420px);
+		padding: clamp(24px, 2.2vw, 32px);
+		border-right: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+		background: var(--paper);
+		overflow: hidden;
+	}
+
+	/* Speckle texture in the top corner, and the green fill that rises on hover. */
+	.wcard__fx {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	/* Faint speckle concentrated in the top-right corner, fading out. */
+	.wcard__fx::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: url('/assets/images/textures/speckle.webp') right top / 700px auto no-repeat;
+		opacity: 0.35;
+		-webkit-mask-image: radial-gradient(ellipse 90% 75% at 100% 0%, #000 0%, transparent 70%);
+		mask-image: radial-gradient(ellipse 90% 75% at 100% 0%, #000 0%, transparent 70%);
+	}
+
+	.wcard__fx::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--green);
+		opacity: 0;
+		transform: translateY(100%);
+		transition:
+			opacity 0.45s ease-out,
+			transform 0s linear 0.45s;
+	}
+
+	.wcard:hover .wcard__fx::after,
+	.wcard:focus-within .wcard__fx::after {
+		opacity: 1;
+		transform: none;
+		transition:
+			transform 0.7s var(--ease-out),
+			opacity 0s;
+	}
+
+	.wcard__icon {
+		display: block;
+		color: var(--ink);
+	}
+
+	.wcard__body {
+		margin-top: auto;
+		padding-top: 48px;
+	}
+
+	.wcard__text {
+		transition: transform 0.5s var(--ease-out);
+	}
+
+	.wcard__title {
+		font-size: clamp(1.5rem, 1.15rem + 1vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+		font-weight: 500;
+	}
+
+	/* The title link covers the whole card; the action buttons sit above it. */
+	.wcard__title a::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+
+	.wcard__desc {
+		margin-top: 12px;
+		max-width: 34ch;
+		font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+		line-height: 1.55;
+		color: var(--muted);
+		transition: color 0.4s;
+	}
+
+	.wcard:hover .wcard__desc,
+	.wcard:focus-within .wcard__desc {
+		color: rgba(13, 18, 16, 0.82);
+	}
+
+	.wcard__actions {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.5s var(--ease-out);
+	}
+
+	.wcard__actions-inner {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		min-height: 0;
+		padding-top: 0;
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.3s ease,
+			transform 0.5s var(--ease-out),
+			padding 0.5s var(--ease-out);
+	}
+
+	.wcard:hover .wcard__actions,
+	.wcard:focus-within .wcard__actions {
+		grid-template-rows: 1fr;
+	}
+
+	.wcard:hover .wcard__actions-inner,
+	.wcard:focus-within .wcard__actions-inner {
+		padding-top: 24px;
+		opacity: 1;
+		transform: none;
+		transition-delay: 0.05s;
+	}
+
+	.wbtn {
+		position: relative;
+		isolation: isolate;
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 12px 18px;
+		border: 1px solid var(--ink);
+		color: var(--ink);
+		font-size: 0.875rem;
+		font-weight: 550;
+		overflow: hidden;
+		transition: color 0.3s ease-out;
+	}
+
+	.wbtn::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: var(--ink);
+		transform: translateY(100%);
+		transition: transform 0.3s ease-out;
+	}
+
+	.wbtn :global(svg) {
+		transition: transform 0.3s ease;
+	}
+
+	.wbtn:hover,
+	.wbtn:focus-visible {
+		color: var(--white);
+	}
+
+	.wbtn:hover::before,
+	.wbtn:focus-visible::before {
+		transform: none;
+	}
+
+	.wbtn:hover :global(svg) {
+		transform: translateX(4px);
+	}
+
+	/* Touch screens have no hover: keep the actions visible. */
+	@media (hover: none) {
+		.wcard__actions {
+			grid-template-rows: 1fr;
+		}
+
+		.wcard__actions-inner {
+			padding-top: 20px;
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	/* Phones: a swipeable row of cards, like the reference. */
+	@media (max-width: 699px) {
+		.wwb__grid {
+			display: flex;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			scrollbar-width: none;
+			margin-inline: calc(var(--gutter) * -1);
+			padding-inline: var(--gutter);
+			scroll-padding-inline: var(--gutter);
+			border: 0;
+			gap: 12px;
+		}
+
+		.wwb__grid::-webkit-scrollbar {
+			display: none;
+		}
+
+		.wwb__grid::after {
+			display: none;
+		}
+
+		.wcard {
+			flex: 0 0 86%;
+			scroll-snap-align: start;
+			border: 1px solid var(--line);
+		}
+	}
+
+	.wwb__nav {
+		display: none;
+	}
+
+	@media (max-width: 699px) {
+		.wwb__nav {
+			display: flex;
+			justify-content: flex-end;
+			gap: 8px;
+			margin-top: 16px;
+		}
+	}
+
+	.wwb__arrow {
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		border: 1px solid var(--ink);
+		transition:
+			background 0.3s,
+			color 0.3s,
+			opacity 0.3s;
+	}
+
+	.wwb__arrow:last-child {
+		background: var(--ink);
+		color: var(--white);
+	}
+
+	.wwb__arrow:disabled {
+		opacity: 0.3;
+	}
+</style>

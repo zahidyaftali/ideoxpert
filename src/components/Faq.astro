@@ -1,0 +1,155 @@
+---
+import type { Faq } from '../data/faqs';
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+	items: Faq[];
+	title?: string;
+	id?: string;
+}
+
+const { items, title = 'Common questions, honest answers<span class="dot">.</span>', id = 'faq' } = Astro.props;
+---
+<section class="section faq" id={id}>
+	<div class="container faq__grid">
+		<div class="faq__side">
+			<h2 class="h2" data-split set:html={title} />
+			<div class="faq__ask" data-reveal>
+				<p>Still have a question? Ask us directly, we reply within 24 hours.</p>
+				<a class="link link--green" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">Message us on WhatsApp <Icon name="arrow-right" /></a>
+			</div>
+		</div>
+
+		<div class="faq__list" data-acc-single data-reveal-group="70">
+			{items.map((f) => (
+				<details class="acc" data-reveal>
+					<summary>
+						<span class="acc__q">{f.q}</span>
+						<span class="acc__icon" aria-hidden="true"></span>
+					</summary>
+					<div class="acc__body"><p>{f.a}</p></div>
+				</details>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq__grid {
+		display: grid;
+		gap: 48px;
+	}
+
+	@media (min-width: 1024px) {
+		.faq__grid {
+			grid-template-columns: 0.85fr 1.15fr;
+			gap: 96px;
+		}
+
+		.faq__side {
+			position: sticky;
+			top: 120px;
+			align-self: start;
+		}
+	}
+
+	.faq__side {
+		display: grid;
+		gap: 24px;
+	}
+
+	.faq__ask {
+		display: grid;
+		gap: 12px;
+		margin-top: 16px;
+		padding: 24px;
+		background: var(--card);
+		color: var(--muted);
+		font-size: 0.9375rem;
+		justify-items: start;
+	}
+
+	.faq__list {
+		border-top: 1px solid var(--line-2);
+	}
+
+	.acc {
+		border-bottom: 1px solid var(--line-2);
+	}
+
+	.acc summary {
+		display: grid;
+		grid-template-columns: 1fr 28px;
+		align-items: start;
+		gap: 12px;
+		padding: 26px 0;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.acc summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.acc__q {
+		font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+		letter-spacing: -0.025em;
+		line-height: 1.35;
+		font-weight: 500;
+		transition: color 0.3s;
+	}
+
+	.acc summary:hover .acc__q {
+		color: var(--green-ink);
+	}
+
+	/* Plus that turns into a minus. */
+	.acc__icon {
+		position: relative;
+		width: 28px;
+		height: 28px;
+		border: 1px solid var(--line-2);
+		border-radius: 50%;
+		transition:
+			background 0.4s,
+			border-color 0.4s;
+	}
+
+	.acc__icon::before,
+	.acc__icon::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 10px;
+		height: 1.5px;
+		margin: -0.75px 0 0 -5px;
+		background: currentColor;
+		transition: transform 0.5s var(--ease-out);
+	}
+
+	.acc__icon::after {
+		transform: rotate(90deg);
+	}
+
+	.acc.is-open .acc__icon,
+	.acc[open]:not(.is-open) .acc__icon {
+		background: var(--green);
+		border-color: var(--green);
+	}
+
+	.acc.is-open .acc__icon::after {
+		transform: rotate(0deg);
+	}
+
+	.acc__body {
+		overflow: hidden;
+	}
+
+	.acc__body p {
+		padding: 0 48px 28px 0;
+		color: var(--muted);
+		max-width: 68ch;
+	}
+</style>

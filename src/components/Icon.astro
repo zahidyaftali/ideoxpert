@@ -1,0 +1,87 @@
+---
+// Inline SVG icons. UI icons are drawn on a 24px grid with a 1.6 stroke;
+// brand marks come from Font Awesome's free set and are inlined at build time,
+// so no icon font or script ships to the browser.
+import {
+	faLinkedinIn,
+	faFacebookF,
+	faInstagram,
+	faWhatsapp,
+	faXTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+
+const brands = {
+	linkedin: faLinkedinIn,
+	facebook: faFacebookF,
+	instagram: faInstagram,
+	whatsapp: faWhatsapp,
+	x: faXTwitter,
+} as const;
+
+const strokes = {
+	'arrow-right': '<path d="M4 12h15M13 6l6 6-6 6"/>',
+	'arrow-up-right': '<path d="M7 17 17 7M8 7h9v9"/>',
+	'arrow-left': '<path d="M20 12H5M11 6l-6 6 6 6"/>',
+	'arrow-up': '<path d="M12 20V5M6 11l6-6 6 6"/>',
+	'chevron-down': '<path d="m6 9 6 6 6-6"/>',
+	plus: '<path d="M12 5v14M5 12h14"/>',
+	close: '<path d="M6 6l12 12M18 6 6 18"/>',
+	phone:
+		'<path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 0 0 6.3 6.3l1.4-2.2L20 15.5V19a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z"/>',
+	mail: '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/>',
+	pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
+	clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+	check: '<path d="m5 12.5 4.2 4L19 7"/>',
+	alert: '<path d="M12 4.5 21 19.5H3Z"/><path d="M12 10v4M12 16.8v.2"/>',
+	globe: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.5 3.5 5.3 3.5 8.5s-1.1 6-3.5 8.5c-2.4-2.5-3.5-5.3-3.5-8.5s1.1-6 3.5-8.5Z"/>',
+	spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.9 2.9M15.5 15.5l2.9 2.9M5.6 18.4l2.9-2.9M15.5 8.5l2.9-2.9"/>',
+	quote: '<path d="M9.5 7H6a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v1.5A2.5 2.5 0 0 1 6.5 17M19 7h-3.5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v1.5A2.5 2.5 0 0 1 16 17"/>',
+	menu: '<path d="M4 8h16M4 16h16"/>',
+	play: '<path d="M8 5.5v13l10-6.5-10-6.5Z"/>',
+	search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
+	link: '<path d="M10 14a4 4 0 0 0 5.7 0l3.3-3.3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0L5 13.3A4 4 0 0 0 10.7 19l1-1"/>',
+	eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>',
+	calendar: '<rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+	tag: '<path d="M3.5 12.5V4.5a1 1 0 0 1 1-1h8l8 8-9 9-8-8Z"/><circle cx="8" cy="8" r="1.3"/>',
+} as const;
+
+const fills = {
+	star: '<path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8L12 3Z"/>',
+} as const;
+
+export type IconName = keyof typeof brands | keyof typeof strokes | keyof typeof fills;
+
+interface Props {
+	name: IconName;
+	size?: number;
+	class?: string;
+	label?: string;
+}
+
+const { name, size = 20, class: className, label } = Astro.props;
+const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true', focusable: 'false' };
+
+let viewBox = '0 0 24 24';
+let body = '';
+let paint: Record<string, string> = {};
+
+if (name in brands) {
+	const [w, h, , , path] = brands[name as keyof typeof brands].icon;
+	viewBox = `0 0 ${w} ${h}`;
+	body = `<path d="${Array.isArray(path) ? path.join(' ') : path}"/>`;
+	paint = { fill: 'currentColor' };
+} else if (name in fills) {
+	body = fills[name as keyof typeof fills];
+	paint = { fill: 'currentColor' };
+} else {
+	body = strokes[name as keyof typeof strokes];
+	paint = {
+		fill: 'none',
+		stroke: 'currentColor',
+		'stroke-width': '1.6',
+		'stroke-linecap': 'round',
+		'stroke-linejoin': 'round',
+	};
+}
+---
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox={viewBox} class={className} {...paint} {...a11y} set:html={body} />

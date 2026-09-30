@@ -1,0 +1,770 @@
+---
+// One case study page per project, at /work/<slug>. Layout follows the
+// reference: hero, big screenshot, services, the brief, what we built,
+// at-a-glance figures, tech stack, next project and the
+// discovery form. Every figure comes from the live website (see
+// src/data/case-facts.json); nothing is estimated.
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import BrandLogo from '../../components/BrandLogo.astro';
+import { projects, type Project } from '../../data/projects';
+import { services, countries, site } from '../../data/site';
+import { firstFit, fitText, DESC_MAX } from '../../data/seo';
+
+export const getStaticPaths = (() =>
+	projects.map((p, i) => ({
+		params: { slug: p.slug },
+		props: { p, next: projects[(i + 1) % projects.length] },
+	}))) satisfies GetStaticPaths;
+
+interface Props {
+	p: Project;
+	next: Project;
+}
+
+const { p, next } = Astro.props;
+const f = p.facts;
+const dir = `/assets/images/work/${p.id}`;
+const country = countries.find((c) => c.code === p.country);
+const svc = p.services.map((slug) => services.find((s) => s.slug === slug)!).filter(Boolean);
+const pad = (n: number) => String(n).padStart(2, '0');
+const pageTitle = firstFit([`${p.name} Website Case Study | IdeoXpert`, `${p.name} Case Study | IdeoXpert`, `${p.name} | IdeoXpert`]);
+// "ABC Crane Hire case study: we built their WordPress website with..." when it
+// fits, otherwise the summary shortened to whole sentences.
+const [, built = ''] = p.summary.split(/(?<=\.)\s+(?=We )/);
+const caseLine = built && `${p.name} case study: ${built.charAt(0).toLowerCase()}${built.slice(1)}`;
+const pageDescription = caseLine && caseLine.length <= DESC_MAX ? caseLine : fitText(p.summary);
+const [s1] = f.sections;
+
+const glance = [
+	f.pages > 1 && { value: String(f.pages), label: 'pages live on the site' },
+	{ value: `${f.seo.passed}/${f.seo.total}`, label: 'on-page SEO checks passed' },
+	f.languages > 1 && { value: String(f.languages), label: 'languages' },
+	f.mobile && { value: '100%', label: 'responsive, phone to desktop' },
+].filter(Boolean) as { value: string; label: string }[];
+
+const schema = [
+	{
+		'@type': 'CreativeWork',
+		name: p.headline,
+		about: p.name,
+		url: new URL(`/work/${p.slug}`, site.url).href,
+		creator: { '@id': `${site.url}/#organization` },
+		image: new URL(`${dir}/hero.webp`, site.url).href,
+		dateCreated: String(p.year),
+	},
+];
+---
+<BaseLayout
+	title={pageTitle}
+	description={pageDescription}
+	image={`${dir}/hero.webp`}
+	breadcrumbs={[
+		{ name: 'Portfolio', path: '/portfolio' },
+		{ name: p.name, path: `/work/${p.slug}` },
+	]}
+	schema={schema}
+	discoveryService={svc[0]?.name}
+>
+	<!-- Hero -->
+	<section class="section section--flush chero">
+		<div class="container">
+			<div class="frame brackets chero__frame">
+				<div class="tex-layer chero__tex" aria-hidden="true"></div>
+				<div class="chero__main">
+					{f.logo && (
+						<span class:list={['chero__logo', { 'chero__logo--dark': f.logo.light }]} data-reveal>
+							<img src={`${dir}/logo.webp`} alt={`${p.name} logo`} />
+						</span>
+					)}
+					<h1 class="chero__title" data-split>{p.headline}<span class="dot">.</span></h1>
+				</div>
+				<p class="chero__summary" data-reveal style="--d:200">{p.summary}</p>
+
+				<div class="chero__foot">
+					<ul class="chero__meta" role="list" data-reveal>
+						<li><Icon name="calendar" size={16} /> {p.year}</li>
+						{country && <li><img src={`/assets/images/flags/${country.code}.svg`} alt="" width="18" height="13" /> {country.name}</li>}
+						<li><Icon name="tag" size={16} /> {p.industry}</li>
+					</ul>
+					<div class="chero__stats" data-reveal-group="80">
+						{glance.slice(0, 2).map((g) => (
+							<div class="chero__stat" data-reveal>
+								<strong>{g.value}</strong>
+								<span>{g.label}</span>
+							</div>
+						))}
+					</div>
+				</div>
+				<div class="chero__cta" data-reveal>
+					<Button href={p.url} variant="dark" icon="arrow-up-right" external>Visit the live website</Button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Big screenshot -->
+	<section class="shotband">
+		<div class="container">
+			<div class="shotband__frame" data-reveal="clip">
+				<span class="shotband__bar" aria-hidden="true"><i></i><i></i><i></i><span>{p.domain}</span></span>
+				<img src={`${dir}/hero.webp`} alt={`${p.name} homepage`} width="1440" height="900" decoding="async" />
+			</div>
+		</div>
+		<div class="container">
+			<ul class="svcrow" role="list" data-reveal-group="60">
+				{svc.map((s) => (
+					<li data-reveal><a href={`/${s.slug}`}>{s.name}</a></li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<!-- The brief -->
+	<section class="section brief">
+		<div class="container">
+			<div class="brief__head">
+				<h2 class="h2" data-split>The brief<span class="dot">.</span></h2>
+				<p class="brief__text" data-reveal>{p.brief}</p>
+			</div>
+			<div class="brief__body" data-autotabs="manual">
+				{s1 && (
+					<figure class="brief__img" data-reveal="clip">
+						<img src={`${dir}/${s1.file}`} alt={`A section of the ${p.name} website`} width="1200" height={s1.h} loading="lazy" decoding="async" />
+					</figure>
+				)}
+				<div class="brief__list">
+					{p.goals.map((g, i) => (
+						<details class="goal" open={i === 0} data-reveal>
+							<summary>
+								<span class="goal__n">[{i + 1}]</span>
+								<span class="goal__t">{g.title}</span>
+								<Icon name="chevron-down" size={18} class="goal__chev" />
+							</summary>
+							<p>{g.text}</p>
+						</details>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- What we built -->
+	<section class="section section--dark grain built">
+		<div class="container">
+			<div class="built__head">
+				<h2 class="h2" data-split>What we built<span class="dot">.</span></h2>
+				<p class="built__intro" data-reveal>{p.solution}</p>
+			</div>
+			<ol class="built__grid" role="list" data-reveal-group="80">
+				{f.built.map((b, i) => (
+					<li class="bitem" data-reveal>
+						<span class="bitem__n">[{i + 1}]</span>
+						<h3 class="bitem__t">{b.title}</h3>
+						<p>{b.text}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<!-- At a glance -->
+	<section class="section glance">
+		<div class="container">
+			<h2 class="h2 glance__title" data-split>At a glance<span class="dot">.</span></h2>
+			<dl class="glance__grid" data-reveal-group="80">
+				{glance.map((g) => (
+					<div class="glance__item" data-reveal>
+						<dd>{g.value}</dd>
+						<dt>{g.label}</dt>
+					</div>
+				))}
+			</dl>
+			<ul class="seochecks" role="list" data-reveal>
+				{f.seo.checks.map((c) => (
+					<li class:list={{ 'is-pass': c.pass }}><Icon name={c.pass ? 'check' : 'close'} size={15} /> {c.label}</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Tech stack -->
+	{f.stack.length > 0 && (
+		<section class="section section--tight stack">
+			<div class="container stack__inner">
+				<h2 class="stack__title">Built with</h2>
+				<ul class="stack__list" role="list" data-reveal-group="50">
+					{f.stack.map((t) => (
+						<li data-reveal>
+							<BrandLogo si={t.si} img={t.img} name={t.name} size={36} />
+							<span>{t.name}</span>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+	)}
+
+	<!-- Next project -->
+	<section class="nextp">
+		<div class="container">
+			<a class="nextp__link" href={`/work/${next.slug}`}>
+				<span class="nextp__label">Next case study</span>
+				<span class="nextp__name">{next.name}</span>
+				<span class="nextp__go"><Icon name="arrow-right" size={22} /></span>
+				<span class="nextp__img"><img src={next.thumb} alt="" width="960" height="600" loading="lazy" decoding="async" /></span>
+			</a>
+		</div>
+	</section>
+
+</BaseLayout>
+
+<style>
+	/* ---------- Hero ---------- */
+	.chero {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(32px, 4vw, 56px);
+	}
+
+	.chero__frame {
+		isolation: isolate;
+		display: grid;
+		gap: 36px 64px;
+		padding: clamp(32px, 5vw, 80px) clamp(24px, 4.5vw, 72px);
+		overflow: hidden;
+	}
+
+	@media (min-width: 1024px) {
+		.chero__frame {
+			grid-template-columns: 1.3fr 1fr;
+			align-items: center;
+		}
+	}
+
+	.chero__tex {
+		background: url('/assets/images/textures/speckle.webp') right top / 800px auto;
+		opacity: 0.3;
+		-webkit-mask-image: radial-gradient(ellipse 60% 70% at 100% 0%, #000 10%, transparent 70%);
+		mask-image: radial-gradient(ellipse 60% 70% at 100% 0%, #000 10%, transparent 70%);
+	}
+
+	.chero__main {
+		display: grid;
+		gap: 28px;
+		justify-items: start;
+	}
+
+	.chero__logo {
+		display: grid;
+		place-items: center;
+		height: 72px;
+		padding: 12px 18px;
+		background: var(--paper);
+	}
+
+	.chero__logo--dark {
+		background: var(--ink);
+		border-color: var(--ink);
+	}
+
+	.chero__logo img {
+		max-height: 46px;
+		max-width: 200px;
+		width: auto;
+		object-fit: contain;
+	}
+
+	.chero__title {
+		font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4.5rem);
+		line-height: 1.04;
+		letter-spacing: -0.05em;
+		font-weight: 400;
+		text-wrap: balance;
+	}
+
+	.chero__summary {
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.65;
+		color: var(--ink-soft);
+	}
+
+	.chero__foot {
+		display: grid;
+		gap: 20px;
+		align-self: end;
+	}
+
+	.chero__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px 24px;
+		margin: 0;
+		font-size: 0.9375rem;
+		color: var(--muted);
+	}
+
+	.chero__meta li {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.chero__meta img {
+		border-radius: 2px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+	}
+
+	.chero__stats {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.chero__stat {
+		display: grid;
+		gap: 4px;
+		min-width: 180px;
+		padding: 18px 22px;
+		border: 1px solid var(--line);
+	}
+
+	.chero__stat strong {
+		font-size: 2rem;
+		line-height: 1;
+		letter-spacing: -0.04em;
+		font-weight: 650;
+		color: var(--green-ink);
+	}
+
+	.chero__stat span {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.chero__cta {
+		align-self: end;
+	}
+
+	.chero__cta :global(.btn) {
+		width: 100%;
+		height: 58px;
+	}
+
+	/* ---------- Big screenshot + services ---------- */
+	.shotband__frame {
+		overflow: hidden;
+		background: var(--card);
+		border: 1px solid var(--line-2);
+		box-shadow: 0 60px 100px -60px rgba(7, 16, 11, 0.45);
+	}
+
+	.shotband__bar {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		height: 38px;
+		padding: 0 16px;
+		border-bottom: 1px solid var(--line);
+		font-size: 0.8125rem;
+		color: var(--muted);
+	}
+
+	.shotband__bar i {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: var(--paper-2);
+		border: 1px solid var(--line);
+	}
+
+	.shotband__bar span {
+		margin-inline: auto;
+		padding: 3px 14px;
+		background: var(--paper);
+		border-radius: 999px;
+	}
+
+	.shotband__frame img {
+		width: 100%;
+		height: auto;
+	}
+
+	.svcrow {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin: 28px 0 0;
+	}
+
+	.svcrow a {
+		display: inline-block;
+		padding: 12px 18px;
+		background: var(--card);
+		border: 1px solid var(--line);
+		font-weight: 550;
+		transition:
+			background 0.3s,
+			color 0.3s;
+	}
+
+	.svcrow a:hover {
+		background: var(--ink);
+		color: var(--white);
+	}
+
+	/* ---------- Brief ---------- */
+	.brief__head {
+		display: grid;
+		gap: 20px 64px;
+		margin-bottom: clamp(36px, 4vw, 56px);
+	}
+
+	@media (min-width: 1024px) {
+		.brief__head {
+			grid-template-columns: 1fr 1fr;
+			align-items: end;
+		}
+	}
+
+	.brief__text {
+		max-width: 56ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+
+	.brief__body {
+		display: grid;
+		gap: 32px;
+		align-items: start;
+	}
+
+	@media (min-width: 1024px) {
+		.brief__body {
+			grid-template-columns: 1fr 1fr;
+			gap: 48px;
+		}
+
+		.brief__body:not(:has(.brief__img)) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.brief__img {
+		overflow: hidden;
+		border: 1px solid var(--line);
+		background: var(--card);
+	}
+
+	.brief__img img {
+		width: 100%;
+		height: auto;
+	}
+
+	.goal {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.goal summary {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: baseline;
+		gap: 12px;
+		padding: 22px 0;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.goal summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.goal__n {
+		color: var(--muted);
+		font-size: 1.125rem;
+	}
+
+	.goal__t {
+		font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+		font-weight: 550;
+		letter-spacing: -0.03em;
+		color: var(--muted);
+		transition: color 0.3s;
+	}
+
+	.goal[open] .goal__t,
+	.goal summary:hover .goal__t {
+		color: var(--ink);
+	}
+
+	.goal :global(.goal__chev) {
+		align-self: center;
+		color: var(--muted);
+		transition: transform 0.4s var(--ease-out);
+	}
+
+	.goal[open] :global(.goal__chev) {
+		transform: rotate(180deg);
+	}
+
+	.goal p {
+		padding: 0 0 24px;
+		max-width: 60ch;
+		color: var(--ink-soft);
+		line-height: 1.6;
+	}
+
+	/* ---------- What we built ---------- */
+	.built__head {
+		display: grid;
+		gap: 20px 64px;
+		margin-bottom: clamp(36px, 4vw, 56px);
+	}
+
+	@media (min-width: 1024px) {
+		.built__head {
+			grid-template-columns: 1fr 1fr;
+			align-items: end;
+		}
+	}
+
+	.built__intro {
+		max-width: 56ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.6;
+	}
+
+	.built__grid {
+		display: grid;
+		gap: 1px;
+		margin: 0;
+		background: var(--night-line);
+	}
+
+	@media (min-width: 800px) {
+		.built__grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.bitem {
+		display: grid;
+		gap: 14px;
+		align-content: start;
+		padding: clamp(24px, 3vw, 40px);
+		background: var(--night);
+	}
+
+	.bitem__n {
+		color: var(--green);
+		font-size: 0.9375rem;
+	}
+
+	.bitem__t {
+		font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+		font-weight: 550;
+		letter-spacing: -0.03em;
+		color: var(--on-night);
+	}
+
+	.bitem p {
+		line-height: 1.6;
+	}
+
+	/* An odd last item takes the full row instead of leaving an empty cell. */
+	@media (min-width: 800px) {
+		.bitem:last-child:nth-child(odd) {
+			grid-column: 1 / -1;
+		}
+	}
+
+	/* ---------- At a glance ---------- */
+	.glance__title {
+		text-align: center;
+		margin-bottom: clamp(36px, 4vw, 56px);
+	}
+
+	.glance__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 12px;
+		margin: 0;
+	}
+
+	.glance__item {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		gap: 10px;
+		min-height: 200px;
+		padding: 28px;
+		background: var(--card);
+	}
+
+	.glance__item dd {
+		margin: 0;
+		font-size: clamp(2.75rem, 1.8rem + 2.6vw, 4.5rem);
+		line-height: 1;
+		letter-spacing: -0.05em;
+		font-weight: 650;
+	}
+
+	.glance__item dt {
+		color: var(--green-ink);
+		font-weight: 550;
+	}
+
+	.seochecks {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 24px 0 0;
+		justify-content: center;
+	}
+
+	.seochecks li {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px;
+		background: var(--paper-2);
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.seochecks li.is-pass {
+		color: var(--ink);
+	}
+
+	.seochecks li.is-pass :global(svg) {
+		color: var(--green-ink);
+	}
+
+	/* ---------- Stack ---------- */
+	.stack__inner {
+		display: grid;
+		gap: 24px;
+		align-items: center;
+	}
+
+	@media (min-width: 900px) {
+		.stack__inner {
+			grid-template-columns: 180px 1fr;
+		}
+	}
+
+	.stack__title {
+		font-size: 1.25rem;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.stack__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin: 0;
+	}
+
+	.stack__list li {
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 18px;
+		border: 1px solid var(--line);
+		font-weight: 500;
+	}
+
+	.stack__list li :global(svg),
+	.stack__list li :global(img) {
+		flex: none;
+		width: 28px;
+		height: 28px;
+		object-fit: contain;
+	}
+
+	/* ---------- Next project ---------- */
+	.nextp__link {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: 6px 24px;
+		padding: clamp(28px, 4vw, 56px) 0;
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.nextp__label {
+		grid-column: 1;
+		color: var(--muted);
+	}
+
+	.nextp__name {
+		grid-column: 1;
+		font-size: clamp(2rem, 1.2rem + 3vw, 4.25rem);
+		line-height: 1;
+		letter-spacing: -0.05em;
+		font-weight: 400;
+		transition: color 0.3s;
+	}
+
+	.nextp__go {
+		grid-column: 2;
+		grid-row: 1 / 3;
+		display: grid;
+		place-items: center;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		background: var(--ink);
+		color: var(--white);
+		transition:
+			background 0.3s,
+			transform 0.5s var(--ease-out);
+	}
+
+	.nextp__img {
+		position: absolute;
+		right: 120px;
+		top: 50%;
+		z-index: -1;
+		width: 280px;
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+		opacity: 0;
+		transform: translateY(-50%) rotate(-3deg) scale(0.9);
+		transition:
+			opacity 0.4s,
+			transform 0.6s var(--ease-out);
+		box-shadow: 0 30px 60px -30px rgba(7, 16, 11, 0.5);
+		pointer-events: none;
+	}
+
+	.nextp__img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+	}
+
+	.nextp__link:hover .nextp__name {
+		color: var(--green-ink);
+	}
+
+	.nextp__link:hover .nextp__go {
+		background: var(--green);
+		color: var(--ink);
+		transform: translateX(6px);
+	}
+
+	@media (hover: hover) and (min-width: 900px) {
+		.nextp__link:hover .nextp__img {
+			opacity: 1;
+			transform: translateY(-50%) rotate(-3deg);
+		}
+	}
+</style>

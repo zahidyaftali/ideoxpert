@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ServicesWheel from '../components/ServicesWheel.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import WhatWeBuild from '../components/WhatWeBuild.astro';
+import RecentWork from '../components/RecentWork.astro';
+import HoldingBack from '../components/HoldingBack.astro';
+import Process from '../components/Process.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import { stats } from '../data/site';
+import { generalFaqs, serviceFaqs } from '../data/faqs';
+
+const heroStats = [
+	{ ...stats.years, icon: 'clock' },
+	{ ...stats.projects, label: 'Websites delivered', icon: 'globe' },
+	{ ...stats.rating, label: 'Client rating', icon: 'star' },
+] as const;
+
+// "How much does a website cost?" answers what the old pricing block said.
+const faqs = [generalFaqs[0], serviceFaqs[1], ...generalFaqs.slice(1)];
+---
+<BaseLayout
+	title="Web Development Agency in Islamabad | IdeoXpert"
+	description="IdeoXpert is a web development agency in Islamabad, Pakistan: web design, WordPress, e-commerce, mobile apps, SEO and hosting for businesses worldwide."
+	keywords="web development agency Islamabad, web design agency Pakistan, website development Islamabad, web solutions Pakistan, WordPress development Pakistan, mobile app development Pakistan, SEO services Islamabad, e-commerce development Pakistan, CMS development, web hosting Pakistan, IdeoXpert"
+	image="/assets/images/bg/16.png"
+>
+	<section class="section section--flush hero">
+		<div class="container">
+			<div class="frame brackets hero__frame">
+				<div class="tex-layer hero__tex" aria-hidden="true"></div>
+				<div class="hero__copy">
+					<div class="hero__main">
+						<h1 class="hero__h1">
+							<span class="eyebrow" data-reveal>Web development agency in Islamabad, Pakistan</span>
+							<span class="display hero__title" data-split>Websites &amp; apps built to win you customers<span class="dot">.</span></span>
+						</h1>
+						<p class="hero__lead" data-reveal style="--d:250">
+							We design, build and look after websites, web apps and mobile apps that load fast, rank on Google and turn visitors into customers.
+						</p>
+						<div class="btn-row" data-reveal style="--d:350">
+							<Button href="/contact" variant="primary" magnetic>Get a free quote</Button>
+							<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
+						</div>
+						<p class="hero__note" data-reveal style="--d:450">Free consultation. We reply within 24 hours.</p>
+					</div>
+
+					<dl class="hero__stats" data-reveal-group="80">
+						{heroStats.map((s) => (
+							<div class="hero__stat brackets" data-reveal>
+								<dt>{s.label}</dt>
+								<dd><span data-count={s.value}>{s.value}</span><span class="hero__suffix">{s.suffix}</span></dd>
+								<Icon name={s.icon} size={20} class="hero__stat-icon" />
+							</div>
+						))}
+					</dl>
+				</div>
+
+				<div class="hero__side" data-reveal="fade" style="--d:200">
+					<ServicesWheel />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<LogoMarquee />
+
+	<WhatWeBuild />
+
+	<RecentWork white />
+
+	<HoldingBack />
+
+	<Process />
+
+	<Testimonials />
+
+	<Faq items={faqs} />
+</BaseLayout>
+
+<style>
+	.hero {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(24px, 3vw, 48px);
+	}
+
+	/* One white surface for the whole hero, with a fine speckle texture. */
+	.hero__frame {
+		isolation: isolate;
+		display: grid;
+		overflow: hidden;
+	}
+
+	.hero__tex {
+		background: url('/assets/images/textures/speckle.webp') right top / 760px auto;
+		opacity: 0.22;
+		-webkit-mask-image: radial-gradient(ellipse 70% 80% at 100% 0%, #000 10%, transparent 70%);
+		mask-image: radial-gradient(ellipse 70% 80% at 100% 0%, #000 10%, transparent 70%);
+	}
+
+	@media (min-width: 1100px) {
+		.hero__frame {
+			grid-template-columns: 1fr 1fr;
+			min-height: min(calc(100svh - var(--topbar-h) - var(--header-h) - 24px), 900px);
+		}
+	}
+
+	.hero__copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 48px;
+		padding: clamp(32px, 5vw, 80px) clamp(24px, 4.5vw, 72px) clamp(28px, 3vw, 48px);
+	}
+
+	.hero__main {
+		display: grid;
+		gap: 26px;
+		justify-items: start;
+		margin-block: auto;
+	}
+
+	.hero__h1 {
+		display: grid;
+		gap: 22px;
+		justify-items: start;
+		font-weight: 400;
+	}
+
+	.hero__title {
+		max-width: 12ch;
+		font-size: clamp(2.75rem, 1.4rem + 4.2vw, 5.75rem);
+	}
+
+	.hero__lead {
+		max-width: 46ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	.hero__note {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	/* Stats: three boxes sharing borders, with small corner ticks. */
+	.hero__stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin: 0;
+		border: 1px solid var(--line);
+	}
+
+	.hero__stat {
+		position: relative;
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: flex-end;
+		gap: 6px;
+		padding: 52px 20px 20px;
+		border-right: 1px solid var(--line);
+	}
+
+	.hero__stat:last-child {
+		border-right: 0;
+	}
+
+	.hero__stat::after {
+		--bl: 8px;
+	}
+
+	.hero__stat :global(.hero__stat-icon) {
+		position: absolute;
+		top: 18px;
+		left: 20px;
+		color: var(--green-ink);
+	}
+
+	.hero__stat dt {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.hero__stat dd {
+		margin: 0;
+		font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.75rem);
+		line-height: 1;
+		letter-spacing: -0.05em;
+		font-weight: 500;
+	}
+
+	.hero__suffix {
+		color: var(--green);
+	}
+
+	/* Visual half: divided from the copy by one line, like the reference. */
+	.hero__side {
+		display: flex;
+		align-items: stretch;
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1100px) {
+		.hero__side {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	.hero__side > :global(*) {
+		width: 100%;
+	}
+
+	/* Phones: centred copy and full-width buttons, like the reference. */
+	@media (max-width: 699px) {
+		.hero__main,
+		.hero__h1 {
+			justify-items: center;
+			text-align: center;
+		}
+
+		.hero__main :global(.btn-row) {
+			flex-direction: column;
+			align-items: stretch;
+			width: 100%;
+		}
+
+		.hero__main :global(.btn-row .btn) {
+			width: 100%;
+		}
+
+		.hero__stat {
+			align-items: center;
+			padding: 48px 8px 16px;
+			text-align: center;
+		}
+
+		.hero__stat :global(.hero__stat-icon) {
+			left: 50%;
+			translate: -50% 0;
+		}
+
+		.hero__stat dt {
+			font-size: 0.75rem;
+		}
+	}
+</style>

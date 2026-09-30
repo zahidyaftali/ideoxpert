@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import WhatWeBuild from '../components/WhatWeBuild.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import { site, services } from '../data/site';
+import { serviceFaqs, faqSchema } from '../data/faqs';
+
+const schema = [
+	{
+		'@type': 'ItemList',
+		name: 'IdeoXpert services',
+		itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${site.url}/${s.slug}` })),
+	},
+	faqSchema(serviceFaqs),
+];
+---
+<BaseLayout
+	title="Web Design, Development & SEO Services | IdeoXpert"
+	description="Web design, website development, WordPress, e-commerce, SEO, mobile apps, CMS, hosting and maintenance from one web development agency."
+	keywords="web design services Islamabad, web development agency Pakistan, web solutions Pakistan, WordPress website Pakistan, mobile app development Islamabad, SEO services Pakistan, e-commerce website development, CMS development Pakistan, website maintenance Pakistan, hosting domain Pakistan, IdeoXpert services"
+	image="/assets/images/elements/service.svg"
+	breadcrumbs={[{ name: 'Services', path: '/services' }]}
+	schema={schema}
+>
+	<PageHero
+		crumbs={[{ name: 'Services', path: '/services' }]}
+		title='Everything your business needs to build and grow online<span class="dot">.</span>'
+		lead="IdeoXpert is a web development agency in Islamabad, Pakistan. From web design and development to WordPress, e-commerce, mobile apps, SEO, CMS and hosting, one team gets it done right, whether you are starting from scratch or improving what you have."
+	>
+		<Fragment slot="actions">
+			<Button href="/contact" variant="primary" magnetic>Talk to our team</Button>
+			<Button href="#all-services" variant="ghost" icon={false}>Browse services</Button>
+		</Fragment>
+
+		<!-- Services orbiting the IdeoXpert mark -->
+		<div slot="aside" class="orbit" aria-hidden="true" data-reveal="scale" style="--d:200">
+			<span class="orbit__ring orbit__ring--1"></span>
+			<span class="orbit__ring orbit__ring--2"></span>
+			<span class="orbit__ring orbit__ring--3"></span>
+			<div class="orbit__spin">
+				{services.map((s, i) => (
+					<span class="orbit__item" style={`--a:${(360 / services.length) * i}deg`}>
+						<span class="orbit__upright"><span class="orbit__pill">{s.name}</span></span>
+					</span>
+				))}
+			</div>
+			<img class="orbit__mark" src="/assets/images/icon-256.png" alt="" width="256" height="256" data-depth="-14" />
+		</div>
+	</PageHero>
+
+	<LogoMarquee />
+
+	<WhatWeBuild
+		id="all-services"
+		title='Our services<span class="dot">.</span>'
+		subtitle="Design and development happen in-house, so there is no handoff between teams and the people who design your website also build it."
+		showAllLink={false}
+	/>
+
+	<Process />
+
+	<Faq items={serviceFaqs} title='Common questions about our services<span class="dot">.</span>' />
+</BaseLayout>
+
+<style>
+	/* ---------- Orbit ---------- */
+	.orbit {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: min(100%, 560px);
+		aspect-ratio: 1;
+		margin-inline: auto;
+	}
+
+	.orbit > * {
+		grid-area: 1 / 1;
+	}
+
+	.orbit__ring {
+		width: 84%;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		border: 1px dashed var(--line-2);
+	}
+
+	.orbit__ring--2 {
+		width: 64%;
+		border-style: solid;
+		border-color: var(--line);
+		background: radial-gradient(closest-side, rgba(45, 180, 83, 0.14), transparent);
+	}
+
+	.orbit__ring--3 {
+		width: 36%;
+		border-color: rgba(45, 180, 83, 0.35);
+		border-style: solid;
+		animation: orbit-pulse 3.6s var(--ease-in-out) infinite;
+	}
+
+	@keyframes orbit-pulse {
+		50% {
+			transform: scale(1.08);
+			opacity: 0.4;
+		}
+	}
+
+	.orbit__spin {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		animation: orbit-spin 80s linear infinite;
+	}
+
+	.orbit:hover .orbit__spin {
+		animation-play-state: paused;
+	}
+
+	/* Each label sits on the outer ring: .orbit__item is placed on the circle,
+	   .orbit__upright cancels the ring's spin so the text stays level. */
+	.orbit__item {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		transform: rotate(var(--a)) translateY(-42cqi) rotate(calc(var(--a) * -1));
+	}
+
+	.orbit__upright {
+		position: absolute;
+		inset: 0;
+		animation: orbit-spin 80s linear infinite reverse;
+	}
+
+	.orbit__pill {
+		position: absolute;
+		left: 0;
+		top: 0;
+		translate: -50% -50%;
+		padding: 8px 14px;
+		border-radius: 999px;
+		background: var(--card);
+		border: 1px solid var(--line);
+		box-shadow: 0 10px 24px -12px rgba(7, 16, 11, 0.3);
+		font-size: 0.8125rem;
+		font-weight: 550;
+		white-space: nowrap;
+		transition:
+			background 0.3s,
+			color 0.3s;
+	}
+
+	.orbit:hover .orbit__upright {
+		animation-play-state: paused;
+	}
+
+	@keyframes orbit-spin {
+		to {
+			rotate: 360deg;
+		}
+	}
+
+	.orbit {
+		container-type: inline-size;
+	}
+
+	.orbit__mark {
+		width: 22%;
+		height: auto;
+		border-radius: 50%;
+		box-shadow:
+			0 0 0 10px rgba(45, 180, 83, 0.12),
+			0 24px 60px -10px rgba(45, 180, 83, 0.55);
+	}
+
+	@media (max-width: 1023px) {
+		.orbit {
+			width: min(100%, 420px);
+		}
+
+		.orbit__pill {
+			font-size: 0.6875rem;
+			padding: 6px 10px;
+		}
+	}
+
+</style>

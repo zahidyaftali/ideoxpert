@@ -1,0 +1,161 @@
+---
+// "How we work": five steps that scroll sideways while the section is pinned
+// (desktop), or swipe (phones).
+import StepArt from './StepArt.astro';
+import { servicePageBySlug } from '../data/service-pages';
+
+const steps = servicePageBySlug('website-development')!.approach.steps;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<section class="section section--tint process" data-hscroll>
+	<div class="container process__head">
+		<div class="stack">
+			<h2 class="h2" data-split>From first call to launch day<span class="dot">.</span></h2>
+			<p class="subtitle" data-reveal>Five clear steps, and you know what is happening at each one.</p>
+		</div>
+		<div class="process__meter" aria-hidden="true">
+			<span class="process__line"><i data-hscroll-bar></i></span>
+		</div>
+	</div>
+	<div class="container">
+		<ol class="process__track" role="list" data-hscroll-track data-spot-group>
+			{steps.map((s, i) => (
+				<li class="step spot">
+					<span class="spot__edge" aria-hidden="true"></span>
+					<div class="step__top">
+						<span class="step__num">{pad(i + 1)}</span>
+						<StepArt index={i} />
+					</div>
+					<h3 class="h4">{s.title}</h3>
+					<p>{s.text}</p>
+				</li>
+			))}
+		</ol>
+	</div>
+</section>
+
+<style>
+	/* ---------- Process ---------- */
+	.process {
+		--sy: clamp(80px, 9vw, 120px);
+		overflow: hidden;
+	}
+
+	@media (min-width: 1024px) {
+		.process {
+			--sy: 0px;
+			min-height: 100svh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding-block: 96px 64px;
+		}
+	}
+
+	.process__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: end;
+		justify-content: space-between;
+		gap: 24px;
+		margin-bottom: clamp(32px, 4vw, 56px);
+	}
+
+	.process__head .stack {
+		margin: 0;
+	}
+
+	.process__meter {
+		display: grid;
+		gap: 12px;
+		width: min(320px, 100%);
+	}
+
+	.process__line {
+		display: block;
+		height: 2px;
+		background: var(--line-2);
+		overflow: hidden;
+	}
+
+	.process__line i {
+		display: block;
+		height: 100%;
+		background: var(--green);
+		transform-origin: 0 50%;
+		transform: scaleX(0);
+	}
+
+	.process__track {
+		display: flex;
+		gap: 20px;
+		margin: 0;
+	}
+
+	@media (max-width: 1023px) {
+		.process__meter {
+			display: none;
+		}
+
+		.process__track {
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			margin-inline: calc(var(--gutter) * -1);
+			padding: 8px var(--gutter) 16px;
+			scrollbar-width: none;
+		}
+
+		.process__track::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	.step {
+		flex: none;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		width: min(84vw, 400px);
+		min-height: min(420px, 52vh);
+		padding: 28px;
+		background: var(--card);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		scroll-snap-align: start;
+	}
+
+	@media (min-width: 1024px) {
+		.step {
+			width: clamp(340px, 29vw, 420px);
+		}
+	}
+
+	.step__top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: auto;
+		padding-bottom: 32px;
+	}
+
+	.step__num {
+		font-size: 4.5rem;
+		line-height: 0.8;
+		letter-spacing: -0.07em;
+		font-weight: 300;
+		-webkit-text-stroke: 1px var(--ink);
+		color: transparent;
+		transition: color 0.5s;
+	}
+
+	.step:hover .step__num {
+		color: var(--green);
+		-webkit-text-stroke-color: var(--green);
+	}
+
+	.step p {
+		font-size: 0.9375rem;
+		color: var(--muted);
+	}
+
+</style>

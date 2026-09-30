@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import WorkStack from '../../components/WorkStack.astro';
+import { industries } from '../../data/industries';
+import { projects } from '../../data/projects';
+import { site } from '../../data/site';
+
+const withWork = industries.map((ind) => ({
+	...ind,
+	work: ind.projects.map((id) => projects.find((p) => p.id === id)!).filter(Boolean),
+}));
+const heroWork = ['smbelectrical-ca', 'archdermatology-com', 'fijianrealestate-com'].map((id) => projects.find((p) => p.id === id)!);
+
+const schema = [
+	{
+		'@type': 'ItemList',
+		name: 'Industries IdeoXpert builds websites for',
+		itemListElement: industries.map((ind, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/industries/${ind.slug}`, name: ind.name })),
+	},
+];
+---
+<BaseLayout
+	title="Industries We Build Websites For | IdeoXpert"
+	description="Websites for trades, healthcare, real estate, hospitality, professional services and entertainment, each backed by real client work you can check."
+	keywords="industry website design, websites for trades, healthcare website design, real estate website design, restaurant website design, professional services website, entertainment website design, IdeoXpert industries"
+	image="/assets/images/work/smbelectrical-ca/hero.webp"
+	pageType="CollectionPage"
+	breadcrumbs={[{ name: 'Industries', path: '/industries' }]}
+	schema={schema}
+>
+	<PageHero
+		crumbs={[{ name: 'Industries', path: '/industries' }]}
+		title='Websites built for the way your industry works<span class="dot">.</span>'
+		lead="A removal company, a dermatology clinic and a property platform need very different websites. These are the industries we know best, each backed by real client work you can open and check."
+	>
+		<Fragment slot="actions">
+			<Button href="#industries" variant="dark" icon="arrow-right">Find your industry</Button>
+			<Button href="/portfolio" variant="ghost" icon={false}>See all work</Button>
+		</Fragment>
+		<div slot="aside"><WorkStack projects={heroWork} /></div>
+	</PageHero>
+
+	<section class="section ilist" id="industries">
+		<div class="container">
+			<ul class="ilist__grid" role="list" data-reveal-group="70">
+				{withWork.map((ind) => (
+					<li data-reveal>
+						<a class="ind" href={`/industries/${ind.slug}`}>
+							<span class="ind__media">
+								<img src={ind.work[0].thumb} srcset={ind.work[0].srcset} sizes="(min-width: 1200px) 33vw, (min-width: 800px) 50vw, 100vw" alt="" width="1440" height="900" loading="lazy" decoding="async" />
+							</span>
+							<span class="ind__body">
+								<span class="ind__count">{ind.work.length} {ind.work.length === 1 ? 'project' : 'projects'}</span>
+								<span class="ind__name">{ind.name}</span>
+								<span class="ind__lead">{ind.lead}</span>
+								<span class="ind__go">View industry <Icon name="arrow-right" size={16} /></span>
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.ilist__grid {
+		display: grid;
+		gap: 20px;
+		margin: 0;
+	}
+
+	@media (min-width: 800px) {
+		.ilist__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1200px) {
+		.ilist__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.ind {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--line);
+		transition: background 0.3s;
+	}
+
+	.ind:hover {
+		background: var(--card);
+	}
+
+	.ind__media {
+		display: block;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		background: var(--paper-2);
+	}
+
+	.ind__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		transition: transform 0.9s var(--ease-out);
+	}
+
+	.ind:hover .ind__media img {
+		transform: scale(1.04);
+	}
+
+	.ind__body {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		flex: 1;
+		padding: clamp(20px, 2vw, 28px);
+	}
+
+	.ind__count {
+		font-size: 0.875rem;
+		color: var(--green-ink);
+		font-weight: 550;
+	}
+
+	.ind__name {
+		font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem);
+		font-weight: 500;
+		letter-spacing: -0.035em;
+		line-height: 1.15;
+	}
+
+	.ind__lead {
+		color: var(--muted);
+		font-size: 0.9375rem;
+		line-height: 1.6;
+	}
+
+	.ind__go {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: auto;
+		padding-top: 8px;
+		font-weight: 550;
+	}
+
+	.ind__go :global(svg) {
+		transition: transform 0.4s var(--ease-out);
+	}
+
+	.ind:hover .ind__go :global(svg) {
+		transform: translateX(4px);
+	}
+</style>

@@ -1,0 +1,329 @@
+---
+import { site, services } from '../data/site';
+import Icon from './Icon.astro';
+import Countries from './Countries.astro';
+import { industries } from '../data/industries';
+
+const year = new Date().getFullYear();
+
+const company = [
+	{ href: '/about', label: 'About us' },
+	{ href: '/portfolio', label: 'Portfolio' },
+	{ href: '/services', label: 'All services' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/about#faq', label: 'FAQ' },
+	{ href: '/contact', label: 'Contact' },
+];
+---
+<footer class="site-footer">
+	<!-- Links -->
+	<div class="container footer__main">
+		<div class="footer__brand">
+			<a href="/" aria-label="IdeoXpert home"><img src="/assets/images/logo-light-600.png" alt="IdeoXpert" width="600" height="124" loading="lazy" /></a>
+			<p>A web development agency in Islamabad, Pakistan. We design, build and look after websites, web apps and mobile apps for businesses around the world.</p>
+			<ul class="footer__socials" role="list">
+				{site.socials.map((s) => (
+					<li><a href={s.url} target="_blank" rel="noopener" aria-label={s.name}><Icon name={s.icon} size={16} /></a></li>
+				))}
+			</ul>
+		</div>
+
+		<nav class="footer__cols" aria-label="Footer">
+			<div class="footer__col footer__col--wide">
+				<h3>Services</h3>
+				<ul role="list">
+					{services.map((s) => <li><a href={`/${s.slug}`}>{s.name}</a></li>)}
+				</ul>
+			</div>
+			<div class="footer__col">
+				<h3>Industries</h3>
+				<ul role="list">
+					{industries.map((i) => <li><a href={`/industries/${i.slug}`}>{i.name}</a></li>)}
+				</ul>
+			</div>
+			<div class="footer__col">
+				<h3>Agency</h3>
+				<ul role="list">
+					{company.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+				</ul>
+			</div>
+			<div class="footer__col">
+				<h3>Get in touch</h3>
+				<ul role="list" class="footer__contact">
+					<li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+					<li><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></li>
+					<li><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a></li>
+				</ul>
+				<p class="footer__based">Based in Islamabad, Pakistan. Working with clients worldwide.</p>
+			</div>
+		</nav>
+	</div>
+
+	<!-- Where we work -->
+	<div class="container footer__world">
+		<h3><a href="/locations">Where we work</a></h3>
+		<Countries />
+	</div>
+
+	<!-- Wordmark: set like the logo, "ideo" regular + "xpert" bold + green period -->
+	<div class="wordmark" data-wordmark aria-hidden="true">
+		<div class="container">
+			<p class="wordmark__text">
+				<span class="wordmark__ideo">{[...'ideo'].map((l) => <span data-letter>{l}</span>)}</span><span class="wordmark__xpert">{[...'xpert'].map((l) => <span data-letter>{l}</span>)}</span><span class="wordmark__dot" data-letter>.</span>
+			</p>
+		</div>
+	</div>
+
+	<div class="container footer__bottom">
+		<p>&copy; {year} {site.name}. All rights reserved.</p>
+		<ul role="list">
+			<li><a href="/privacy-policy">Privacy policy</a></li>
+			<li><a href="/terms-and-condition">Terms &amp; conditions</a></li>
+		</ul>
+		<button class="footer__top" type="button" data-to-top>Back to top <Icon name="arrow-up" size={15} /></button>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		position: relative;
+		background: var(--night);
+		color: var(--on-night-muted);
+		--line: var(--night-line);
+		--line-2: rgba(238, 243, 239, 0.18);
+		--heading: var(--on-night);
+		--muted: var(--on-night-muted);
+		overflow: hidden;
+	}
+
+	/* ---------- Columns ---------- */
+	.footer__main {
+		display: grid;
+		gap: 56px;
+		padding-block: 72px 56px;
+	}
+
+	@media (min-width: 1024px) {
+		.footer__main {
+			grid-template-columns: 1fr 1.9fr;
+			gap: 80px;
+		}
+	}
+
+	.footer__brand {
+		display: grid;
+		gap: 22px;
+		align-content: start;
+		max-width: 380px;
+	}
+
+	.footer__brand img {
+		width: 150px;
+	}
+
+	.footer__brand p {
+		font-size: 0.9375rem;
+		line-height: 1.6;
+	}
+
+	.footer__socials {
+		display: flex;
+		gap: 8px;
+		margin: 0;
+	}
+
+	.footer__socials a {
+		display: grid;
+		place-items: center;
+		width: 40px;
+		height: 40px;
+		border: 1px solid var(--line-2);
+		border-radius: var(--r-xs);
+		color: var(--on-night);
+		transition:
+			background 0.35s,
+			color 0.35s,
+			border-color 0.35s,
+			transform 0.5s var(--ease-spring);
+	}
+
+	.footer__socials a:hover {
+		background: var(--green);
+		border-color: var(--green);
+		color: var(--ink);
+		transform: translateY(-3px);
+	}
+
+	.footer__cols {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 48px 32px;
+	}
+
+	@media (min-width: 700px) {
+		.footer__cols {
+			grid-template-columns: 1.2fr 1.1fr 0.8fr 1.1fr;
+		}
+	}
+
+	.footer__col--wide {
+		grid-column: 1 / -1;
+	}
+
+	@media (min-width: 700px) {
+		.footer__col--wide {
+			grid-column: auto;
+		}
+	}
+
+	.footer__col h3,
+	.footer__world h3 {
+		margin-bottom: 20px;
+		font-size: 1rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		color: var(--on-night);
+	}
+
+	.footer__col ul {
+		display: grid;
+		gap: 10px;
+		margin: 0;
+	}
+
+	.footer__col a {
+		position: relative;
+		color: var(--on-night-muted);
+		transition:
+			color 0.3s,
+			padding 0.45s var(--ease-out);
+	}
+
+	.footer__col a::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 8px;
+		height: 1px;
+		background: var(--green);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.45s var(--ease-out);
+	}
+
+	.footer__col a:hover {
+		color: var(--on-night);
+		padding-left: 16px;
+	}
+
+	.footer__col a:hover::before {
+		transform: scaleX(1);
+	}
+
+	.footer__contact a {
+		color: var(--on-night);
+	}
+
+	.footer__based {
+		margin-top: 18px;
+		font-size: 0.9375rem;
+		line-height: 1.6;
+	}
+
+	.footer__world {
+		padding-block: 36px 40px;
+		border-top: 1px solid var(--night-line);
+	}
+
+	.footer__world :global(.countries) {
+		color: var(--on-night);
+		gap: 14px 28px;
+	}
+
+	/* ---------- Wordmark ---------- */
+	.wordmark {
+		border-top: 1px solid var(--night-line);
+		overflow: hidden;
+	}
+
+	.wordmark__text {
+		display: flex;
+		justify-content: center;
+		font-size: clamp(64px, 20.6vw, 300px);
+		line-height: 0.78;
+		letter-spacing: -0.065em;
+		padding: 0.07em 0.04em 0 0;
+		overflow: hidden;
+		white-space: nowrap;
+		-webkit-mask-image: linear-gradient(#000 55%, rgba(0, 0, 0, 0.2));
+		mask-image: linear-gradient(#000 55%, rgba(0, 0, 0, 0.2));
+	}
+
+	.wordmark__text :global([data-letter]) {
+		display: inline-block;
+		will-change: transform;
+	}
+
+	.wordmark__ideo {
+		color: var(--green);
+		font-weight: 400;
+	}
+
+	.wordmark__xpert {
+		color: var(--on-night);
+		font-weight: 700;
+	}
+
+	/* Round, like the logo. */
+	.wordmark__dot {
+		width: 0.17em;
+		height: 0.17em;
+		margin-left: 0.04em;
+		border-radius: 50%;
+		background: var(--green);
+		color: transparent;
+		overflow: hidden;
+		align-self: flex-end;
+		margin-bottom: 0.02em;
+	}
+
+	/* ---------- Bottom ---------- */
+	.footer__bottom {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px 32px;
+		padding-block: 24px 28px;
+		border-top: 1px solid var(--night-line);
+		font-size: 0.8125rem;
+	}
+
+	.footer__bottom ul {
+		display: flex;
+		gap: 24px;
+		margin: 0;
+	}
+
+	.footer__bottom a:hover,
+	.footer__top:hover {
+		color: var(--on-night);
+	}
+
+	.footer__top {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--on-night-muted);
+		transition: color 0.3s;
+	}
+
+	.footer__top :global(svg) {
+		transition: transform 0.5s var(--ease-out);
+	}
+
+	.footer__top:hover :global(svg) {
+		transform: translateY(-3px);
+	}
+</style>

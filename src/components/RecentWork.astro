@@ -1,0 +1,135 @@
+---
+// Swipeable row of the most recent client websites.
+import { recentProjects, projects, type Project } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	white?: boolean;
+	/** Projects to show; defaults to the most recent ones. */
+	items?: Project[];
+}
+
+const {
+	title = 'Recent work<span class="dot">.</span>',
+	subtitle = 'Websites we have recently designed and built for clients in the UK, Australia, the US, Fiji and beyond.',
+	white = false,
+	items = recentProjects,
+} = Astro.props;
+---
+<section class:list={['section recent', { 'section--white': white }]} data-carousel>
+	<div class="container recent__head">
+		<div class="stack">
+			<h2 class="h2" data-split set:html={title} />
+			<p class="subtitle" data-reveal>{subtitle}</p>
+		</div>
+		<div class="recent__controls" data-reveal>
+			<button type="button" class="recent__arrow" data-carousel-prev aria-label="Previous projects"><Icon name="arrow-left" size={18} /></button>
+			<button type="button" class="recent__arrow" data-carousel-next aria-label="Next projects"><Icon name="arrow-right" size={18} /></button>
+			<Button href="/portfolio" variant="dark" size="sm">All {projects.length} projects</Button>
+		</div>
+	</div>
+
+	<ul class="recent__track" role="list" data-carousel-track data-lenis-prevent-horizontal>
+		{items.map((p) => (
+			<li class="recent__item"><ProjectCard project={p} /></li>
+		))}
+	</ul>
+
+	<div class="container">
+		<div class="recent__progress" aria-hidden="true"><i data-carousel-bar></i></div>
+	</div>
+</section>
+
+<style>
+	.recent {
+		overflow: hidden;
+	}
+
+	.recent__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 24px 48px;
+		margin-bottom: clamp(32px, 4vw, 56px);
+	}
+
+	.recent__controls {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.recent__arrow {
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		border: 1px solid var(--line-2);
+		border-radius: 50%;
+		transition:
+			background 0.3s,
+			color 0.3s,
+			border-color 0.3s,
+			opacity 0.3s;
+	}
+
+	.recent__arrow:hover:not(:disabled) {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--white);
+	}
+
+	.recent__arrow:disabled {
+		opacity: 0.35;
+		cursor: default;
+	}
+
+	/* The row starts at the content edge and runs off the right of the screen. */
+	.recent__track {
+		--edge: max(var(--gutter), calc((100% - var(--container)) / 2));
+		display: flex;
+		gap: 24px;
+		margin: 0;
+		padding: 4px var(--edge) 24px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: var(--edge);
+		scrollbar-width: none;
+		cursor: grab;
+	}
+
+	.recent__track::-webkit-scrollbar {
+		display: none;
+	}
+
+	.recent__track:global(.is-grabbing) {
+		cursor: grabbing;
+		scroll-snap-type: none;
+	}
+
+	.recent__item {
+		flex: 0 0 clamp(280px, 30vw, 520px);
+		scroll-snap-align: start;
+	}
+
+	.recent__progress {
+		height: 2px;
+		margin-top: 16px;
+		background: var(--line);
+		overflow: hidden;
+	}
+
+	.recent__progress i {
+		display: block;
+		height: 100%;
+		background: var(--green);
+		transform-origin: 0 50%;
+		transform: scaleX(0.08);
+		transition: transform 0.3s var(--ease-out);
+	}
+</style>

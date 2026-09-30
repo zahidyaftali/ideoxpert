@@ -1,0 +1,107 @@
+---
+// "Our experts recommend the best platform": the tools we use for a service.
+import type { Tool } from '../data/tools';
+import BrandLogo from './BrandLogo.astro';
+
+interface Props {
+	tools: Tool[];
+	title?: string;
+}
+
+const { tools, title = 'Our experts recommend the best platform<span class="dot">.</span>' } = Astro.props;
+---
+<section class="section tools">
+	<div class="container">
+		<h2 class="h2 tools__title" data-split set:html={title} />
+		<ul class="tools__grid" role="list" data-reveal-group="60">
+			{tools.map((t) => (
+				<li class="tool" data-reveal>
+					<span class="tool__tex" aria-hidden="true"></span>
+					<BrandLogo si={t.si} img={t.img} name={t.name} size={44} class="tool__logo" />
+					<h3 class="tool__name">{t.name}</h3>
+					<p class="tool__text">{t.text}</p>
+				</li>
+			))}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.tools__title {
+		max-width: 16ch;
+		margin: 0 auto clamp(40px, 5vw, 64px);
+		text-align: center;
+	}
+
+	.tools__grid {
+		display: grid;
+		gap: 1px;
+		margin: 0;
+		background: var(--line);
+		border: 1px solid var(--line);
+	}
+
+	@media (min-width: 800px) {
+		.tools__grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.tool {
+		position: relative;
+		isolation: isolate;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+		min-height: 320px;
+		padding: clamp(28px, 3vw, 44px);
+		background: var(--paper);
+		overflow: hidden;
+		transition: background 0.4s;
+	}
+
+	.tool:hover {
+		background: var(--card);
+	}
+
+	/* Dotted patch in the top right corner, like the reference. */
+	.tool__tex {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: -1;
+		width: 42%;
+		height: 60%;
+		background-image: radial-gradient(rgba(13, 18, 16, 0.16) 1px, transparent 1.2px);
+		background-size: 6px 6px;
+		-webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 20%, transparent 75%);
+		mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 20%, transparent 75%);
+		opacity: 0.8;
+	}
+
+	.tool :global(.tool__logo) {
+		align-self: flex-start;
+		object-fit: contain;
+		margin-bottom: auto;
+		transition: transform 0.5s var(--ease-out);
+	}
+
+	.tool:hover :global(.tool__logo) {
+		transform: translateY(-4px);
+	}
+
+	.tool__name {
+		margin-top: 48px;
+		font-size: clamp(1.5rem, 1.1rem + 1vw, 2.125rem);
+		font-weight: 500;
+		letter-spacing: -0.035em;
+		line-height: 1.1;
+	}
+
+	.tool__text {
+		max-width: 60ch;
+		color: var(--ink-soft);
+		font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+		line-height: 1.6;
+	}
+</style>

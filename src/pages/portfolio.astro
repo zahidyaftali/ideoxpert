@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import Select from '../components/Select.astro';
+import { site, services } from '../data/site';
+import { projects, sectors } from '../data/projects';
+
+// Hero collage: centre project in its brand colour, one on each side.
+const [center, left, right] = ['jazbahost-com', 'abccranehire-com-au', 'tvdm-au'].map((id) => projects.find((p) => p.id === id)!);
+const shot = (p: (typeof projects)[number]) => `/assets/images/work/${p.id}/hero.webp`;
+
+// Only offer service filters that match at least one project.
+const serviceOptions = services
+	.map((s) => ({ value: s.slug, label: s.name, count: projects.filter((p) => p.services.includes(s.slug)).length }))
+	.filter((o) => o.count > 0);
+const sectorOptions = sectors
+	.map((s) => ({ value: s, label: s, count: projects.filter((p) => p.sector === s).length }))
+	.sort((a, b) => b.count - a.count);
+
+const schema = [
+	{
+		'@type': 'ItemList',
+		name: 'IdeoXpert portfolio',
+		itemListElement: projects.map((p, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			url: `${site.url}/work/${p.slug}`,
+			name: p.headline,
+		})),
+	},
+];
+---
+<BaseLayout
+	title="Web Design & Development Portfolio | IdeoXpert"
+	description={`${projects.length} websites designed and built by IdeoXpert for businesses in the UK, US, Canada, Australia, Germany, the Netherlands, Fiji and more.`}
+	keywords="IdeoXpert portfolio, web design portfolio, web development projects, WordPress website examples, website case studies, web development agency Islamabad"
+	image={shot(center)}
+	pageType="CollectionPage"
+	breadcrumbs={[{ name: 'Portfolio', path: '/portfolio' }]}
+	schema={schema}
+>
+	<!-- Hero -->
+	<section class="work-hero">
+		<div class="work-hero__tex" aria-hidden="true"></div>
+		<div class="container work-hero__copy">
+			<h1 class="display work-hero__title" data-split>Our work &amp; clients<span class="dot">.</span></h1>
+			<p class="work-hero__lead" data-reveal style="--d:200">
+				These are the businesses we have built for. Different industries, different countries, same job: ship a website that works.
+			</p>
+		</div>
+
+		<div class="collage" aria-hidden="true">
+			<figure class="collage__side collage__side--l" data-reveal="fade" style="--d:350">
+				<img src={shot(left)} alt="" width="1440" height="900" decoding="async" />
+			</figure>
+			<figure class="collage__center" data-reveal style={`--d:200;--accent:${center.facts.accent ?? '#2db453'}`}>
+				<span class="collage__ghost collage__ghost--2"></span>
+				<span class="collage__ghost collage__ghost--1"></span>
+				<span class="collage__shot"><img src={shot(center)} alt="" width="1440" height="900" decoding="async" /></span>
+			</figure>
+			<figure class="collage__side collage__side--r" data-reveal="fade" style="--d:450">
+				<img src={shot(right)} alt="" width="1440" height="900" decoding="async" />
+			</figure>
+		</div>
+	</section>
+
+	<LogoMarquee />
+
+	<!-- Projects -->
+	<section class="section projects" id="projects" data-work-filter>
+		<div class="container">
+			<div class="projects__head">
+				<h2 class="h1" data-split>Our work<span class="dot">.</span></h2>
+				<p class="projects__intro" data-reveal>Our work combines design, development and search to build websites that bring in customers. Open any project for the full case study.</p>
+			</div>
+
+			<div class="filters" data-reveal>
+				<Select name="sector" id="f-sector" label="Industry" placeholder="Select your industry" allLabel="All industries" options={sectorOptions} data-filter-key="sector" />
+				<Select name="services" id="f-services" label="Services" placeholder="Select our services" allLabel="All services" options={serviceOptions} data-filter-key="services" />
+			</div>
+
+			<ul class="projects__grid" role="list">
+				{projects.map((p, i) => (
+					<li class="projects__item" data-reveal data-sector={p.sector} data-services={p.services.join('|')} style={`--d:${(i % 3) * 70}`}>
+						<ProjectCard project={p} featured={i === 0} eager={i < 3} />
+					</li>
+				))}
+			</ul>
+			<p class="projects__empty" hidden data-filter-empty>No projects match these filters yet. <button type="button" class="link link--green" data-filter-reset>Show all projects</button></p>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	// Two dropdown filters (industry, service) over the project grid.
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	const root = document.querySelector<HTMLElement>('[data-work-filter]')!;
+	const selects = [...root.querySelectorAll<HTMLElement>('[data-select][data-filter-key]')];
+	const items = [...root.querySelectorAll<HTMLElement>('.projects__item')];
+	const empty = root.querySelector<HTMLElement>('[data-filter-empty]')!;
+	const valueOf = (sel: HTMLElement) => sel.querySelector<HTMLInputElement>('input[type="hidden"]')!.value;
+
+	const apply = () => {
+		let shown = 0;
+		items.forEach((item) => {
+			const match = selects.every((sel) => {
+				const v = valueOf(sel);
+				return !v || (item.dataset[sel.dataset.filterKey!] ?? '').split('|').includes(v);
+			});
+			item.hidden = !match;
+			if (match) {
+				item.style.setProperty('--d', String((shown % 3) * 70));
+				shown++;
+			}
+		});
+		empty.hidden = shown > 0;
+		ScrollTrigger.refresh();
+	};
+	selects.forEach((sel) => sel.addEventListener('change', apply));
+	root.querySelector('[data-filter-reset]')!.addEventListener('click', () => {
+		selects.forEach((sel) => sel.dispatchEvent(new CustomEvent('select:set', { detail: '' })));
+	});
+</script>
+
+<style>
+	/* ---------- Hero ---------- */
+	.work-hero {
+		position: relative;
+		isolation: isolate;
+		background: var(--card);
+		padding-top: calc(var(--topbar-h) + var(--header-h) + clamp(48px, 6vw, 96px));
+		overflow: hidden;
+	}
+
+	/* Fine speckle across the top of the hero, fading out downwards. */
+	.work-hero__tex {
+		position: absolute;
+		inset: 0 0 30% 0;
+		z-index: -1;
+		background: url('/assets/images/textures/speckle.webp') center top / 900px auto;
+		opacity: 0.2;
+		-webkit-mask-image: linear-gradient(#000 30%, transparent);
+		mask-image: linear-gradient(#000 30%, transparent);
+	}
+
+	.work-hero__copy {
+		display: grid;
+		justify-items: center;
+		gap: 22px;
+		text-align: center;
+	}
+
+	.work-hero__title {
+		font-size: clamp(3rem, 1.6rem + 5vw, 6.5rem);
+	}
+
+	.work-hero__lead {
+		max-width: 58ch;
+		font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	/* Collage: runs the full width of the screen. Every screenshot is shown
+	   whole (16:10); the side ones fade to white at the screen edges. */
+	.collage {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr minmax(0, 1.3fr) 1fr;
+		align-items: end;
+		width: 100%;
+		margin-top: clamp(56px, 7vw, 110px);
+	}
+
+	.collage__side {
+		position: relative;
+		aspect-ratio: 1440 / 900;
+		overflow: hidden;
+		margin-bottom: clamp(24px, 3vw, 48px);
+	}
+
+	.collage__side img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+	}
+
+	/* Soft white haze towards the outer edges, like the reference. */
+	.collage__side--l {
+		-webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 25%, #000 65%);
+		mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 25%, #000 65%);
+	}
+
+	.collage__side--r {
+		-webkit-mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.3) 25%, #000 65%);
+		mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.3) 25%, #000 65%);
+	}
+
+	/* Centre: the project's own colour as a soft panel, the screenshot on top. */
+	.collage__center {
+		position: relative;
+		z-index: 2;
+		padding: 13% 7% 0;
+		background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 14%, #fff), color-mix(in srgb, var(--accent) 55%, #fff));
+	}
+
+	.collage__shot {
+		position: relative;
+		z-index: 2;
+		display: block;
+		aspect-ratio: 1440 / 900;
+		overflow: hidden;
+		box-shadow: 0 -12px 40px -16px rgba(0, 0, 0, 0.3);
+	}
+
+	.collage__shot img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+	}
+
+	/* Two faint cards stacked behind the screenshot. */
+	.collage__ghost {
+		position: absolute;
+		bottom: 0;
+		background: rgba(255, 255, 255, 0.4);
+	}
+
+	.collage__ghost--1 {
+		top: 9%;
+		left: 10%;
+		right: 10%;
+	}
+
+	.collage__ghost--2 {
+		top: 5%;
+		left: 13%;
+		right: 13%;
+		background: rgba(255, 255, 255, 0.25);
+	}
+
+	@media (max-width: 799px) {
+		.collage {
+			grid-template-columns: 0.35fr 1fr 0.35fr;
+		}
+
+		.collage__side {
+			aspect-ratio: auto;
+			height: 70%;
+			align-self: end;
+		}
+	}
+
+	/* ---------- Projects ---------- */
+	.projects__head {
+		display: grid;
+		gap: 20px 64px;
+		margin-bottom: 36px;
+	}
+
+	@media (min-width: 1024px) {
+		.projects__head {
+			grid-template-columns: 1fr 1fr;
+			align-items: end;
+		}
+	}
+
+	.projects__intro {
+		max-width: 56ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	.filters {
+		position: relative;
+		z-index: 5;
+		display: grid;
+		gap: 16px 28px;
+		margin-bottom: clamp(32px, 4vw, 48px);
+	}
+
+	@media (min-width: 700px) {
+		.filters {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.projects__grid {
+		display: grid;
+		gap: 20px;
+		margin: 0;
+	}
+
+	@media (min-width: 700px) {
+		.projects__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.projects__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.projects__empty {
+		padding: 48px 0;
+		color: var(--muted);
+	}
+</style>

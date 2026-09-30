@@ -1,0 +1,50 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+	href?: string;
+	variant?: 'primary' | 'dark' | 'ghost' | 'light' | 'ghost-light';
+	size?: 'sm' | 'md';
+	/** Icon in the square on the right. `false` renders a plain text button. */
+	icon?: IconName | false;
+	type?: 'button' | 'submit';
+	external?: boolean;
+	magnetic?: boolean;
+	class?: string;
+	[key: string]: unknown;
+}
+
+const {
+	href,
+	variant = 'dark',
+	size = 'md',
+	icon = 'arrow-right',
+	type = 'button',
+	external = false,
+	magnetic = false,
+	class: className,
+	...rest
+} = Astro.props;
+
+const label = (await Astro.slots.render('default')).trim();
+const text = label.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
+const classes = [
+	'btn',
+	variant === 'ghost-light' ? 'btn--ghost btn--ghost-light' : variant !== 'dark' && `btn--${variant}`,
+	size === 'sm' && 'btn--sm',
+	className,
+];
+const Tag = href ? 'a' : 'button';
+const attrs = href
+	? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) }
+	: { type };
+---
+<Tag class:list={classes} {...attrs} data-magnetic={magnetic ? '' : undefined} {...rest}>
+	<span class="btn__label"><span data-text={text} set:html={label} /></span>
+	{icon && (
+		<span class="btn__icon" aria-hidden="true">
+			<Icon name={icon} size={16} />
+			<Icon name={icon} size={16} />
+		</span>
+	)}
+</Tag>

@@ -1,0 +1,422 @@
+---
+// Blog index, laid out like the reference: heading, a featured article with
+// the latest ones beside it, then every article with category tabs and search.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, readingTime, cover, slugify, formatDate } from '../../data/blog';
+import { site } from '../../data/site';
+
+const posts = await getPosts();
+const featured = posts.find((p) => p.data.featured) ?? posts[0];
+const latest = posts.filter((p) => p !== featured).slice(0, 3);
+const categories = [...new Set(posts.map((p) => p.data.category))];
+
+const schema = [
+	{
+		'@type': 'Blog',
+		'@id': `${site.url}/blog#blog`,
+		name: 'IdeoXpert blog',
+		url: `${site.url}/blog`,
+		publisher: { '@id': `${site.url}/#organization` },
+		blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.title, url: `${site.url}/blog/${p.id}`, datePublished: p.data.published.toISOString() })),
+	},
+];
+---
+<BaseLayout
+	title="Web Design, SEO & E-commerce Guides | IdeoXpert Blog"
+	description="Practical guides on website costs, WordPress, SEO, local SEO, WooCommerce vs Shopify and website maintenance, from the IdeoXpert web development team."
+	keywords="web design blog, web development guides, SEO tips, website cost guide, WordPress vs custom website, WooCommerce vs Shopify, local SEO guide, website maintenance checklist"
+	image={cover(featured)}
+	pageType="CollectionPage"
+	breadcrumbs={[{ name: 'Blog', path: '/blog' }]}
+	schema={schema}
+>
+	<section class="section section--flush bhero">
+		<div class="container">
+			<h1 class="h1 bhero__title" data-split>Notes on building websites that work</h1>
+			<p class="bhero__lead" data-reveal>Practical guides on websites, SEO and online stores, from the team that builds them every day.</p>
+
+			<div class="bhero__grid">
+				<div class="bfeat" data-reveal>
+					<span class="blabel">Featured article</span>
+					<a class="bfeat__card" href={`/blog/${featured.id}`}>
+						<span class="bfeat__media">
+							<img src={cover(featured)} alt="" width="1200" height="630" decoding="async" />
+							<span class="bfeat__go" aria-hidden="true"><Icon name="arrow-up-right" size={18} /></span>
+						</span>
+						<span class="bfeat__title">{featured.data.title}</span>
+						<span class="bfeat__desc">{featured.data.description}</span>
+						<span class="bmeta"><Icon name="calendar" size={14} /> {formatDate(featured.data.published)} · {readingTime(featured)} min read</span>
+					</a>
+				</div>
+				<div class="blatest" data-reveal style="--d:150">
+					<span class="blabel">Latest articles</span>
+					<ul role="list">
+						{latest.map((p) => (
+							<li>
+								<a class="bmini" href={`/blog/${p.id}`}>
+									<span class="bmini__img"><img src={cover(p)} alt="" width="1200" height="630" loading="lazy" decoding="async" /></span>
+									<span class="bmini__body">
+										<span class="bmini__title">{p.data.title}</span>
+										<span class="bmini__desc">{p.data.description}</span>
+										<span class="bmeta"><Icon name="calendar" size={14} /> {formatDate(p.data.published)} · {readingTime(p)} min read</span>
+									</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section ball" data-blog-list>
+		<div class="container">
+			<h2 class="h2" data-split>All articles</h2>
+			<div class="ball__bar" data-reveal>
+				<div class="btabs" role="toolbar" aria-label="Filter articles by category">
+					<button type="button" class="btab" data-cat="all" aria-pressed="true">All articles</button>
+					{categories.map((c) => <button type="button" class="btab" data-cat={slugify(c)} aria-pressed="false">{c}</button>)}
+				</div>
+				<label class="bsearch">
+					<Icon name="search" size={16} />
+					<span class="sr-only">Search articles</span>
+					<input type="search" placeholder="Search by topic, e.g. SEO, WordPress, cost" data-blog-search />
+				</label>
+			</div>
+			<ul class="ball__grid" role="list">
+				{posts.map((p) => (
+					<li class="bcard-item" data-cat={slugify(p.data.category)} data-text={`${p.data.title} ${p.data.description} ${p.data.category}`.toLowerCase()}>
+						<a class="bcard" href={`/blog/${p.id}`}>
+							<span class="bcard__title">{p.data.title}</span>
+							<span class="bcard__desc">{p.data.description}</span>
+							<span class="bcard__foot">
+								<span class="bmeta"><Icon name="calendar" size={14} /> {formatDate(p.data.published)}</span>
+								<span class="btag">{p.data.category}</span>
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+			<p class="ball__empty" hidden data-blog-empty>No articles match that search yet.</p>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	// Category tabs and search over the article grid.
+	const root = document.querySelector<HTMLElement>('[data-blog-list]')!;
+	const tabs = [...root.querySelectorAll<HTMLButtonElement>('.btab')];
+	const items = [...root.querySelectorAll<HTMLElement>('.bcard-item')];
+	const search = root.querySelector<HTMLInputElement>('[data-blog-search]')!;
+	const empty = root.querySelector<HTMLElement>('[data-blog-empty]')!;
+	let cat = 'all';
+	const apply = () => {
+		const q = search.value.trim().toLowerCase();
+		let shown = 0;
+		items.forEach((it) => {
+			const ok = (cat === 'all' || it.dataset.cat === cat) && (!q || it.dataset.text!.includes(q));
+			it.hidden = !ok;
+			if (ok) shown++;
+		});
+		empty.hidden = shown > 0;
+	};
+	tabs.forEach((t) =>
+		t.addEventListener('click', () => {
+			cat = t.dataset.cat!;
+			tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === t)));
+			apply();
+		}),
+	);
+	search.addEventListener('input', apply);
+</script>
+
+<style>
+	.bhero {
+		padding-top: calc(var(--topbar-h) + var(--header-h) + clamp(40px, 5vw, 72px));
+		padding-bottom: clamp(48px, 6vw, 88px);
+	}
+
+	.bhero__title {
+		max-width: 16ch;
+	}
+
+	.bhero__lead {
+		max-width: 52ch;
+		margin: 16px 0 clamp(40px, 5vw, 64px);
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		color: var(--ink-soft);
+	}
+
+	.bhero__grid {
+		display: grid;
+		gap: 40px;
+	}
+
+	@media (min-width: 1024px) {
+		.bhero__grid {
+			grid-template-columns: 1.05fr 0.95fr;
+			gap: 48px;
+		}
+	}
+
+	.blabel {
+		display: block;
+		margin-bottom: 16px;
+		font-size: 0.9375rem;
+		font-weight: 550;
+		color: var(--green-ink);
+	}
+
+	.bmeta {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.8125rem;
+		color: var(--muted);
+	}
+
+	/* Featured */
+	.bfeat__card {
+		display: grid;
+		gap: 14px;
+	}
+
+	.bfeat__media {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		border: 1px solid var(--line);
+	}
+
+	.bfeat__media img {
+		width: 100%;
+		height: auto;
+		transition: transform 0.8s var(--ease-out);
+	}
+
+	.bfeat__card:hover .bfeat__media img {
+		transform: scale(1.03);
+	}
+
+	.bfeat__go {
+		position: absolute;
+		right: 16px;
+		bottom: 16px;
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		background: var(--ink);
+		color: var(--white);
+		transition: background 0.3s;
+	}
+
+	.bfeat__card:hover .bfeat__go {
+		background: var(--green);
+		color: var(--ink);
+	}
+
+	.bfeat__title {
+		font-size: clamp(1.375rem, 1.1rem + 0.9vw, 2rem);
+		font-weight: 500;
+		letter-spacing: -0.035em;
+		line-height: 1.15;
+	}
+
+	.bfeat__card:hover .bfeat__title {
+		color: var(--green-ink);
+	}
+
+	.bfeat__desc {
+		color: var(--muted);
+		line-height: 1.6;
+	}
+
+	/* Latest */
+	.blatest ul {
+		display: grid;
+		margin: 0;
+		border-top: 1px solid var(--line);
+	}
+
+	.bmini {
+		display: grid;
+		grid-template-columns: 140px 1fr;
+		gap: 20px;
+		padding: 20px 0;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.bmini__img {
+		display: block;
+		aspect-ratio: 1200 / 630;
+		overflow: hidden;
+		border: 1px solid var(--line);
+	}
+
+	.bmini__img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: left;
+	}
+
+	.bmini__body {
+		display: grid;
+		gap: 6px;
+		align-content: start;
+		min-width: 0;
+	}
+
+	.bmini__title {
+		font-weight: 550;
+		letter-spacing: -0.02em;
+		line-height: 1.3;
+	}
+
+	.bmini:hover .bmini__title {
+		color: var(--green-ink);
+	}
+
+	.bmini__desc {
+		font-size: 0.875rem;
+		color: var(--muted);
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* All articles */
+	.ball__bar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		margin: 28px 0 32px;
+	}
+
+	.btabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.btab {
+		height: 42px;
+		padding: 0 16px;
+		border: 1px solid var(--line-2);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		transition:
+			background 0.3s,
+			color 0.3s,
+			border-color 0.3s;
+	}
+
+	.btab:hover {
+		border-color: var(--ink);
+	}
+
+	.btab[aria-pressed='true'] {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--white);
+	}
+
+	.bsearch {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: min(100%, 380px);
+	}
+
+	.bsearch :global(svg) {
+		position: absolute;
+		left: 14px;
+		color: var(--muted);
+		pointer-events: none;
+	}
+
+	.bsearch input {
+		width: 100%;
+		height: 44px;
+		padding: 0 14px 0 40px;
+		border: 1px solid var(--line-2);
+		border-radius: 0;
+		background: var(--card);
+		font-size: 0.9375rem;
+	}
+
+	.bsearch input:focus {
+		outline: none;
+		border-color: var(--green);
+		box-shadow: 0 0 0 3px rgba(45, 180, 83, 0.16);
+	}
+
+	.ball__grid {
+		display: grid;
+		gap: 16px;
+		margin: 0;
+	}
+
+	@media (min-width: 800px) {
+		.ball__grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.bcard {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		height: 100%;
+		padding: clamp(20px, 2.4vw, 28px);
+		border: 1px solid var(--line);
+		transition: background 0.3s;
+	}
+
+	.bcard:hover {
+		background: var(--card);
+	}
+
+	.bcard__title {
+		font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+		font-weight: 550;
+		letter-spacing: -0.025em;
+		line-height: 1.3;
+	}
+
+	.bcard:hover .bcard__title {
+		color: var(--green-ink);
+	}
+
+	.bcard__desc {
+		color: var(--muted);
+		font-size: 0.9375rem;
+		line-height: 1.55;
+	}
+
+	.bcard__foot {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-top: auto;
+		padding-top: 8px;
+	}
+
+	.btag {
+		padding: 4px 10px;
+		background: var(--green-50);
+		color: var(--green-ink);
+		font-size: 0.8125rem;
+		font-weight: 550;
+	}
+
+	.ball__empty {
+		padding: 40px 0;
+		color: var(--muted);
+	}
+</style>

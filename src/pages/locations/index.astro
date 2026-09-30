@@ -1,0 +1,188 @@
+---
+// Where we work (/locations): the hub for the country pages. Linked from the
+// Industries menu tile and the footer.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import WorkStack from '../../components/WorkStack.astro';
+import { locations } from '../../data/locations';
+import { projects } from '../../data/projects';
+import { site } from '../../data/site';
+
+const byId = (id: string) => projects.find((p) => p.id === id)!;
+const places = locations.map((l) => ({ ...l, work: l.projects.map(byId).filter(Boolean) }));
+const heroWork = ['jazbahost-com', 'smbelectrical-ca', 'mut-umzug-de'].map(byId);
+
+const schema = [
+	{
+		'@type': 'ItemList',
+		name: 'Countries IdeoXpert builds websites for',
+		itemListElement: locations.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/locations/${l.slug}`, name: `Web design in ${l.country}` })),
+	},
+];
+---
+<BaseLayout
+	title="Where We Work: Web Design by Country | IdeoXpert"
+	description="Web design, development and SEO for businesses in the UK, US, Canada, Australia, Germany, the Netherlands and the UAE, from our team in Islamabad."
+	keywords="web design agency for UK businesses, web development company USA, web design Canada, web design Australia, web design Germany, web design Netherlands, web design Dubai, outsource web development"
+	image="/assets/images/work/jazbahost-com/hero.webp"
+	pageType="CollectionPage"
+	breadcrumbs={[{ name: 'Where we work', path: '/locations' }]}
+	schema={schema}
+>
+	<PageHero
+		crumbs={[{ name: 'Where we work', path: '/locations' }]}
+		title='Where we work<span class="dot">.</span>'
+		lead="We are based in Islamabad and build websites for businesses around the world. These are the countries where most of our clients are, with the work we have done there."
+	>
+		<Fragment slot="actions">
+			<Button href="#countries" variant="dark" icon="arrow-right">Find your country</Button>
+			<Button href="/portfolio" variant="ghost" icon={false}>See all work</Button>
+		</Fragment>
+		<div slot="aside"><WorkStack projects={heroWork} /></div>
+	</PageHero>
+
+	<section class="section places" id="countries">
+		<div class="container">
+			<ul class="places__grid" role="list" data-reveal-group="70">
+				{places.map((l) => (
+					<li data-reveal>
+						<a class="place" href={`/locations/${l.slug}`}>
+							<span class="place__media">
+								<img
+									src={l.work[0]?.thumb ?? '/assets/images/industries/where-we-work.webp'}
+									alt=""
+									width={l.work[0] ? 1440 : 600}
+									height={l.work[0] ? 900 : 548}
+									loading="lazy"
+									decoding="async"
+								/>
+							</span>
+							<span class="place__body">
+								<span class="place__name">
+									<img src={`/assets/images/flags/${l.code}.svg`} alt="" width="28" height="21" />
+									{l.country}
+								</span>
+								<span class="place__cities">{l.cities.slice(0, 4).join(', ')}</span>
+								<span class="place__count">{l.work.length ? `${l.work.length} ${l.work.length === 1 ? 'website' : 'websites'} built` : 'Now taking projects'}</span>
+								<span class="place__go">Web design in {l.short} <Icon name="arrow-right" size={16} /></span>
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.places__grid {
+		display: grid;
+		gap: 20px;
+		margin: 0;
+	}
+
+	@media (min-width: 700px) {
+		.places__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.places__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (min-width: 1500px) {
+		.places__grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	.place {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--line);
+		transition: background 0.3s;
+	}
+
+	.place:hover {
+		background: var(--card);
+	}
+
+	.place__media {
+		display: block;
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+		background: var(--paper-2);
+	}
+
+	.place__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		transition: transform 0.9s var(--ease-out);
+	}
+
+	.place:hover .place__media img {
+		transform: scale(1.04);
+	}
+
+	.place__body {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		flex: 1;
+		padding: clamp(20px, 2vw, 26px);
+	}
+
+	.place__name {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+		line-height: 1.2;
+	}
+
+	.place__name img {
+		width: 28px;
+		height: 21px;
+		object-fit: cover;
+		border-radius: 2px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+	}
+
+	.place__cities {
+		color: var(--muted);
+		font-size: 0.9375rem;
+	}
+
+	.place__count {
+		font-size: 0.875rem;
+		font-weight: 550;
+		color: var(--green-ink);
+	}
+
+	.place__go {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: auto;
+		padding-top: 8px;
+		font-weight: 550;
+	}
+
+	.place__go :global(svg) {
+		transition: transform 0.4s var(--ease-out);
+	}
+
+	.place:hover .place__go :global(svg) {
+		transform: translateX(4px);
+	}
+</style>

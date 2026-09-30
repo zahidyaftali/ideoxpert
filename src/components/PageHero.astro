@@ -1,0 +1,168 @@
+---
+// Hero for inner pages: a bordered frame with the headline on the left and a
+// visual on the right (named slot "aside"). Without an aside, the right side
+// shows a quiet dot texture instead.
+import Icon from './Icon.astro';
+
+interface Props {
+	crumbs?: { name: string; path: string }[];
+	eyebrow?: string;
+	/** HTML, so part of it can be bold and end in <span class="dot">.</span> */
+	title: string;
+	lead?: string;
+	/** Visual side background: dots (default) or the green wash texture. */
+	visual?: 'dots' | 'wash' | 'plain';
+}
+
+const { crumbs = [], eyebrow, title, lead, visual = 'dots' } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+<section class="section section--flush page-hero">
+	<div class="container">
+		<div class:list={['frame brackets phero', { 'phero--solo': !hasAside }]}>
+			<div class="phero__copy">
+				{crumbs.length > 0 && (
+					<nav class="crumbs" aria-label="Breadcrumb" data-reveal>
+						<ol role="list">
+							<li><a href="/">Home</a></li>
+							{crumbs.map((c, i) => (
+								<li>
+									<Icon name="arrow-right" size={12} />
+									{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.path}>{c.name}</a>}
+								</li>
+							))}
+						</ol>
+					</nav>
+				)}
+				{eyebrow && <span class="eyebrow" data-reveal>{eyebrow}</span>}
+				<h1 class="h1 phero__title" data-split set:html={title} />
+				{lead && <p class="phero__lead" data-reveal style="--d:200">{lead}</p>}
+				{Astro.slots.has('actions') && (
+					<div class="btn-row" data-reveal style="--d:300"><slot name="actions" /></div>
+				)}
+				<slot />
+			</div>
+			<div class:list={['phero__side', `phero__side--${visual}`]}>
+				{visual === 'dots' && <div class="tex-layer tex-dots phero__dots" aria-hidden="true"></div>}
+				{hasAside && <slot name="aside" />}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.page-hero {
+		padding-top: calc(var(--topbar-h) + var(--header-h));
+		padding-bottom: clamp(40px, 5vw, 72px);
+	}
+
+	.phero {
+		display: grid;
+	}
+
+	@media (min-width: 1024px) {
+		.phero {
+			grid-template-columns: 1fr 1fr;
+			min-height: min(78vh, 760px);
+		}
+
+		.phero--solo {
+			grid-template-columns: 1.4fr 0.6fr;
+			min-height: 0;
+		}
+	}
+
+	.phero__copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 24px;
+		padding: clamp(32px, 5vw, 80px) clamp(24px, 4.5vw, 72px);
+	}
+
+	.phero__title {
+		max-width: 17ch;
+		font-size: clamp(2.25rem, 1.25rem + 3vw, 4.25rem);
+	}
+
+	.phero--solo .phero__title {
+		max-width: 20ch;
+	}
+
+	.phero__lead {
+		max-width: 52ch;
+		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	.phero__side {
+		position: relative;
+		isolation: isolate;
+		display: grid;
+		place-items: center;
+		min-height: 320px;
+		padding: clamp(24px, 4vw, 64px);
+		overflow: hidden;
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1024px) {
+		.phero__side {
+			border-top: 0;
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	/* Let the columns shrink on phones. */
+	.phero__copy,
+	.phero__side {
+		min-width: 0;
+	}
+
+	.phero__side > :global(*) {
+		max-width: 100%;
+	}
+
+	.phero--solo .phero__side {
+		min-height: 200px;
+	}
+
+	.phero__side--wash {
+		background: url('/assets/images/textures/wash.webp') center / cover;
+	}
+
+	.phero__dots {
+		-webkit-mask-image: radial-gradient(ellipse 70% 70% at 60% 40%, #000 20%, transparent 75%);
+		mask-image: radial-gradient(ellipse 70% 70% at 60% 40%, #000 20%, transparent 75%);
+	}
+
+	.crumbs ol {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.crumbs li {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.crumbs a {
+		transition: color 0.3s;
+	}
+
+	.crumbs a:hover {
+		color: var(--green-ink);
+	}
+
+	.crumbs [aria-current] {
+		color: var(--ink);
+	}
+</style>

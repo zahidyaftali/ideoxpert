@@ -1,0 +1,97 @@
+---
+// Client logos in a slow marquee, always black and white. White logos (made
+// for dark headers) use a dark silhouette so they show on a light background.
+// Logos were taken from each client's live website with the background
+// removed (see /public/assets/images/work/<id>/logo.png).
+import { projects, logoProjects } from '../data/projects';
+import { countries } from '../data/site';
+
+interface Props {
+	label?: string;
+}
+
+const { label = `Trusted by ${projects.length}+ businesses in ${countries.length} countries` } = Astro.props;
+const items = logoProjects;
+---
+<section class="logos" aria-label="Our clients">
+	<div class="container logos__inner">
+		<p class="logos__label" data-reveal>{label}</p>
+		<div class="marquee logos__row" data-speed="38">
+			{[0, 1].map((copy) => (
+				<ul class="marquee__track" role="list" aria-hidden={copy === 1 ? 'true' : undefined}>
+					{items.map((p) => (
+						<li class="clogo" style={`--r:${p.facts.logo!.ratio}`}>
+							<a href={`/work/${p.slug}`} tabindex={copy === 1 ? -1 : undefined} title={p.name}>
+								<img
+									class:list={['clogo__img', { 'clogo__img--mono': p.facts.logo!.light }]}
+									src={`/assets/images/work/${p.id}/${p.facts.logo!.light ? 'logo-mono' : 'logo'}.webp`}
+									alt={copy === 0 ? p.name : ''}
+									loading="lazy"
+									decoding="async"
+									draggable="false"
+								/>
+							</a>
+						</li>
+					))}
+				</ul>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.logos {
+		padding-block: clamp(36px, 4vw, 56px);
+		background: var(--card);
+	}
+
+	.logos__inner {
+		display: grid;
+		gap: 24px;
+		align-items: center;
+	}
+
+	@media (min-width: 1024px) {
+		.logos__inner {
+			grid-template-columns: 220px 1fr;
+			gap: 48px;
+		}
+	}
+
+	.logos__label {
+		max-width: 22ch;
+		font-size: 0.9375rem;
+		line-height: 1.5;
+		color: var(--muted);
+	}
+
+	.logos__row {
+		--gap: clamp(44px, 5vw, 80px);
+		min-width: 0;
+	}
+
+	/* Logos share one visual weight: wide wordmarks are shorter, square marks taller. */
+	.clogo a {
+		position: relative;
+		display: block;
+		height: clamp(30px, calc(58px - var(--r) * 5px), 52px);
+		max-width: 190px;
+	}
+
+	.clogo__img {
+		display: block;
+		height: 100%;
+		width: auto;
+		max-width: 190px;
+		object-fit: contain;
+		filter: grayscale(1) contrast(1.1) brightness(0.9);
+		opacity: 0.6;
+		transition:
+			filter 0.4s,
+			opacity 0.4s;
+	}
+
+	.clogo a:hover .clogo__img {
+		opacity: 0.9;
+	}
+</style>

@@ -1,0 +1,60 @@
+---
+// Line drawings for the five process steps. Strokes redraw when the parent
+// .step is hovered (pathLength="1" lets one dash cover every path).
+interface Props {
+	index: number;
+}
+
+const { index } = Astro.props;
+
+const art = [
+	// Discovery & planning: target
+	'<circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="12"/><path d="M32 3v11M32 50v11M3 32h11M50 32h11"/><circle cx="32" cy="32" r="3" class="fill"/>',
+	// Design & wireframing: page wireframe
+	'<rect x="7" y="10" width="50" height="44" rx="2"/><path d="M7 19h50"/><rect x="13" y="25" width="17" height="13" rx="1"/><path d="M35 27h16M35 32h12M35 37h14M13 45h38"/>',
+	// Development: code
+	'<path d="m23 20-12 12 12 12M41 20l12 12-12 12M36 14l-8 36"/>',
+	// Quality assurance: checklist
+	'<rect x="9" y="10" width="10" height="10" rx="1.5"/><path d="m11.5 15 2 2 3.5-4M25 15h30"/><rect x="9" y="27" width="10" height="10" rx="1.5"/><path d="m11.5 32 2 2 3.5-4M25 32h24"/><rect x="9" y="44" width="10" height="10" rx="1.5"/><path d="M25 49h28"/>',
+	// Launch & support: growth line
+	'<path d="M8 56h48M8 48l14-14 9 8 21-21"/><path d="M42 21h10v10"/>',
+];
+---
+<svg class="step-art" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" set:html={art[index % art.length].replace(/<(path|rect|circle)(?![^>]*pathLength)/g, '<$1 pathLength="1"')} />
+
+<style>
+	.step-art {
+		width: 64px;
+		height: 64px;
+		fill: none;
+		stroke: var(--ink);
+		stroke-width: 1.3;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		transition: stroke 0.4s;
+	}
+
+	.step-art :global(*) {
+		stroke-dasharray: 1;
+		stroke-dashoffset: 0;
+	}
+
+	.step-art :global(.fill) {
+		fill: var(--green);
+		stroke: none;
+	}
+
+	:global(.step:hover) .step-art {
+		stroke: var(--green-ink);
+	}
+
+	:global(.step:hover) .step-art :global(*) {
+		animation: step-draw 1.1s var(--ease-out) both;
+	}
+
+	@keyframes step-draw {
+		from {
+			stroke-dashoffset: 1;
+		}
+	}
+</style>
