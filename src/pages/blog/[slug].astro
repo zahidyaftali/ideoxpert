@@ -183,6 +183,13 @@ const schema = [
 </script>
 
 <style>
+	/* Widths as on the reference article: a 1340px column (header, share bar,
+	   text + aside, similar posts), text 880px and aside 366px. */
+	.post,
+	.psim {
+		--container: 1340px;
+	}
+
 	.phead {
 		display: grid;
 		justify-items: center;
@@ -214,7 +221,7 @@ const schema = [
 	}
 
 	.phead__title {
-		max-width: 22ch;
+		max-width: 1040px;
 		font-size: clamp(2rem, 1.2rem + 2.8vw, 3.75rem);
 	}
 
@@ -287,8 +294,9 @@ const schema = [
 
 	@media (min-width: 1024px) {
 		.pgrid {
-			grid-template-columns: minmax(0, 1fr) 320px;
-			gap: clamp(48px, 6vw, 96px);
+			grid-template-columns: minmax(0, 880px) 366px;
+			justify-content: space-between;
+			gap: 48px;
 		}
 
 		.paside {
@@ -299,7 +307,7 @@ const schema = [
 	}
 
 	.prose {
-		max-width: 74ch;
+		max-width: 880px;
 		font-size: 1.0625rem;
 		line-height: 1.75;
 		color: var(--ink-soft);
