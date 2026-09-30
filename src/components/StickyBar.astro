@@ -22,8 +22,9 @@ const { topic, quoteHref } = Astro.props;
 <script>
 	const bar = document.querySelector<HTMLElement>('[data-mbar]');
 	if (bar) {
-		// Forms and the footer: the bar steps aside while any of them is visible.
-		const covers = document.querySelectorAll('#discovery, #form, footer');
+		// Forms, the footer and the cost calculator (which has its own bar): the
+		// bar steps aside while any of them is visible.
+		const covers = document.querySelectorAll('#discovery, #form, footer, [data-calc]');
 		const visible = new Set<Element>();
 		const update = () => {
 			const show = window.scrollY > 480 && visible.size === 0;

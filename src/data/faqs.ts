@@ -1,6 +1,10 @@
 import { site, countries } from './site';
+import { from, money } from './pricing';
 
-export type Faq = { q: string; a: string };
+/** `a` is plain text (also used for the FAQPage schema); `html`, when set, is shown instead so the answer can link. */
+export type Faq = { q: string; a: string; html?: string };
+
+const usd = (n: number) => money(n, 'USD');
 
 // "the UK, the US, Canada, ... and Fiji", from the countries we have clients in.
 const where = countries
@@ -40,7 +44,8 @@ export const serviceFaqs: Faq[] = [
 	},
 	{
 		q: 'How much does a website cost?',
-		a: `It depends on what your site needs to do: how many pages, whether you sell online, which features, and who writes the content. Tell us about your project and we will reply ${site.replyTime} with a clear quote and no hidden charges. You pay 50% to start and 50% when the site goes live, and two rounds of design changes are included.`,
+		a: `A business website with us starts at ${usd(from.website)} for ${from.websitePages} pages, and online stores start at ${usd(from.store)}. The exact price depends on the number of pages and features. Try our cost calculator for an instant estimate, or ask for a fixed quote. We reply ${site.replyTime}.`,
+		html: `A business website with us <a href="/pricing">starts at ${usd(from.website)}</a> for ${from.websitePages} pages, and online stores start at ${usd(from.store)}. The exact price depends on the number of pages and features. Try our <a href="/website-cost-calculator">cost calculator</a> for an instant estimate, or ask for a fixed quote. We reply ${site.replyTime}.`,
 	},
 	{
 		q: 'Can you help with both design and development?',

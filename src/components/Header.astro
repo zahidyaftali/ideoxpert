@@ -16,6 +16,7 @@ const active = {
 	work: path === '/portfolio' || path.startsWith('/work/'),
 	industries: path.startsWith('/industries') || path.startsWith('/locations'),
 	blog: path.startsWith('/blog'),
+	pricing: path === '/pricing' || path === '/website-cost-calculator',
 	company: path === '/about' || path === '/privacy-policy' || path === '/terms-and-condition',
 	contact: path === '/contact',
 };
@@ -125,6 +126,10 @@ const companyLinks = [
 						</div>
 					</li>
 
+					<li class="nav__item">
+						<a class:list={['nav__link', { 'is-active': active.pricing }]} href="/pricing">Pricing</a>
+					</li>
+
 					<!-- Industries -->
 					<li class="nav__item" data-mega-item>
 						<button class:list={['nav__link', { 'is-active': active.industries }]} aria-expanded="false" aria-controls="mega-industries">
@@ -215,7 +220,8 @@ const companyLinks = [
 				</details>
 			</li>
 			<li style="--i:1"><a class="drawer__link" href="/portfolio">Work</a></li>
-			<li style="--i:2">
+			<li style="--i:2"><a class="drawer__link" href="/pricing">Pricing</a></li>
+			<li style="--i:3">
 				<details class="drawer__group">
 					<summary class="drawer__link">Industries<Icon name="plus" size={22} class="drawer__plus" /></summary>
 					<ul class="drawer__sub" role="list">
@@ -225,11 +231,11 @@ const companyLinks = [
 					</ul>
 				</details>
 			</li>
-			<li style="--i:3"><a class="drawer__link" href="/about">About</a></li>
-			<li style="--i:4"><a class="drawer__link" href="/blog">Blog</a></li>
-			<li style="--i:5"><a class="drawer__link" href="/contact">Contact</a></li>
+			<li style="--i:4"><a class="drawer__link" href="/about">About</a></li>
+			<li style="--i:5"><a class="drawer__link" href="/blog">Blog</a></li>
+			<li style="--i:6"><a class="drawer__link" href="/contact">Contact</a></li>
 		</ul>
-		<div class="drawer__foot" style="--i:6">
+		<div class="drawer__foot" style="--i:7">
 			<a href={`mailto:${site.email}`} class="drawer__mail">{site.email}</a>
 			<a href={`tel:${site.phone}`} class="drawer__phone">{site.phoneDisplay}</a>
 			<div class="btn-row">

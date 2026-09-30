@@ -1,0 +1,546 @@
+---
+// /pricing: starting prices, what's included, hosting and care plans, how
+// payment works. Every number comes from src/data/pricing.ts.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import PriceCard from '../components/PriceCard.astro';
+import Faq from '../components/Faq.astro';
+import { site, services } from '../data/site';
+import { faqSchema } from '../data/faqs';
+import { alwaysIncluded, apps, care, currencyList, from, hosting, money, notIncluded, policies, pricingFaqs, seo, store, website } from '../data/pricing';
+
+const usd = (n: number) => money(n, 'USD');
+const weeks = (w: [number, number]) => (w[0] === w[1] ? `${w[0]} weeks` : `${w[0]}–${w[1]} weeks`);
+const siteWeeks = website.pages.find((p) => p.id === '2-5')!.weeks;
+const storeWeeks = store.products[0].weeks;
+const calc = '/website-cost-calculator';
+
+const payment = [
+	{ title: 'Fixed quote', text: 'You tell us what you need. We send a fixed price and a timeline within 24 hours.' },
+	{ title: '50% to start', text: 'You pay half to book your project. We start within a few days.' },
+	{ title: 'Design, build, review', text: 'You see the design before we build it. Two rounds of changes are included.' },
+	{ title: '50% at launch', text: 'You pay the rest when you’ve approved the finished site, before it goes live.' },
+];
+
+const url = (path: string) => `${site.url}${path}`;
+const schema = [
+	{
+		'@type': 'OfferCatalog',
+		name: 'IdeoXpert prices',
+		url: url('/pricing'),
+		itemListElement: [
+			{ '@type': 'Offer', name: 'Business website', url: url('/website-development'), priceSpecification: { '@type': 'PriceSpecification', minPrice: from.website, priceCurrency: 'USD' } },
+			{ '@type': 'Offer', name: 'Online store', url: url('/ecommerce-development'), priceSpecification: { '@type': 'PriceSpecification', minPrice: from.store, priceCurrency: 'USD' } },
+			{ '@type': 'Offer', name: 'Local SEO', url: url('/seo-optimization'), priceSpecification: { '@type': 'UnitPriceSpecification', minPrice: from.seo, priceCurrency: 'USD', unitCode: 'MON' } },
+			{ '@type': 'Offer', name: 'Mobile and web apps', url: url('/mobile-app-development'), priceSpecification: { '@type': 'PriceSpecification', minPrice: from.app[0], maxPrice: from.app[1], priceCurrency: 'USD' } },
+			...hosting.plans.map((p) => ({
+				'@type': 'Offer',
+				name: `${p.name} hosting`,
+				url: url('/hosting-domain'),
+				price: p.monthly.USD,
+				priceCurrency: 'USD',
+				priceSpecification: { '@type': 'UnitPriceSpecification', price: p.monthly.USD, priceCurrency: 'USD', unitCode: 'MON' },
+			})),
+			...care.plans.map((p) => ({
+				'@type': 'Offer',
+				name: `${p.name} website care`,
+				url: url('/website-maintenance'),
+				price: p.monthly,
+				priceCurrency: 'USD',
+				priceSpecification: { '@type': 'UnitPriceSpecification', price: p.monthly, priceCurrency: 'USD', unitCode: 'MON' },
+			})),
+		],
+	},
+	faqSchema(pricingFaqs),
+];
+---
+<BaseLayout
+	title="Website Pricing & Hosting Plans | IdeoXpert"
+	description={`Clear prices for websites, online stores, SEO and hosting. Business websites from ${usd(from.website)}, hosting from ${usd(from.hosting)} a month. Fixed quote within 24 hours.`}
+	keywords="website design pricing, web design prices, small business website cost, WordPress website price, website hosting plans, ecommerce website price"
+	breadcrumbs={[{ name: 'Pricing', path: '/pricing' }]}
+	schema={schema}
+>
+	<PageHero
+		crumbs={[{ name: 'Pricing', path: '/pricing' }]}
+		title="Clear prices. <b>No surprises</b>"
+		lead="Most agencies want a call before they’ll talk about money. We’d rather show you. Here are our starting prices, what’s included, and how payment works. Want a number for your own project? The calculator gives you one in about a minute."
+	>
+		<Fragment slot="actions">
+			<Button href={calc} variant="primary" magnetic>Estimate my project</Button>
+			<Button href="#discovery" variant="ghost" icon={false}>Get a fixed quote</Button>
+		</Fragment>
+		<p class="pr-note" data-reveal style="--d:400">Fixed quote within 24 hours. No obligation.</p>
+		<div slot="aside" class="pr-snap" data-reveal="fade" style="--d:200">
+			<p class="pr-snap__label">Website design pricing at a glance</p>
+			<dl class="pr-snap__list">
+				<div><dt>Business website</dt><dd>from <span data-usd={from.website} data-kind="oneoff">{usd(from.website)}</span></dd></div>
+				<div><dt>Online store</dt><dd>from <span data-usd={from.store} data-kind="oneoff">{usd(from.store)}</span></dd></div>
+				<div><dt>Local SEO</dt><dd>from <span data-usd={from.seo} data-kind="monthly">{usd(from.seo)}</span>/month</dd></div>
+				<div><dt>Hosting</dt><dd>from <span data-host-min>{usd(from.hosting)}</span>/month</dd></div>
+				<div><dt>Website care</dt><dd>from <span data-usd={from.care} data-kind="monthly">{usd(from.care)}</span>/month</dd></div>
+			</dl>
+		</div>
+	</PageHero>
+
+	<!-- Starting prices -->
+	<section class="section pr-start" id="prices">
+		<div class="container">
+			<div class="pr-head">
+				<div class="stack">
+					<h2 class="h2" data-split>Where <b>prices start</b></h2>
+					<p class="subtitle" data-reveal>Small business website costs, from a landing page to an online store. Every price is a starting point; your fixed quote depends on what you need.</p>
+				</div>
+				<div class="segment" role="group" aria-label="Currency" data-reveal>
+					{currencyList.map((c) => <button type="button" data-cur={c} aria-pressed={c === 'USD' ? 'true' : 'false'}>{c}</button>)}
+				</div>
+			</div>
+			<ul class="pr-grid" role="list" data-reveal-group="60">
+				<li data-reveal>
+					<PriceCard id="website" title="Business website" pre="from" price={usd(from.website)} priceAttrs={{ 'data-usd': from.website, 'data-kind': 'oneoff' }} desc={`A ${from.websitePages}-page website for your business, built so you can edit it yourself. Ready in ${weeks(siteWeeks)}.`} cta={{ label: 'Estimate my website', href: `${calc}?need=website` }} />
+				</li>
+				<li data-reveal>
+					<PriceCard id="store" title="Online store" pre="from" price={usd(from.store)} priceAttrs={{ 'data-usd': from.store, 'data-kind': 'oneoff' }} desc={`WooCommerce or Shopify with up to ${from.storeProducts} products and card payments set up and tested. Ready in ${weeks(storeWeeks)}.`} cta={{ label: 'Estimate my store', href: `${calc}?need=store` }} />
+				</li>
+				<li data-reveal>
+					<PriceCard id="seo" title="Local SEO" pre="from" price={usd(from.seo)} priceAttrs={{ 'data-usd': from.seo, 'data-kind': 'monthly' }} unit="/month" desc={`Get found in your town: technical fixes, local pages and your Google Business Profile. Minimum ${seo.minimumMonths} months.`} cta={{ label: 'Estimate my SEO', href: `${calc}?need=seo` }} />
+				</li>
+				<li data-reveal>
+					<PriceCard id="hosting" title="Hosting" pre="from" price={usd(from.hosting)} priceAttrs={{ 'data-host-min': '' }} unit="/month" desc="Fast, managed hosting with SSL, daily backups and email accounts." cta={{ label: 'See hosting plans', href: '#hosting-plans' }} />
+				</li>
+				<li data-reveal>
+					<PriceCard id="care" title="Website care" pre="from" price={usd(from.care)} priceAttrs={{ 'data-usd': from.care, 'data-kind': 'monthly' }} unit="/month" desc="We keep your site updated, secure and backed up, and fix it if something breaks." cta={{ label: 'See care plans', href: '#care-plans' }} />
+				</li>
+				<li data-reveal>
+					<PriceCard id="apps" title="Mobile and web apps" pre="usually" price={`${usd(from.app[0])}–${usd(from.app[1])}`} priceAttrs={{ 'data-usd-range': `${from.app[0]}-${from.app[1]}` }} desc="Every app is different, so we quote each one. Tell us your idea and we’ll send a fixed quote within 48 hours." cta={{ label: 'Talk about my app', href: '#discovery' }} />
+				</li>
+			</ul>
+			<p class="pr-services" data-reveal>
+				More about each service:
+				{services.map((s, i) => (
+					<>
+						<a href={`/${s.slug}`}>{s.name}</a>{i < services.length - 1 ? ', ' : '.'}
+					</>
+				))}
+			</p>
+		</div>
+	</section>
+
+	<!-- Included -->
+	<section class="section section--tint pr-inc">
+		<div class="container">
+			<h2 class="h2" data-split>What’s <b>always included</b></h2>
+			<div class="pr-inc__grid">
+				<div class="frame pr-inc__col" data-reveal>
+					<h3 class="pr-inc__title">Always included</h3>
+					<ul class="pr-inc__list" role="list">
+						{alwaysIncluded.map((i) => <li><Icon name="check" size={18} /> {i}</li>)}
+					</ul>
+				</div>
+				<div class="frame pr-inc__col" data-reveal style="--d:120">
+					<h3 class="pr-inc__title">Not included, so there are no surprises</h3>
+					<ul class="pr-inc__list pr-inc__list--no" role="list">
+						{notIncluded.map((i) => <li><Icon name="close" size={16} /> {i}</li>)}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Hosting plans -->
+	<section class="section pr-host" id="hosting-plans">
+		<div class="container">
+			<div class="pr-head">
+				<div class="stack">
+					<h2 class="h2" data-split>Hosting that’s <b>looked after</b></h2>
+					<p class="subtitle" data-reveal>Your website needs a home. Ours is fast, backed up every day, and managed by the same team that built your site, so when something needs fixing, you talk to the people who know it.</p>
+				</div>
+				<div class="pr-toggles" data-reveal>
+					<div class="segment" role="group" aria-label="Billing">
+						<button type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+						<button type="button" data-billing="annual" aria-pressed="false">Annual: save {hosting.annualSaving}%</button>
+					</div>
+					<div class="segment" role="group" aria-label="Currency">
+						{currencyList.map((c) => <button type="button" data-cur={c} aria-pressed={c === 'USD' ? 'true' : 'false'}>{c}</button>)}
+					</div>
+				</div>
+			</div>
+			<ul class="pr-grid pr-grid--3" role="list" data-reveal-group="80">
+				{hosting.plans.map((p) => (
+					<li data-reveal>
+						<PriceCard
+							title={p.name}
+							badge={p.popular ? 'Most popular' : undefined}
+							dark={p.popular}
+							price={usd(p.monthly.USD)}
+							priceAttrs={{ 'data-host-price': p.id }}
+							unit="/month"
+							sub={`${usd(Math.round(p.monthly.USD * 12 * 100) / 100)} a year billed monthly · switch to annual and pay ${usd(p.annualPerYear.USD)}`}
+							subAttrs={{ 'data-host-sub': p.id }}
+							desc={p.desc}
+							features={p.features}
+							more={p.more}
+							cta={{ label: `Choose ${p.name}`, href: '#discovery', button: true, attrs: { 'data-plan': p.name } }}
+						/>
+					</li>
+				))}
+			</ul>
+			<p class="pr-small" data-reveal>Domain registration or transfer is at cost, usually about {usd(hosting.domainPerYear)} a year, and is not part of the plans. {policies.taxes} Annual plans are billed once a year.</p>
+		</div>
+	</section>
+
+	<!-- Care plans -->
+	<section class="section section--tint pr-care" id="care-plans">
+		<div class="container">
+			<div class="stack pr-care__head">
+				<h2 class="h2" data-split>Care plans, so <b>nothing breaks</b></h2>
+				<p class="subtitle" data-reveal>Websites need updates, like any software. Skip them and things break or get hacked. Our care plans handle it for you, on our hosting or yours.</p>
+			</div>
+			<ul class="pr-grid pr-grid--2" role="list" data-reveal-group="80">
+				{care.plans.map((p) => (
+					<li data-reveal>
+						<PriceCard title={p.name} price={usd(p.monthly)} priceAttrs={{ 'data-usd': p.monthly, 'data-kind': 'monthly' }} unit="/month" desc={p.desc} features={p.features} cta={{ label: `Choose ${p.name}`, href: '#discovery', button: true, attrs: { 'data-care': p.name } }} />
+					</li>
+				))}
+			</ul>
+			<p class="pr-small" data-reveal>{care.note} {policies.cancel}</p>
+		</div>
+	</section>
+
+	<!-- How payment works -->
+	<section class="section pr-pay">
+		<div class="container">
+			<h2 class="h2" data-split>How <b>payment works</b></h2>
+			<ol class="pr-steps" role="list" data-reveal-group="80">
+				{payment.map((s, i) => (
+					<li class="pr-step" data-reveal>
+						<span class="pr-step__n">{String(i + 1).padStart(2, '0')}</span>
+						<h3 class="pr-step__t">{s.title}</h3>
+						<p>{s.text}</p>
+					</li>
+				))}
+			</ol>
+			<p class="pr-pay__note" data-reveal>{policies.invoices} You own your domain, website and content from day one. Extra work is {usd(policies.hourlyRate)} an hour, always agreed with you before we start.</p>
+		</div>
+	</section>
+
+	<!-- Why lower -->
+	<section class="section section--tint pr-why">
+		<div class="container">
+			<div class="frame brackets pr-why__frame">
+				<h2 class="h2" data-split>Why we cost <b>less than local agencies</b></h2>
+				<div class="pr-why__text">
+					<p data-reveal>We’re a small team in Islamabad, Pakistan. Offices, salaries and everyday costs are lower here, so we can charge less for the same work. The standard is the same: you can open the live websites we’ve built for businesses in the UK, Germany, the Netherlands, Australia, Canada and the US.</p>
+					<p data-reveal>You deal directly with the people designing and building your site. No account managers, no outsourcing, no one passing your project along.</p>
+					<div data-reveal><Button href="/portfolio" variant="dark">See our work</Button></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<Faq items={pricingFaqs} title="Pricing <b>questions</b>" id="pricing-faq" />
+
+	<!-- Closing CTA -->
+	<section class="section section--tight pr-cta">
+		<div class="container pr-cta__inner">
+			<p class="pr-cta__text" data-reveal>Not sure what you need? Tell us about your business and we’ll recommend the simplest option that works, with a fixed price.</p>
+			<div data-reveal><Button href="#discovery" variant="primary">Get my fixed quote</Button></div>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	import '../scripts/pricing-page';
+</script>
+
+<style>
+	.pr-note {
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	/* Hero side: prices at a glance */
+	.pr-snap {
+		display: grid;
+		gap: 16px;
+		width: min(100%, 420px);
+		padding: clamp(22px, 3vw, 36px);
+		background: var(--card);
+		border: 1px solid var(--line);
+	}
+
+	.pr-snap__label {
+		font-size: 0.875rem;
+		font-weight: 550;
+		color: var(--green-ink);
+	}
+
+	.pr-snap__list {
+		display: grid;
+		margin: 0;
+	}
+
+	.pr-snap__list div {
+		display: flex;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 12px 0;
+		border-top: 1px solid var(--line);
+	}
+
+	.pr-snap__list dt {
+		font-weight: 550;
+		color: var(--ink);
+	}
+
+	.pr-snap__list dd {
+		margin: 0;
+		color: var(--ink-soft);
+		white-space: nowrap;
+	}
+
+	/* Section heads with a switch on the right */
+	.pr-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 20px 40px;
+		margin-bottom: clamp(28px, 3.5vw, 44px);
+	}
+
+	.pr-head .stack {
+		max-width: 62ch;
+	}
+
+	.pr-toggles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.segment {
+		display: inline-flex;
+		border: 1px solid var(--line-2);
+		background: var(--card);
+	}
+
+	.segment button {
+		padding: 10px 16px;
+		font-size: 0.875rem;
+		font-weight: 550;
+		color: var(--muted);
+		transition:
+			background 0.25s,
+			color 0.25s;
+	}
+
+	.segment button + button {
+		border-left: 1px solid var(--line-2);
+	}
+
+	.segment button:hover {
+		color: var(--ink);
+	}
+
+	.segment button[aria-pressed='true'] {
+		background: var(--ink);
+		color: #fff;
+	}
+
+	.segment button:focus-visible {
+		outline: 2px solid var(--green);
+		outline-offset: 2px;
+	}
+
+	/* Card grids */
+	.pr-grid {
+		display: grid;
+		gap: 16px;
+		margin: 0;
+	}
+
+	@media (min-width: 700px) {
+		.pr-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.pr-grid,
+		.pr-grid--3 {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.pr-grid--2 {
+			grid-template-columns: repeat(2, 1fr);
+			max-width: 960px;
+		}
+	}
+
+	.pr-services {
+		margin-top: 24px;
+		font-size: 0.9375rem;
+		color: var(--muted);
+	}
+
+	.pr-services a,
+	.pr-small a {
+		color: var(--ink);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.pr-small {
+		margin-top: 20px;
+		font-size: 0.8125rem;
+		color: var(--muted);
+	}
+
+	/* Included / not included */
+	.pr-inc__grid {
+		display: grid;
+		gap: 16px;
+		margin-top: clamp(28px, 3.5vw, 44px);
+	}
+
+	@media (min-width: 900px) {
+		.pr-inc__grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.pr-inc__col {
+		padding: clamp(22px, 3vw, 36px);
+		background: var(--card);
+	}
+
+	.pr-inc__title {
+		margin-bottom: 18px;
+		font-size: 1.125rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	.pr-inc__list {
+		display: grid;
+		gap: 12px;
+		margin: 0;
+		font-size: 0.9375rem;
+		line-height: 1.5;
+	}
+
+	.pr-inc__list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.pr-inc__list :global(svg) {
+		margin-top: 2px;
+		color: var(--green);
+	}
+
+	.pr-inc__list--no :global(svg) {
+		color: var(--muted);
+	}
+
+	/* Care */
+	.pr-care__head {
+		margin-bottom: clamp(28px, 3.5vw, 44px);
+		max-width: 62ch;
+	}
+
+	/* Payment steps */
+	.pr-steps {
+		display: grid;
+		gap: 16px;
+		margin: clamp(28px, 3.5vw, 44px) 0 0;
+	}
+
+	@media (min-width: 700px) {
+		.pr-steps {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.pr-steps {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	.pr-step {
+		display: grid;
+		gap: 10px;
+		align-content: start;
+		padding: clamp(20px, 2.4vw, 28px);
+		background: var(--card);
+		border: 1px solid var(--line);
+	}
+
+	.pr-step__n {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--green-ink);
+	}
+
+	.pr-step__t {
+		font-size: 1.125rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	.pr-step p {
+		color: var(--muted);
+		font-size: 0.9375rem;
+	}
+
+	.pr-pay__note {
+		margin-top: 24px;
+		max-width: 80ch;
+		color: var(--ink-soft);
+	}
+
+	/* Why lower */
+	.pr-why__frame {
+		display: grid;
+		gap: 24px;
+		padding: clamp(28px, 4vw, 56px);
+	}
+
+	@media (min-width: 1024px) {
+		.pr-why__frame {
+			grid-template-columns: 1fr 1fr;
+			gap: 64px;
+		}
+	}
+
+	.pr-why__text {
+		display: grid;
+		gap: 18px;
+		align-content: start;
+		color: var(--ink-soft);
+		font-size: 1.0625rem;
+		line-height: 1.65;
+	}
+
+	/* Closing CTA */
+	.pr-cta__inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 20px 40px;
+		padding-block: 8px;
+	}
+
+	.pr-cta__text {
+		max-width: 60ch;
+		font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+		letter-spacing: -0.02em;
+		line-height: 1.4;
+	}
+</style>

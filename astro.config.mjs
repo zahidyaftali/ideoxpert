@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import { writeFileSync, existsSync } from 'node:fs';
-
 // Contact form mail settings on hosts that build the site from GitHub.
 // The mailbox password is never in Git. If the build has the environment
 // variable IDEOXPERT_SMTP_PASS (set it in the host's deployment settings),

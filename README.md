@@ -12,6 +12,7 @@ Requires Node.js 22.12 or newer.
 | `npm run dev` | Local dev server at http://localhost:4321, reloads on save |
 | `npm run build` | Build the static site into `dist/` |
 | `npm run preview` | Serve the built `dist/` locally to check it before uploading |
+| `npm test` | Check the cost calculator's maths (`scripts/pricing.test.mjs`) |
 
 ## Where things live
 
@@ -28,6 +29,7 @@ Requires Node.js 22.12 or newer.
 | Country pages ("Where we work") | `src/data/locations.ts` |
 | Blog articles | `src/content/blog/*.md` (covers in `public/assets/images/blog/`) |
 | FAQs | `src/data/faqs.ts` |
+| Prices, hosting and care plans, payment terms, pricing FAQ | `src/data/pricing.ts`: the only place prices live. `/pricing`, `/website-cost-calculator`, the FAQ cost answer and the cost blog post (`{{price:website}}`-style tokens) all read from it. Exchange rates for GBP and EUR are at the top of the file |
 | The "Recently launched" bar at the top | the first project in `src/data/projects.ts` |
 | Header, mega menus, mobile menu | `src/components/Header.astro` |
 | Footer | `src/components/Footer.astro` |

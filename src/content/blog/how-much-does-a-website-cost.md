@@ -20,6 +20,8 @@ faqs:
 
 This guide explains what actually drives the price, so you can compare quotes properly and budget with confidence.
 
+> **Want a number for your own project?** Try our [website cost calculator](/website-cost-calculator). It takes about a minute.
+
 ## The type of website sets the starting point
 
 The biggest factor is what kind of site you need. Roughly from simplest to most involved:
@@ -59,6 +61,19 @@ The build is a one-off; running a website is ongoing. Budget for:
 2. **Hosting**, monthly or yearly, depending on traffic and performance needs.
 3. **Licenses** for premium plugins, themes or apps.
 4. **Maintenance**: software updates, backups, security monitoring and small changes. See our [website maintenance checklist](/blog/website-maintenance-checklist) for what this involves.
+
+## What we charge
+
+For comparison, here are our own starting prices. They are lower than most agencies in the UK, the US and Europe because our team is based in Islamabad, where running a business costs less.
+
+- **Business website ({{price:websitePages}} pages):** from {{price:website}}
+- **Online store (up to {{price:storeProducts}} products):** from {{price:store}}
+- **Local SEO:** from {{price:seo}} a month, plus a one-off setup of {{price:seoSetup}}
+- **Hosting:** from {{price:hosting}} a month
+- **Website care:** from {{price:care}} a month
+- **Mobile and web apps:** usually {{price:app}}
+
+See [all our prices](/pricing), or get an instant estimate for your own project with the [cost calculator](/website-cost-calculator).
 
 ## Freelancer, agency or website builder?
 

@@ -29,6 +29,19 @@ const service = serviceBySlug(page.slug)!;
 const number = services.indexOf(service) + 1;
 const pad = (n: number) => String(n).padStart(2, '0');
 const steps = page.approach.steps;
+// Link to prices or the calculator, next to the hero buttons.
+const calc = (need: string) => ({ href: `/website-cost-calculator?need=${need}`, label: 'Estimate your cost' });
+const priceLink = ({
+	'website-development': calc('website'),
+	'website-design': calc('website'),
+	'wordpress-website': calc('website'),
+	'cms-development': calc('website'),
+	'ecommerce-development': calc('store'),
+	'seo-optimization': calc('seo'),
+	'mobile-app-development': { href: '/pricing#apps', label: 'See prices' },
+	'hosting-domain': { href: '/pricing#hosting-plans', label: 'See prices' },
+	'website-maintenance': { href: '/pricing#care-plans', label: 'See prices' },
+} as Record<string, { href: string; label: string }>)[page.slug];
 // Case studies that used this service (shown when there are at least three).
 const related = projects.filter((p) => p.services.includes(page.slug)).slice(0, 8);
 // Blog articles about this service.
@@ -62,6 +75,7 @@ const crumbs = [
 						<Button href="#discovery" variant="dark">Get in touch</Button>
 						<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
 					</div>
+					{priceLink && <a class="link link--green shero__price" href={priceLink.href} data-reveal style="--d:350">{priceLink.label} <Icon name="arrow-right" /></a>}
 				</div>
 				<div class="shero__art" data-reveal="fade" style="--d:150">
 					<PixelMosaic seed={number} />

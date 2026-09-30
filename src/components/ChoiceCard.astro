@@ -1,0 +1,184 @@
+---
+// A real radio or checkbox, styled as a selectable card: title, one line of
+// description and a price tag ("+$150"). Used by the cost calculator.
+// The tag's data-* attributes let the calculator redraw it in another currency.
+import { money, oneOff, monthly } from '../data/pricing';
+
+interface Props {
+	type: 'radio' | 'checkbox';
+	name: string;
+	value: string;
+	title: string;
+	desc?: string;
+	checked?: boolean;
+	disabled?: boolean;
+	/** A USD price to show as a tag, e.g. { usd: 150, prefix: '+' }. */
+	price?: { usd: number; kind?: 'oneoff' | 'monthly' | 'unit'; prefix?: string; suffix?: string };
+	/** Hosting plan id: the tag shows that plan's price per month. */
+	host?: { id: string; usd: number };
+	/** A USD range, e.g. [4000, 12000] for apps. */
+	rangeUsd?: [number, number];
+	/** Plain text tag, e.g. "Included". */
+	tag?: string;
+}
+
+const { type, name, value, title, desc, checked = false, disabled = false, price, host, rangeUsd, tag } = Astro.props;
+const kind = price?.kind ?? 'oneoff';
+const amount = price ? (kind === 'monthly' ? monthly(price.usd, 'USD') : kind === 'unit' ? price.usd : oneOff(price.usd, 'USD')) : 0;
+const priceText = price ? `${price.prefix ?? ''}${money(amount, 'USD')}${price.suffix ?? ''}` : '';
+---
+<label class:list={['choice', `choice--${type}`, { 'choice--disabled': disabled }]}>
+	<input class="choice__input" type={type} name={name} value={value} checked={checked} disabled={disabled} />
+	<span class="choice__box" aria-hidden="true"></span>
+	<span class="choice__text">
+		<span class="choice__title">{title}</span>
+		{desc && <span class="choice__desc">{desc}</span>}
+	</span>
+	{price && price.usd > 0 && (
+		<span class="choice__price" data-usd={price.usd} data-kind={kind} data-prefix={price.prefix ?? ''} data-suffix={price.suffix ?? ''}>{priceText}</span>
+	)}
+	{host && <span class="choice__price" data-host={host.id}>{money(host.usd, 'USD')}/month</span>}
+	{rangeUsd && <span class="choice__price" data-usd-range={rangeUsd.join('-')}>{money(oneOff(rangeUsd[0], 'USD'), 'USD')}–{money(oneOff(rangeUsd[1], 'USD'), 'USD')}</span>}
+	{tag && <span class="choice__price choice__price--tag">{tag}</span>}
+</label>
+
+<style>
+	.choice {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 12px 14px;
+		height: 100%;
+		padding: 14px 16px;
+		background: var(--paper);
+		border: 1px solid var(--line-2);
+		cursor: pointer;
+		transition:
+			border-color 0.25s,
+			background 0.25s,
+			box-shadow 0.25s;
+	}
+
+	.choice:hover {
+		border-color: var(--ink-soft);
+	}
+
+	/* The real input stays in the page for keyboards and screen readers. */
+	.choice__input {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		opacity: 0;
+		cursor: inherit;
+	}
+
+	.choice__box {
+		display: grid;
+		place-items: center;
+		width: 20px;
+		height: 20px;
+		border: 1.5px solid var(--ink-soft);
+		background: var(--card);
+		transition:
+			background 0.2s,
+			border-color 0.2s;
+	}
+
+	.choice--radio .choice__box {
+		border-radius: 50%;
+	}
+
+	.choice__box::after {
+		content: '';
+		width: 10px;
+		height: 6px;
+		border-left: 2px solid var(--ink);
+		border-bottom: 2px solid var(--ink);
+		transform: translateY(-1px) rotate(-45deg) scale(0);
+		transition: transform 0.2s var(--ease-out);
+	}
+
+	.choice--radio .choice__box::after {
+		width: 8px;
+		height: 8px;
+		border: 0;
+		border-radius: 50%;
+		background: var(--ink);
+		transform: scale(0);
+	}
+
+	.choice:has(.choice__input:checked) {
+		border-color: var(--green);
+		background: var(--card);
+		box-shadow: inset 0 0 0 1px var(--green);
+	}
+
+	.choice:has(.choice__input:checked) .choice__box {
+		background: var(--green);
+		border-color: var(--green);
+	}
+
+	.choice:has(.choice__input:checked) .choice__box::after {
+		transform: translateY(-1px) rotate(-45deg) scale(1);
+	}
+
+	.choice--radio:has(.choice__input:checked) .choice__box::after {
+		transform: scale(1);
+	}
+
+	.choice:has(.choice__input:focus-visible) {
+		outline: 2px solid var(--ink);
+		outline-offset: 2px;
+	}
+
+	.choice--disabled {
+		cursor: default;
+		opacity: 0.8;
+	}
+
+	.choice--disabled:hover {
+		border-color: var(--line-2);
+	}
+
+	.choice__text {
+		display: grid;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	.choice__title {
+		font-size: 0.9375rem;
+		font-weight: 550;
+		line-height: 1.35;
+		color: var(--ink);
+	}
+
+	.choice__desc {
+		font-size: 0.8125rem;
+		line-height: 1.45;
+		color: var(--muted);
+	}
+
+	.choice__price {
+		font-size: 0.8125rem;
+		font-weight: 550;
+		color: var(--green-ink);
+		white-space: nowrap;
+	}
+
+	.choice__price--tag {
+		padding: 3px 8px;
+		background: var(--green-50);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.choice,
+		.choice__box,
+		.choice__box::after {
+			transition: none;
+		}
+	}
+</style>

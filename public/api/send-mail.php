@@ -147,6 +147,12 @@ foreach ($rows as $label => $value) {
 if ($message !== '') {
 	$body .= "\nMessage:\n" . $message . "\n";
 }
+// From the website cost calculator (plain text, control characters stripped
+// by $field like every other field, at most 2,000 characters).
+$estimate = $field('estimate', 2000);
+if ($estimate !== '') {
+	$body .= "\nCalculator estimate:\n" . $estimate . "\n";
+}
 $body .= "\n--\nSent " . gmdate('D, d M Y H:i') . " UTC from IP " . $ip . "\nReply to this email to answer " . $name . " directly.\n";
 
 $subject = $formName . ': ' . $name . ($rows['Service'] !== '' ? ' (' . $rows['Service'] . ')' : '');

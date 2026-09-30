@@ -11,6 +11,7 @@ import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import { stats, site } from '../data/site';
+import { from, money } from '../data/pricing';
 import { generalFaqs, serviceFaqs } from '../data/faqs';
 
 const heroStats = [
@@ -44,7 +45,7 @@ const faqs = [generalFaqs[0], serviceFaqs[1], ...generalFaqs.slice(1)];
 							<Button href="/contact" variant="primary" magnetic>Get a free quote</Button>
 							<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
 						</div>
-						<p class="hero__note" data-reveal style="--d:450">Free consultation. We reply {site.replyTime}.</p>
+						<p class="hero__note" data-reveal style="--d:450">Free consultation. We reply {site.replyTime}. <a href="/pricing">Business websites from {money(from.website, 'USD')}</a>.</p>
 					</div>
 
 					<dl class="hero__stats" data-reveal-group="80">
@@ -144,6 +145,13 @@ const faqs = [generalFaqs[0], serviceFaqs[1], ...generalFaqs.slice(1)];
 	.hero__note {
 		font-size: 0.875rem;
 		color: var(--muted);
+	}
+
+	.hero__note a {
+		color: var(--green-ink);
+		font-weight: 550;
+		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 
 	/* Stats: three boxes sharing borders, with small corner ticks. */

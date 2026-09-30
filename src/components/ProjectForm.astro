@@ -20,9 +20,11 @@ interface Props {
 const { id, form, service, class: className } = Astro.props;
 const options = [...services.map((s) => ({ value: s.name, label: s.name })), { value: 'Not sure yet', label: 'Not sure yet' }];
 ---
-<form class:list={['fform', className]} action="/api/send-mail.php" method="post" novalidate data-mail-form id={id}>
+<form class:list={['fform', className]} action="/api/send-mail.php" method="post" novalidate data-mail-form data-project-form id={id}>
 	<input type="hidden" name="form" value={form} />
 	<input type="hidden" name="ts" value="" />
+	<!-- Filled by the cost calculator (or ?estimate=… in the URL). -->
+	<input type="hidden" name="estimate" value="" />
 	<div class="fform__trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
 	<div class="fform__row">
 		<div class="ffield">
@@ -56,4 +58,5 @@ const options = [...services.map((s) => ({ value: s.name, label: s.name })), { v
 
 <script>
 	import '../scripts/mail-form';
+	import '../scripts/fill-form';
 </script>

@@ -6,6 +6,7 @@
 // Applies to elements with one of these classes: display, h1, h2, h3,
 // shero__title, chero__title. Headings ending in "?" or "!" get no dot.
 import { defineMiddleware } from 'astro:middleware';
+import { from, money, seo } from './data/pricing';
 
 const HEADING_CLASSES = new Set(['display', 'h1', 'h2', 'h3', 'shero__title', 'chero__title']);
 const STOPWORDS = new Set(['a', 'an', 'the', 'to', 'of', 'and', 'or', 'for', 'with', 'in', 'on', 'at', 'by', 'from', 'your', 'our', 'is', 'are', 'we', 'you', '&amp;', '&', '—', '–', '-']);
@@ -111,6 +112,27 @@ function toUkSpelling(html: string): string {
 	);
 }
 
+// Prices written in Markdown (blog posts) as {{price:website}} come from
+// src/data/pricing.ts, so a post never shows a different price from /pricing.
+const usd = (n: number) => money(n, 'USD');
+const PRICE_TOKENS: Record<string, string> = {
+	website: usd(from.website),
+	websitePages: String(from.websitePages),
+	store: usd(from.store),
+	storeProducts: String(from.storeProducts),
+	seo: usd(from.seo),
+	seoSetup: usd(seo.setup),
+	hosting: usd(from.hosting),
+	care: usd(from.care),
+	app: `${usd(from.app[0])}–${usd(from.app[1])}`,
+};
+function fillPrices(html: string): string {
+	return html.replace(/\{\{price:(\w+)\}\}/g, (_, key: string) => {
+		if (!(key in PRICE_TOKENS)) throw new Error(`Unknown price token {{price:${key}}}`);
+		return PRICE_TOKENS[key];
+	});
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
 	const response = await next();
 	const type = response.headers.get('content-type') ?? '';
@@ -119,6 +141,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 	if (!html.includes('<html')) return new Response(html, response);
 	const path = context.url.pathname.replace(/\.html$/, '').replace(/\/$/, '');
 	if (UK_PAGES.has(path)) html = toUkSpelling(html);
+	if (html.includes('{{price:')) html = fillPrices(html);
 	return new Response(brandHeadings(html), {
 		status: response.status,
 		statusText: response.statusText,
