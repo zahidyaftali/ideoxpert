@@ -108,15 +108,15 @@ export type Service = {
 
 // Order here drives the header menu, footer links and the Services schema.
 export const services: Service[] = [
-	{ slug: 'website-development', name: 'Website Development', summary: 'Custom websites and web applications built for speed, security and growth.', image: '/assets/images/web dev-1.jpg' },
-	{ slug: 'website-design', name: 'Website Design', summary: 'Websites designed to build brands people love.', image: '/assets/images/website design 1.jpg' },
+	{ slug: 'website-development', name: 'Website Development', summary: 'Custom websites and web apps that load fast and bring in inquiries.', image: '/assets/images/web dev-1.jpg' },
+	{ slug: 'website-design', name: 'Website Design', summary: 'Websites designed so visitors understand you and get in touch.', image: '/assets/images/website design 1.jpg' },
 	{ slug: 'wordpress-website', name: 'WordPress Website', summary: 'WordPress websites your team can manage and grow.', image: '/assets/images/Wordpress website 1.jpg' },
 	{ slug: 'ecommerce-development', name: 'E-commerce Development', summary: 'Online stores on WooCommerce and Shopify that are easy to run and built to sell.', image: '/assets/images/work/maisonluma-com/hero.webp' },
-	{ slug: 'seo-optimization', name: 'SEO Optimization', summary: 'Technical, on-page and content SEO that improves online visibility.', image: '/assets/images/seo optimizations.jpg' },
-	{ slug: 'mobile-app-development', name: 'Mobile App Development', summary: 'Mobile apps that put your business in every pocket.', image: '/assets/images/elements/web-dev2.jpg' },
+	{ slug: 'seo-optimization', name: 'SEO Optimization', summary: 'SEO that gets you found by people searching for what you sell.', image: '/assets/images/seo optimizations.jpg' },
+	{ slug: 'mobile-app-development', name: 'Mobile App Development', summary: 'Android and iOS apps, designed screen by screen before we build.', image: '/assets/images/elements/web-dev2.jpg' },
 	{ slug: 'cms-development', name: 'CMS Development', summary: 'Content management systems that let your team update content without developer help.', image: '/assets/images/cms develop.jpg' },
-	{ slug: 'hosting-domain', name: 'Hosting & Domain', summary: 'Fast, secure hosting and domain management with SSL included.', image: '/assets/images/hosing and domain.jpg' },
-	{ slug: 'website-maintenance', name: 'Website Maintenance', summary: 'Updates, backups, security and monitoring to keep websites running smoothly.', image: '/assets/images/maintenance 1.jpg' },
+	{ slug: 'hosting-domain', name: 'Hosting & Domain', summary: 'Hosting, domains and SSL, set up for you and renewed on time.', image: '/assets/images/hosing and domain.jpg' },
+	{ slug: 'website-maintenance', name: 'Website Maintenance', summary: 'Updates, backups and small changes every month, so nothing breaks quietly.', image: '/assets/images/maintenance 1.jpg' },
 ];
 
 export const serviceBySlug = (slug: string) => services.find((s) => s.slug === slug);
