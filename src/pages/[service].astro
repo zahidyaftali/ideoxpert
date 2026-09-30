@@ -1,5 +1,5 @@
 ---
-// One template for all nine service pages. Content lives in
+// One template for all the service pages. Content lives in
 // src/data/service-pages.ts, tools in src/data/tools.ts; each page keeps its
 // original URL (/website-design etc.).
 import type { GetStaticPaths } from 'astro';
@@ -55,8 +55,9 @@ const crumbs = [
 					<nav class="crumbs" aria-label="Breadcrumb" data-reveal>
 						<a href="/">Home</a> <Icon name="arrow-right" size={12} /> <a href="/services">Services</a> <Icon name="arrow-right" size={12} /> <span aria-current="page">{service.name}</span>
 					</nav>
-					<h1 class="shero__title" data-split set:html={`${page.title.lead} ${page.title.em}<span class="dot">.</span>`} />
+					<h1 class="shero__title" data-split set:html={`${page.title.lead} <b>${page.title.em}</b><span class="dot">.</span>`} />
 					<p class="shero__lead" data-reveal style="--d:200">{page.intro}</p>
+					{page.timeline && <p class="shero__time" data-reveal style="--d:250"><Icon name="clock" size={16} /> Typical timeline: {page.timeline}</p>}
 					<div class="btn-row" data-reveal style="--d:300">
 						<Button href="#discovery" variant="dark">Get in touch</Button>
 						<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
@@ -86,7 +87,7 @@ const crumbs = [
 		<div class="container">
 			<div class="features__head">
 				<h2 class="h2" data-split>What you get<span class="dot">.</span></h2>
-				<p class="subtitle" data-reveal>Whether you are a small startup or a large enterprise, this is built in from day one.</p>
+				<p class="subtitle" data-reveal>What is included when you work with us on this.</p>
 			</div>
 			<ol class="frows" role="list">
 				{page.features.map((f, i) => (
@@ -110,7 +111,8 @@ const crumbs = [
 					<div class="approach__sticky">
 						<h2 class="h2" data-split>{page.approach.title}<span class="dot">.</span></h2>
 						{page.approach.intro && <p class="subtitle" data-reveal>{page.approach.intro}</p>}
-						<div data-reveal><Button href="#discovery" variant="dark">Get in touch</Button></div>
+						<p class="approach__cta" data-reveal>{page.cta.text}</p>
+						<div data-reveal><Button href="#discovery" variant="dark">{page.cta.button}</Button></div>
 					</div>
 				</div>
 				<div class="approach__steps">
@@ -272,6 +274,21 @@ const crumbs = [
 		max-width: 50ch;
 		font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
 		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+
+	.shero__time {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.9375rem;
+		font-weight: 500;
+	}
+
+	.approach__cta {
+		max-width: 36ch;
+		font-size: 1.0625rem;
+		line-height: 1.55;
 		color: var(--ink-soft);
 	}
 
