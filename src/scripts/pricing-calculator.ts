@@ -112,8 +112,8 @@ function buildTimeline(weeks: Weeks, slower: number, complex: boolean): Timeline
 	return { min, max, complex: false, kind: 'build', text: weekText(min, max) };
 }
 
-/** High end of a one-off range: low x 1.15, rounded up to the nearest 50. */
-const highOf = (low: number) => Math.ceil(Math.round(low * 115) / 100 / 50) * 50;
+/** High end of a one-off range: low x 1.15, rounded up to the nearest 10. */
+const highOf = (low: number) => Math.ceil(Math.round(low * 115) / 100 / 10) * 10;
 const pick = <T extends { id: string }>(list: T[], id: string) => list.find((o) => o.id === id) ?? list[0];
 
 export function calculateEstimate(a: Answers, cur: Currency = 'USD'): Estimate {

@@ -2,6 +2,7 @@
 // FAQ, the FAQ cost answer, the cost blog post and the structured data all
 // read from this file. Change a number here and every page follows.
 //
+// Price list updated 1 Oct 2026 (owner): lower prices, hosting unchanged.
 // Prices are in USD and one-off unless marked monthly. Hosting has its own
 // fixed prices per currency (see `hosting`); everything else converts from USD
 // with the fixed rates below. This file has no imports so the calculator
@@ -22,42 +23,42 @@ export type Weeks = [number, number];
 // Covers Website Design, Website Development, WordPress Website and CMS Development.
 export const website = {
 	pages: [
-		{ id: '1', label: 'One page', desc: 'A landing page', price: 450, count: 1, weeks: [1, 1] as Weeks, from: false },
-		{ id: '2-5', label: '2–5 pages', desc: 'Home, About, a few services, Contact', price: 900, count: 5, weeks: [1, 2] as Weeks, from: false },
-		{ id: '6-10', label: '6–10 pages', desc: 'A page for each main service', price: 1400, count: 8, weeks: [2, 3] as Weeks, from: false },
-		{ id: '11-20', label: '11–20 pages', desc: 'More services, areas or projects', price: 2100, count: 15, weeks: [3, 3] as Weeks, from: false },
-		{ id: '20+', label: 'More than 20 pages', desc: 'A large site, confirmed in your quote', price: 2800, count: 25, weeks: [3, 5] as Weeks, from: true },
+		{ id: '1', label: 'One page', desc: 'A landing page', price: 120, count: 1, weeks: [1, 1] as Weeks, from: false },
+		{ id: '2-5', label: '2–5 pages', desc: 'Home, About, a few services, Contact', price: 200, count: 5, weeks: [1, 2] as Weeks, from: false },
+		{ id: '6-10', label: '6–10 pages', desc: 'A page for each main service', price: 350, count: 8, weeks: [2, 3] as Weeks, from: false },
+		{ id: '11-20', label: '11–20 pages', desc: 'More services, areas or projects', price: 550, count: 15, weeks: [3, 3] as Weeks, from: false },
+		{ id: '20+', label: 'More than 20 pages', desc: 'A large site, confirmed in your quote', price: 800, count: 25, weeks: [3, 5] as Weeks, from: true },
 	],
 	design: [
 		{ id: 'layout', label: 'Our proven layouts', short: 'our layouts', desc: 'Built from our proven layouts, styled to your brand', price: 0, onePagePrice: 0, slower: false },
-		{ id: 'custom', label: 'Fully custom design', short: 'fully custom design', desc: 'Drawn from scratch, just for you', price: 500, onePagePrice: 200, slower: true },
+		{ id: 'custom', label: 'Fully custom design', short: 'fully custom design', desc: 'Drawn from scratch, just for you', price: 150, onePagePrice: 80, slower: true },
 	],
 	copy: [
 		{ id: 'own', label: 'I’ll send you the text', short: 'you write the text', perPage: 0 },
-		{ id: 'write', label: 'Please write it for me', short: 'we write the text', perPage: 50 },
+		{ id: 'write', label: 'Please write it for me', short: 'we write the text', perPage: 15 },
 	],
 	extras: [
-		{ id: 'blog', label: 'Blog', desc: 'Articles you can publish yourself', price: 150, slower: false },
-		{ id: 'booking', label: 'Online booking or appointments', desc: 'Customers book a time on the site', price: 350, slower: true },
-		{ id: 'language', label: 'Second language', desc: 'Every page in two languages', price: 350, slower: true },
-		{ id: 'forms', label: 'Extra forms', desc: 'Quote request, job application', price: 100, slower: false },
-		{ id: 'gallery', label: 'Gallery or portfolio', desc: 'Show your work in photos', price: 100, slower: false },
-		{ id: 'newsletter', label: 'Newsletter sign-up', desc: 'Collect emails for updates', price: 80, slower: false },
+		{ id: 'blog', label: 'Blog', desc: 'Articles you can publish yourself', price: 40, slower: false },
+		{ id: 'booking', label: 'Online booking or appointments', desc: 'Customers book a time on the site', price: 100, slower: true },
+		{ id: 'language', label: 'Second language', desc: 'Every page in two languages', price: 100, slower: true },
+		{ id: 'forms', label: 'Extra forms', desc: 'Quote request, job application', price: 25, slower: false },
+		{ id: 'gallery', label: 'Gallery or portfolio', desc: 'Show your work in photos', price: 25, slower: false },
+		{ id: 'newsletter', label: 'Newsletter sign-up', desc: 'Collect emails for updates', price: 20, slower: false },
 	],
 	/** Always in the price, shown ticked and disabled. */
 	included: ['Contact form', 'WhatsApp button', 'Google Map', 'Basic SEO setup'],
 	existing: [
 		{ id: 'new', label: 'No, this is a new website', short: 'new site', desc: '', price: 0, slower: false },
-		{ id: 'replace', label: 'Yes, replace my current site', short: 'replacing current site', desc: 'We move your content and keep your Google rankings with redirects', price: 250, slower: true },
+		{ id: 'replace', label: 'Yes, replace my current site', short: 'replacing current site', desc: 'We move your content and keep your Google rankings with redirects', price: 70, slower: true },
 	],
 };
 
 // ---------------------------------------------------------------- store
 export const store = {
 	products: [
-		{ id: '25', label: 'Up to 25', desc: 'Products', price: 1900, count: 25, weeks: [2, 3] as Weeks, from: false },
-		{ id: '26-100', label: '26–100', desc: 'Products', price: 2400, count: 60, weeks: [3, 3] as Weeks, from: false },
-		{ id: '100+', label: 'More than 100', desc: 'Confirmed in your quote', price: 3200, count: 200, weeks: [3, 5] as Weeks, from: true },
+		{ id: '25', label: 'Up to 25', desc: 'Products', price: 900, count: 25, weeks: [2, 3] as Weeks, from: false },
+		{ id: '26-100', label: '26–100', desc: 'Products', price: 1200, count: 60, weeks: [3, 3] as Weeks, from: false },
+		{ id: '100+', label: 'More than 100', desc: 'Confirmed in your quote', price: 1600, count: 200, weeks: [3, 5] as Weeks, from: true },
 	],
 	platform: [
 		{ id: 'woocommerce', label: 'WooCommerce', desc: 'No monthly platform fee', note: '' },
@@ -66,15 +67,15 @@ export const store = {
 	],
 	adding: [
 		{ id: 'own', label: 'I’ll add them', short: 'you add the products', perProduct: 0 },
-		{ id: 'us', label: 'Please add them for me', short: 'we add the products', perProduct: 3 },
+		{ id: 'us', label: 'Please add them for me', short: 'we add the products', perProduct: 1 },
 	],
 	extras: [
-		{ id: 'options', label: 'Product options', desc: 'Sizes, colors', price: 150, slower: false },
-		{ id: 'shipping', label: 'Shipping rules', desc: 'By country or weight', price: 150, slower: false },
-		{ id: 'payments', label: 'Extra payment methods', desc: 'PayPal, Klarna and so on', price: 100, slower: false },
-		{ id: 'multi', label: 'Several currencies or languages', desc: 'Sell in more than one market', price: 250, slower: false },
-		{ id: 'subscriptions', label: 'Subscriptions or bookable products', desc: 'Repeat orders or time slots', price: 400, slower: true },
-		{ id: 'migrate', label: 'Move my products from another store', desc: 'Products, customers and orders', price: 300, slower: true },
+		{ id: 'options', label: 'Product options', desc: 'Sizes, colors', price: 50, slower: false },
+		{ id: 'shipping', label: 'Shipping rules', desc: 'By country or weight', price: 50, slower: false },
+		{ id: 'payments', label: 'Extra payment methods', desc: 'PayPal, Klarna and so on', price: 30, slower: false },
+		{ id: 'multi', label: 'Several currencies or languages', desc: 'Sell in more than one market', price: 80, slower: false },
+		{ id: 'subscriptions', label: 'Subscriptions or bookable products', desc: 'Repeat orders or time slots', price: 120, slower: true },
+		{ id: 'migrate', label: 'Move my products from another store', desc: 'Products, customers and orders', price: 100, slower: true },
 	],
 	included: ['Card payments (Stripe or Shopify Payments)', 'Basic SEO setup', 'Order emails'],
 };
@@ -82,18 +83,18 @@ export const store = {
 // ---------------------------------------------------------------- SEO
 export const seo = {
 	area: [
-		{ id: 'town', label: 'One town or city', monthly: 300 as number | null },
-		{ id: 'region', label: 'Several cities or a region', monthly: 450 as number | null },
-		{ id: 'country', label: 'The whole country', monthly: 650 as number | null },
+		{ id: 'town', label: 'One town or city', monthly: 120 as number | null },
+		{ id: 'region', label: 'Several cities or a region', monthly: 180 as number | null },
+		{ id: 'country', label: 'The whole country', monthly: 250 as number | null },
 		{ id: 'countries', label: 'Several countries', monthly: null as number | null },
 	],
 	articles: [
 		{ id: '0', label: 'None', monthly: 0 },
-		{ id: '2', label: '2 articles', monthly: 120 },
-		{ id: '4', label: '4 articles', monthly: 240 },
+		{ id: '2', label: '2 articles', monthly: 40 },
+		{ id: '4', label: '4 articles', monthly: 80 },
 	],
 	/** One-off, always added: audit, technical fixes, Google Business Profile, Search Console and Analytics. */
-	setup: 350,
+	setup: 100,
 	minimumMonths: 3,
 	note: 'SEO takes time. Most local businesses see real movement in 3 to 6 months. The minimum is 3 months, then it’s month to month.',
 	customNote: 'We’ll quote this after a quick look at your market.',
@@ -104,8 +105,8 @@ export const seo = {
 // ---------------------------------------------------------------- apps
 export const apps = {
 	types: [
-		{ id: 'mobile', label: 'Mobile app', desc: 'Android, iPhone or both', range: [4000, 12000] as [number, number], weeks: [6, 12] as Weeks },
-		{ id: 'web', label: 'Custom web app or client portal', desc: 'Logins, dashboards, bookings', range: [3500, 10000] as [number, number], weeks: [5, 10] as Weeks },
+		{ id: 'mobile', label: 'Mobile app', desc: 'Android, iPhone or both', range: [1500, 5000] as [number, number], weeks: [6, 12] as Weeks },
+		{ id: 'web', label: 'Custom web app or client portal', desc: 'Logins, dashboards, bookings', range: [1200, 4000] as [number, number], weeks: [5, 10] as Weeks },
 	],
 	result: 'Apps vary too much to price with a calculator. This range covers most of the apps we’re asked for. Book a free call and we’ll give you a fixed quote within 48 hours.',
 };
@@ -173,14 +174,14 @@ export const care = {
 		{
 			id: 'care',
 			name: 'Care',
-			monthly: 49,
+			monthly: 19,
 			desc: 'Updates and security checks so nothing breaks.',
 			features: ['WordPress, theme and plugin updates', 'Security scans', 'Uptime monitoring', 'Monthly backup check', 'Fixes if an update breaks something'],
 		},
 		{
 			id: 'plus',
 			name: 'Care Plus',
-			monthly: 99,
+			monthly: 39,
 			desc: 'Care, plus time for changes and a monthly report.',
 			features: ['Everything in Care', 'Up to 2 hours of content changes each month', 'Monthly report (speed, uptime, updates done)', 'Priority replies within 4 working hours'],
 		},
@@ -193,7 +194,7 @@ export const policies = {
 	payment: '50% to start, 50% when you’ve approved the finished site and before it goes live.',
 	changes: 'Two rounds of design changes are included.',
 	afterLaunch: '30 days of free fixes.',
-	hourlyRate: 30,
+	hourlyRate: 15,
 	cancel: 'Cancel any time with 30 days’ notice.',
 	ownership: 'You own your domain, website, content and logins from day one.',
 	invoices: 'Invoices in USD, GBP or EUR. Pay by bank transfer, Wise or PayPal.',
