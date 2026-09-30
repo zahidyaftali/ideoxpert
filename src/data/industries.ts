@@ -198,7 +198,7 @@ export const industries: Industry[] = [
 			{ q: 'Will you write the content?', a: 'We can. We help shape the service descriptions and page structure, and can write or edit the copy for SEO.' },
 		],
 		services: ['website-design', 'website-development', 'wordpress-website', 'seo-optimization'],
-		projects: ['tvdm-au', 'jazbahost-com', 'brightwayconsultsolutions-com', 'brightwaygroup-org', 'priveluxadvisory-com', 'ransfordaddo-com', 'thomwerk-nl'],
+		projects: ['psgwa-com-au', 'tvdm-au', 'jazbahost-com', 'brightwayconsultsolutions-com', 'brightwaygroup-org', 'priveluxadvisory-com', 'ransfordaddo-com', 'thomwerk-nl'],
 	},
 	{
 		slug: 'media-entertainment',

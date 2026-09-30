@@ -18,13 +18,13 @@ const schema = [
 	{
 		'@type': 'ItemList',
 		name: 'Countries IdeoXpert builds websites for',
-		itemListElement: locations.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/locations/${l.slug}`, name: `Web design in ${l.country}` })),
+		itemListElement: locations.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/locations/${l.slug}`, name: `Web design and development in ${l.country}` })),
 	},
 ];
 ---
 <BaseLayout
-	title="Where We Work: Web Design by Country | IdeoXpert"
-	description="Web design, development and SEO for businesses in the UK, US, Canada, Australia, Germany, the Netherlands and the UAE, from our team in Islamabad."
+	title="Where We Work: Web Development by Country | IdeoXpert"
+	description="Web design and development, online stores and SEO for businesses in the UK, US, Canada, Australia, Germany, the Netherlands and the UAE."
 	keywords="web design agency for UK businesses, web development company USA, web design Canada, web design Australia, web design Germany, web design Netherlands, web design Dubai, outsource web development"
 	image="/assets/images/work/jazbahost-com/hero.webp"
 	pageType="CollectionPage"
@@ -50,14 +50,7 @@ const schema = [
 					<li data-reveal>
 						<a class="place" href={`/locations/${l.slug}`}>
 							<span class="place__media">
-								<img
-									src={l.work[0]?.thumb ?? '/assets/images/industries/where-we-work.webp'}
-									alt=""
-									width={l.work[0] ? 1440 : 600}
-									height={l.work[0] ? 900 : 548}
-									loading="lazy"
-									decoding="async"
-								/>
+								<img src={l.photo.src} alt={`Web design and development in ${l.short}: ${l.photo.subject}`} width="960" height="600" loading="lazy" decoding="async" />
 							</span>
 							<span class="place__body">
 								<span class="place__name">
@@ -65,13 +58,20 @@ const schema = [
 									{l.country}
 								</span>
 								<span class="place__cities">{l.cities.slice(0, 4).join(', ')}</span>
-								<span class="place__count">{l.work.length ? `${l.work.length} ${l.work.length === 1 ? 'website' : 'websites'} built` : 'Now taking projects'}</span>
-								<span class="place__go">Web design in {l.short} <Icon name="arrow-right" size={16} /></span>
+								<span class="place__go">Web design and development in {l.short} <Icon name="arrow-right" size={16} /></span>
 							</span>
 						</a>
 					</li>
 				))}
 			</ul>
+			<p class="places__credits">
+				Photos from Wikimedia Commons, cropped:
+				{places.map((l, i) => (
+					<>
+						<a href={l.photo.source} target="_blank" rel="noopener">{l.photo.subject}</a> by {l.photo.author} (<a href={l.photo.licenseUrl} target="_blank" rel="noopener">{l.photo.license}</a>){i < places.length - 1 ? '; ' : '.'}
+					</>
+				))}
+			</p>
 		</div>
 	</section>
 </BaseLayout>
@@ -163,10 +163,17 @@ const schema = [
 		font-size: 0.9375rem;
 	}
 
-	.place__count {
-		font-size: 0.875rem;
-		font-weight: 550;
-		color: var(--green-ink);
+	.places__credits {
+		margin-top: clamp(32px, 4vw, 48px);
+		max-width: 110ch;
+		font-size: 0.75rem;
+		line-height: 1.6;
+		color: var(--muted);
+	}
+
+	.places__credits a {
+		text-decoration: underline;
+		text-underline-offset: 2px;
 	}
 
 	.place__go {

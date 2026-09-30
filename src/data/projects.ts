@@ -32,6 +32,8 @@ type Facts = {
 	wordpress: boolean;
 	builder: string | null;
 	shop: boolean;
+	/** A Shopify store (BOTL). */
+	shopify?: boolean;
 	host: string | null;
 	seo: { good: boolean; plugin: string | null; passed: number; total: number; checks: { label: string; pass: boolean }[] };
 	stack: { name: string; si?: string; img?: string }[];
@@ -63,6 +65,14 @@ type Entry = {
 };
 
 const recent: Entry[] = [
+	{
+		id: 'psgwa-com-au', slug: 'psgwa', client: 'Oosthuizen', name: 'Prime Strategies Group', url: 'https://psgwa.com.au/', country: 'au',
+		industry: 'Business consulting', sector: 'Business & consulting', kind: 'Consulting website', goal: 'inquiries',
+		headline: 'Prime Strategies Group: business advice for WA owners, found in Perth',
+		summary: 'Prime Strategies Group helps small and medium business owners in Perth and the Peel region grow profit and business value, through one-to-one advisory, systems improvement and a 26-week group coaching program. We built their WordPress website, set up to rank for business consulting searches in Perth and Mandurah.',
+		brief: 'Business owners look for an adviser they can trust, close to home. The site needed to explain three services clearly, show the people behind them, and rank in Perth and Mandurah.',
+		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
+	},
 	{
 		id: 'jazbahost-com', slug: 'jazba-host', client: 'Jazba', name: 'Jazba Host', url: 'https://www.jazbahost.com/', country: 'gb',
 		industry: 'Web hosting', sector: 'Technology', kind: 'Business website', goal: 'inquiries',
@@ -104,7 +114,7 @@ const recent: Entry[] = [
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
-		id: 'abccranehire-com-au', slug: 'abc-crane-hire', name: 'ABC Crane Hire', url: 'https://abccranehire.com.au/', country: 'au',
+		id: 'abccranehire-com-au', slug: 'abc-crane-hire', client: 'Oosthuizen', name: 'ABC Crane Hire', url: 'https://abccranehire.com.au/', country: 'au',
 		industry: 'Crane hire', sector: 'Construction & trades', kind: 'Service website', goal: 'inquiries',
 		headline: 'ABC Crane Hire: ranking crane hire across Perth and Peel',
 		summary: 'ABC Crane Hire supplies Franna, Tom Thumb, Hiab and 100-tonne mobile cranes across Perth and the Peel region. We built their WordPress website with location pages and a large blog, set up to rank for crane hire searches across Western Australia.',
@@ -152,11 +162,19 @@ const recent: Entry[] = [
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 	{
-		id: 'tvdm-au', slug: 'tvdm', name: 'TVDM', url: 'https://tvdm.au/', country: 'au',
+		id: 'tvdm-au', slug: 'tvdm', client: 'Oosthuizen', name: 'TVDM', url: 'https://tvdm.au/', country: 'au',
 		industry: 'Digital marketing', sector: 'Marketing & agencies', kind: 'Agency website', goal: 'inquiries',
 		headline: 'TVDM: a Perth marketing agency’s website that sells its own results',
 		summary: 'True Vine Digital Marketing helps Perth businesses grow with web development, SEO, lead generation and AI. We built a website that practices what they preach: fast, clear on pricing and built around a free audit offer.',
 		brief: 'A marketing agency’s own site is its first case study. TVDM needed a website that ranks, explains its method and pricing, and books audits.',
+		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
+	},
+	{
+		id: 'botl-com-au', slug: 'botl', name: 'BOTL', url: 'https://www.botl.com.au/', country: 'au',
+		industry: 'Fragrance & gifts', sector: 'Retail & e-commerce', kind: 'Shopify store', goal: 'sales',
+		headline: 'BOTL: Scripture-inspired fragrance, sold on Shopify',
+		summary: 'BOTL (Blessings of The Lord) makes Australian-made, Scripture-inspired perfume and cologne, sold as meaningful gifts for women and men. We built a custom Shopify theme for the store, with collections, gift pages and the founder’s story.',
+		brief: 'Gift buyers need to understand the idea behind each fragrance and buy it in a few taps. The store had to tell the BOTL story and still get people to checkout quickly.',
 		// [[FILL: result]] e.g. result: 'Page 1 on Google for "..."' (only a result the client can confirm)
 	},
 ];
@@ -371,12 +389,12 @@ export type Project = Entry & {
 
 const build = (isRecent: boolean) => (e: Entry): Project => {
 	const f = facts[e.id];
-	const platform = f.wordpress ? `on WordPress${f.builder ? ` and ${f.builder}` : ''}` : `custom-coded${f.host ? ` and hosted on ${f.host}` : ''}`;
-	const builtAs = f.wordpress ? `on WordPress${f.builder ? ` with ${f.builder}` : ''}` : `as a custom-coded site${f.host ? ` hosted on ${f.host}` : ''}`;
+	const platform = f.wordpress ? `on WordPress${f.builder ? ` and ${f.builder}` : ''}` : f.shopify ? 'on Shopify, with a custom theme' : `custom-coded${f.host ? ` and hosted on ${f.host}` : ''}`;
+	const builtAs = f.wordpress ? `on WordPress${f.builder ? ` with ${f.builder}` : ''}` : f.shopify ? 'as a Shopify store with a custom theme' : `as a custom-coded site${f.host ? ` hosted on ${f.host}` : ''}`;
 	const services = ['website-development', 'website-design', ...(f.wordpress ? ['wordpress-website'] : []), ...(f.shop ? ['ecommerce-development'] : []), ...(f.seo.good ? ['seo-optimization'] : [])];
 	const second = f.seo.good
 		? { strong: 'SEO optimization', text: f.seo.plugin ? `with ${f.seo.plugin}, schema and a sitemap` : 'with schema, meta tags and a sitemap' }
-		: { strong: e.kind, text: f.shop ? 'with a WooCommerce shop' : f.pages >= 5 ? `with ${f.pages} pages` : 'designed for every screen' };
+		: { strong: e.kind, text: f.shop ? (f.shopify ? 'with a Shopify store' : 'with a WooCommerce shop') : f.pages >= 5 ? `with ${f.pages} pages` : 'designed for every screen' };
 	return {
 		...e,
 		recent: isRecent,
@@ -393,7 +411,7 @@ const build = (isRecent: boolean) => (e: Entry): Project => {
 				: { title: 'Easy to keep up to date', text: `The ${e.name} team needed to change text, images and pages themselves, without waiting on a developer.` },
 			{ title: goalText[e.goal].title, text: goalText[e.goal].text(e.name) },
 		],
-		solution: `We designed and built the ${e.name} website ${builtAs}${f.shop ? ', with a WooCommerce shop' : ''}${f.seo.good ? ', with SEO set up from launch' : ''}. Here is what went into it.`,
+		solution: `We designed and built the ${e.name} website ${builtAs}${f.shop && !f.shopify ? ', with a WooCommerce shop' : ''}${f.seo.good ? ', with SEO set up from launch' : ''}. Here is what went into it.`,
 		facts: f,
 	};
 };

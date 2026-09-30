@@ -1,6 +1,6 @@
 ---
 import { site, services, whatsappLink } from '../data/site';
-import { projects, recentProjects } from '../data/projects';
+import { projects } from '../data/projects';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import { industries } from '../data/industries';
@@ -31,11 +31,11 @@ const tiles = [
 ];
 // Menu images load when a menu first opens, not with the page.
 const blank = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-const menuProjects = recentProjects.slice(0, 4);
+// Work menu: chosen by the owner.
+const menuProjects = ['psgwa-com-au', 'jazbahost-com', 'gahealthcaretraining-com', 'abccranehire-com-au'].map((id) => projects.find((p) => p.id === id)!);
 
 const companyLinks = [
 	{ href: '/about', label: 'About us', text: 'Who we are and how we work', icon: 'users' },
-	{ href: '/portfolio', label: 'Portfolio', text: 'Websites we have built', icon: 'briefcase' },
 	{ href: '/locations', label: 'Where we work', text: 'The countries our clients are in', icon: 'globe' },
 	{ href: '/contact', label: 'Contact', text: 'Get in touch', icon: 'phone' },
 ];
@@ -756,9 +756,16 @@ const companyLinks = [
 		transition: background 0.25s;
 	}
 
-	.drop__link:hover,
-	.drop__link.is-current {
-		background: var(--paper);
+	.drop__link:hover .drop__label,
+	.drop__link.is-current .drop__label,
+	.drop__link:hover .drop__icon,
+	.drop__link.is-current .drop__icon {
+		color: var(--green-ink);
+	}
+
+	.drop__link:hover .drop__icon::after,
+	.drop__link.is-current .drop__icon::after {
+		--bc: var(--green);
 	}
 
 	.drop__icon {
@@ -785,6 +792,7 @@ const companyLinks = [
 		font-weight: 600;
 		letter-spacing: -0.015em;
 		color: var(--ink);
+		transition: color 0.25s;
 	}
 
 	.drop__sub {
@@ -799,7 +807,7 @@ const companyLinks = [
 
 	.drop__link:hover :global(.drop__chev) {
 		transform: translateX(3px);
-		color: var(--ink);
+		color: var(--green-ink);
 	}
 
 

@@ -3675,5 +3675,224 @@
 			}
 		],
 		"accent": "#4d3129"
+	},
+	"psgwa-com-au": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 500
+			},
+			{
+				"file": "s2.webp",
+				"h": 825
+			},
+			{
+				"file": "s3.webp",
+				"h": 463
+			},
+			{
+				"file": "s4.webp",
+				"h": 481
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 2.16,
+			"marquee": true
+		},
+		"pages": 8,
+		"posts": 4,
+		"languages": 1,
+		"translated": false,
+		"wordpress": true,
+		"builder": "Elementor",
+		"shop": false,
+		"host": null,
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 8,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "WordPress",
+				"si": "siWordpress"
+			},
+			{
+				"name": "Elementor",
+				"si": "siElementor"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			},
+			{
+				"name": "Google Analytics",
+				"si": "siGoogleanalytics"
+			}
+		],
+		"built": [
+			{
+				"title": "WordPress with Elementor",
+				"text": "Built on WordPress with Elementor, set up so the PSGWA team can edit text, images and pages themselves without calling a developer."
+			},
+			{
+				"title": "8 pages, one clear structure",
+				"text": "Visitors find their way through Home, Advisory, Business Advisory, Systems Improvement, Group Coaching and About Us, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what PSGWA offers."
+			},
+			{
+				"title": "Enquiry forms",
+				"text": "Contact and enquiry forms send leads straight to the PSGWA inbox."
+			}
+		],
+		"accent": "#ffc048"
+	},
+	"botl-com-au": {
+		"sections": [
+			{
+				"file": "s1.webp",
+				"h": 488
+			},
+			{
+				"file": "s2.webp",
+				"h": 600
+			},
+			{
+				"file": "s3.webp",
+				"h": 498
+			},
+			{
+				"file": "s4.webp",
+				"h": 351
+			}
+		],
+		"mobile": true,
+		"logo": {
+			"light": false,
+			"ratio": 0.82,
+			"marquee": true
+		},
+		"pages": 38,
+		"posts": 0,
+		"languages": 1,
+		"translated": false,
+		"wordpress": false,
+		"builder": null,
+		"shop": true,
+		"host": "Shopify",
+		"seo": {
+			"good": true,
+			"plugin": null,
+			"passed": 8,
+			"total": 8,
+			"checks": [
+				{
+					"label": "Descriptive page title",
+					"pass": true
+				},
+				{
+					"label": "Meta description",
+					"pass": true
+				},
+				{
+					"label": "One H1 heading",
+					"pass": true
+				},
+				{
+					"label": "Canonical URL",
+					"pass": true
+				},
+				{
+					"label": "Social sharing tags",
+					"pass": true
+				},
+				{
+					"label": "Structured data",
+					"pass": true
+				},
+				{
+					"label": "XML sitemap",
+					"pass": true
+				},
+				{
+					"label": "Image alt text",
+					"pass": true
+				}
+			]
+		},
+		"stack": [
+			{
+				"name": "Shopify",
+				"si": "siShopify"
+			},
+			{
+				"name": "PayPal",
+				"si": "siPaypal"
+			},
+			{
+				"name": "Google Tag Manager",
+				"si": "siGoogletagmanager"
+			}
+		],
+		"built": [
+			{
+				"title": "A custom Shopify theme",
+				"text": "We built a custom Shopify theme for BOTL, so products, collections and checkout run on Shopify while the store looks like the brand."
+			},
+			{
+				"title": "38 pages, one clear structure",
+				"text": "Visitors find their way through Christmas Gifts, Collections, About Us, Our Mission, Meet the founder and Contact Us, with every page a click or two from the menu."
+			},
+			{
+				"title": "SEO built in from launch",
+				"text": "The site has business structured data, an XML sitemap and a meta description on the homepage, so Google understands what BOTL offers."
+			},
+			{
+				"title": "Checkout with PayPal",
+				"text": "Customers pay through Shopify checkout, with PayPal as an option for gift buyers who prefer it."
+			}
+		],
+		"accent": "#f0c048",
+		"shopify": true
 	}
 }

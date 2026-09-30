@@ -19,18 +19,21 @@ export type Location = {
 	points: { title: string; text: string }[];
 	faqs: { q: string; a: string }[];
 	projects: string[];
+	/** The country's best-known landmark (Wikimedia Commons, credited on /locations). */
+	photo: { src: string; subject: string; author: string; license: string; licenseUrl: string; source: string };
 };
 
 export const locations: Location[] = [
 	{
 		slug: 'united-kingdom',
+		photo: { src: '/assets/images/locations/united-kingdom.webp', subject: "the Palace of Westminster and Big Ben, London", author: "Christian David", license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/', source: 'https://commons.wikimedia.org/wiki/File:Palace_of_Westminster_seen_from_the_north_bank_of_the_Thames,_London.jpg' },
 		short: 'the UK',
 		code: 'gb',
 		country: 'United Kingdom',
 		people: 'UK businesses',
 		cities: ['London', 'Birmingham', 'Manchester', 'Leeds', 'Glasgow', 'Bristol'],
 		meta: {
-			title: 'Web Design London, Birmingham & UK | IdeoXpert',
+			title: 'Web Design & Development London, UK | IdeoXpert',
 			description: 'Websites, WordPress, e-commerce and SEO for businesses in London, Birmingham, Manchester and across the UK. See the UK websites we built.',
 			keywords: 'web design UK, web development company UK, website design London, web design Birmingham, web design Manchester, WordPress developer UK, SEO agency UK, affordable web design UK, outsource web development UK',
 		},
@@ -53,13 +56,14 @@ export const locations: Location[] = [
 	},
 	{
 		slug: 'united-states',
+		photo: { src: '/assets/images/locations/united-states.webp', subject: "the Statue of Liberty on Liberty Island, New York", author: "Don Ramey Logan", license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/', source: 'https://commons.wikimedia.org/wiki/File:Liberty_Island_photo_Don_Ramey_Logan.jpg' },
 		short: 'the US',
 		code: 'us',
 		country: 'United States',
 		people: 'US businesses',
 		cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Atlanta', 'Washington, DC'],
 		meta: {
-			title: 'Web Design New York, Atlanta & USA | IdeoXpert',
+			title: 'Web Design & Development New York, USA | IdeoXpert',
 			description: 'Websites, WordPress, e-commerce and SEO for businesses in New York, Atlanta, Chicago and across the US. See the US websites we built.',
 			keywords: 'web design USA, web development company USA, website design New York, web design Atlanta, WordPress developer USA, outsource web development USA, small business website design USA, SEO services USA',
 		},
@@ -82,13 +86,14 @@ export const locations: Location[] = [
 	},
 	{
 		slug: 'canada',
+		photo: { src: '/assets/images/locations/canada.webp', subject: "the Toronto skyline and the CN Tower", author: "elPadawan", license: 'CC BY-SA 2.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/', source: 'https://commons.wikimedia.org/wiki/File:Toronto_Skyline_from_the_Toronto_Islands_Airport_Ferry.jpg' },
 		short: 'Canada',
 		code: 'ca',
 		country: 'Canada',
 		people: 'Canadian businesses',
 		cities: ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa'],
 		meta: {
-			title: 'Web Design in Toronto & Across Canada | IdeoXpert',
+			title: 'Web Design & Development Toronto, Canada | IdeoXpert',
 			description: 'Websites and local SEO for businesses in Toronto, Vancouver, Montreal and across Canada, including the Toronto electrician website we built.',
 			keywords: 'web design Canada, web development company Canada, website design Toronto, web design Vancouver, web design Montreal, WordPress developer Canada, local SEO Toronto, contractor website Canada',
 		},
@@ -111,13 +116,14 @@ export const locations: Location[] = [
 	},
 	{
 		slug: 'australia',
+		photo: { src: '/assets/images/locations/australia.webp', subject: "the Sydney Opera House", author: "Bernard Spragg. NZ", license: 'CC0', licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/', source: 'https://commons.wikimedia.org/wiki/File:Sydney_Australia._(21339175489).jpg' },
 		short: 'Australia',
 		code: 'au',
 		country: 'Australia',
 		people: 'Australian businesses',
 		cities: ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'],
 		meta: {
-			title: 'Web Design Sydney, Perth & Australia | IdeoXpert',
+			title: 'Web Design & Development Sydney & Perth | IdeoXpert',
 			description: 'Websites and SEO for businesses in Sydney, Melbourne, Brisbane and Perth, including the Perth crane hire and marketing agency sites we built.',
 			keywords: 'web design Australia, web development company Australia, website design Sydney, web design Melbourne, web design Perth, WordPress developer Australia, SEO Perth, outsource web development Australia',
 		},
@@ -136,17 +142,18 @@ export const locations: Location[] = [
 			{ q: 'Can you help us rank in our suburbs?', a: 'Yes. We build suburb and region pages with real local content, plus schema markup and a matching Google Business Profile.' },
 			{ q: 'Can you register our .com.au domain?', a: 'We can help you register or transfer a .com.au domain. Australian domain rules require an Australian business connection, which you provide as the registrant.' },
 		],
-		projects: ['abccranehire-com-au', 'tvdm-au'],
+		projects: ['psgwa-com-au', 'abccranehire-com-au', 'tvdm-au', 'botl-com-au'],
 	},
 	{
 		slug: 'germany',
+		photo: { src: '/assets/images/locations/germany.webp', subject: "the Brandenburg Gate, Berlin", author: "Thomas Wolf, www.foto-tw.de", license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/', source: 'https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_abends.jpg' },
 		short: 'Germany',
 		code: 'de',
 		country: 'Germany',
 		people: 'German businesses',
 		cities: ['Berlin', 'Frankfurt', 'Munich', 'Hamburg', 'Cologne', 'Wiesbaden'],
 		meta: {
-			title: 'Web Design Berlin, Frankfurt & Germany | IdeoXpert',
+			title: 'Web Design & Development Berlin, Germany | IdeoXpert',
 			description: 'German-language websites and local SEO for businesses in Berlin, Frankfurt, Munich and Hamburg. See the German websites we built.',
 			keywords: 'Webdesign Agentur, Website erstellen lassen, web design Germany, web development company Germany, website design Berlin, web design Frankfurt, WordPress Agentur, local SEO Germany, German website developer',
 		},
@@ -169,13 +176,14 @@ export const locations: Location[] = [
 	},
 	{
 		slug: 'netherlands',
+		photo: { src: '/assets/images/locations/netherlands.webp', subject: "a canal in Amsterdam", author: "Diliff", license: 'CC BY 2.5', licenseUrl: 'https://creativecommons.org/licenses/by/2.5/', source: 'https://commons.wikimedia.org/wiki/File:Amsterdam_Canals_-_July_2006.jpg' },
 		short: 'the Netherlands',
 		code: 'nl',
 		country: 'Netherlands',
 		people: 'Dutch businesses',
 		cities: ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht', 'Eindhoven'],
 		meta: {
-			title: 'Web Design Amsterdam & Netherlands | IdeoXpert',
+			title: 'Web Design & Development Amsterdam | IdeoXpert',
 			description: 'Dutch-language websites and SEO for businesses in Amsterdam, Rotterdam, Utrecht and Eindhoven. See the Dutch websites we built.',
 			keywords: 'webdesign bureau, website laten maken, web design Netherlands, web development company Netherlands, website design Amsterdam, web design Rotterdam, web design Eindhoven, WordPress bureau, SEO Netherlands',
 		},
@@ -198,13 +206,14 @@ export const locations: Location[] = [
 	},
 	{
 		slug: 'uae',
+		photo: { src: '/assets/images/locations/uae.webp', subject: "the Dubai skyline and the Burj Khalifa", author: "Tim Reckmann", license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/', source: 'https://commons.wikimedia.org/wiki/File:Dubai_Skyline_mit_Burj_Khalifa_(cropped).jpg' },
 		short: 'the UAE',
 		code: 'ae',
 		country: 'United Arab Emirates',
 		people: 'UAE businesses',
 		cities: ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman'],
 		meta: {
-			title: 'Web Design Dubai, Abu Dhabi & UAE | IdeoXpert',
+			title: 'Web Design & Development Dubai, UAE | IdeoXpert',
 			description: 'Websites, online stores and SEO for businesses in Dubai, Abu Dhabi and Sharjah, built remotely by our team in Islamabad, one hour ahead of you.',
 			keywords: 'web design Dubai, web development company Dubai, website design Abu Dhabi, web design Sharjah, ecommerce website Dubai, web developer Dubai, SEO Dubai',
 		},

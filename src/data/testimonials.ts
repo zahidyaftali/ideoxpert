@@ -41,26 +41,37 @@ export const testimonials: Testimonial[] = [
 	{
 		project: 'abccranehire-com-au',
 		approved: false,
+		name: 'Gideon Oosthuizen',
+		role: 'ABC Crane Hire',
 		draft: 'We needed to show up when site managers in Rockingham and Mandurah look for crane hire. The new site has a page for each area, and we add blog posts ourselves.',
 	},
 	{
 		project: 'mut-umzug-de',
 		approved: false,
+		name: 'Patrick Fialkowski',
+		role: 'MUT Umzug',
 		draft: 'Every service and every city we move to now has its own page. Customers can ask for a quote from any page, and it takes a minute.',
 	},
 	{
 		project: 'thomwerk-nl',
 		approved: false,
+		// [[FILL: confirm the spelling of the name (owner wrote "Tamaravert")]]
+		name: '',
+		role: 'Thomwerk',
 		draft: 'Candidates see our vacancies the moment they land, and applying takes a few clicks. Our recruiters update the jobs themselves every day.',
 	},
 	{
 		project: 'fijianrealestate-com',
 		approved: false,
+		name: 'Farman Ali',
+		role: 'Fijian Real Estate',
 		draft: 'A lot of our buyers live overseas, so the site had to work in English and Chinese. Listings are easy to browse and we update them ourselves.',
 	},
 	{
 		project: 'gahealthcaretraining-com',
 		approved: false,
+		name: 'Dr. Yolaine Nozile',
+		role: 'CEO and Founder, GA Healthcare Training',
 		draft: 'Students can see every class we run, from BLS to PALS, and book a seat online. Every course has its own page now.',
 	},
 ];
