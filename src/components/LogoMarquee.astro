@@ -4,12 +4,13 @@
 // Logos were taken from each client's live website with the background
 // removed (see /public/assets/images/work/<id>/logo.png).
 import { logoProjects } from '../data/projects';
+import { stats } from '../data/site';
 
 interface Props {
 	label?: string;
 }
 
-const { label = 'Some of the businesses we have built websites for' } = Astro.props;
+const { label = `Some of the ${stats.clients.value}+ businesses we have built websites for` } = Astro.props;
 const items = logoProjects;
 ---
 <section class="logos" aria-label="Our clients">

@@ -62,7 +62,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 			) : (
 				<div class="testi__score" data-reveal>
 					<p class="testi__num"><span data-count={stats.websites.value}>{stats.websites.value}</span><span class="testi__of">{stats.websites.suffix}</span></p>
-					<p class="testi__count">Websites built since {founded},<br />for clients in {stats.countries.value} countries</p>
+					<p class="testi__count">Websites built since {founded},<br />for {stats.clients.value}+ clients in {stats.countries.value} countries</p>
 				</div>
 			)}
 			{quoteMode && site.reviewUrl && (

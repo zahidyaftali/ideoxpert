@@ -3,7 +3,7 @@
 import { stats } from '../data/site';
 
 // Shortest to tallest, all from stats in site.ts.
-const bars = [stats.years, stats.countries, stats.reply, stats.websites].map((s) => ({ value: `${s.value}${s.suffix}`, label: s.label }));
+const bars = [stats.years, stats.countries, stats.clients, stats.websites].map((s) => ({ value: `${s.value}${s.suffix}`, label: s.label }));
 ---
 <section class="section bars-section">
 	<div class="container">

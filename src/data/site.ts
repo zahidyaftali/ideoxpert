@@ -95,7 +95,7 @@ export const stats = {
 	websites: { value: 500, suffix: '+', label: 'Websites built' },
 	countries: { value: countries.length, suffix: '', label: 'Countries with clients' },
 	reply: { value: 24, suffix: 'h', label: 'Reply time' },
-	// [[FILL: number of distinct clients. The owner's estimate is "400+"; confirm it before showing it anywhere.]]
+	clients: { value: 400, suffix: '+', label: 'Clients' },
 };
 
 export type Service = {

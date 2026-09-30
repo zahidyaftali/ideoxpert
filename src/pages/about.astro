@@ -7,8 +7,7 @@ import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import PixelMosaic from '../components/PixelMosaic.astro';
 import StatBars from '../components/StatBars.astro';
-import Person from '../components/Person.astro';
-import { site, founders, founded } from '../data/site';
+import { site } from '../data/site';
 import { generalFaqs, faqSchema } from '../data/faqs';
 
 // The terms every client gets, from the owner's fact sheet.
@@ -105,24 +104,6 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 						</div>
 					))}
 				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Who we are: the founders -->
-	<section class="section who">
-		<div class="container">
-			<div class="who__copy">
-				<h2 class="h2" data-split>Who we are</h2>
-				<p class="who__lead" data-reveal>
-					We are two brothers, Zahid and Millat Ali Yaftali. We started IdeoXpert in {founded} to build websites for clients anywhere in the world.
-				</p>
-				<p class="muted" data-reveal>
-					Most of our clients are startups, small businesses that are growing, and people starting something of their own. Zahid plans and oversees every project, so he is the person you talk to from the first message to launch day.
-				</p>
-				<ul class="who__people" role="list" data-reveal>
-					{founders.map((p) => <li><Person person={p} size={56} /></li>)}
-				</ul>
 			</div>
 		</div>
 	</section>
@@ -382,33 +363,6 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 		letter-spacing: -0.035em;
 	}
 
-	/* ---------- Who we are ---------- */
-	/* Heading on the left, text on the right. */
-	.who__copy {
-		display: grid;
-		gap: 22px;
-		justify-items: start;
-		align-items: start;
-	}
-
-	@media (min-width: 1024px) {
-		.who__copy {
-			grid-template-columns: 1fr 1fr;
-			column-gap: 96px;
-		}
-
-		.who__copy > :first-child {
-			grid-row: span 4;
-		}
-	}
-
-	.who__people {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 20px 40px;
-		margin: 8px 0 0;
-	}
-
 	/* ---------- Why a team in Islamabad ---------- */
 	.why__head {
 		display: grid;
@@ -466,10 +420,5 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 		margin-top: clamp(28px, 3vw, 40px);
 	}
 
-	.who__lead {
-		font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
-		line-height: 1.5;
-		letter-spacing: -0.015em;
-	}
 
 </style>
