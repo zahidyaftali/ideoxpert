@@ -1,0 +1,117 @@
+---
+// Free website review offer (owner's fact sheet: yes, within 48 hours).
+// Shown on the homepage, /seo-optimization and /website-design. Uses the
+// same mail endpoint as the other forms, with offer=review.
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+	id?: string;
+}
+
+const { id = 'review' } = Astro.props;
+---
+<section class="section review" id={id}>
+	<div class="container">
+		<div class="frame brackets review__frame">
+			<div class="review__copy">
+				<span class="eyebrow" data-reveal>Free website review</span>
+				<h2 class="h2" data-split>Find out what your website is costing you</h2>
+				<p class="review__lead" data-reveal>
+					If your site is slow, hard to use on a phone or missing from Google, the people looking for you are calling someone else. Finding out why is free.
+				</p>
+				<ul class="review__points" role="list" data-reveal>
+					<li><Icon name="check" size={16} /> Send us your website address.</li>
+					<li><Icon name="check" size={16} /> We look at it and send you the 3 things we would fix first.</li>
+					<li><Icon name="check" size={16} /> Within 48 hours. Free, with no obligation.</li>
+				</ul>
+			</div>
+
+			<form class="fform review__form" action="/api/send-mail.php" method="post" novalidate data-mail-form>
+				<input type="hidden" name="form" value="review" />
+				<input type="hidden" name="offer" value="review" />
+				<input type="hidden" name="ts" value="" />
+				<div class="fform__trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+				<div class="ffield">
+					<label for={`${id}-url`}>Your website <span>*</span></label>
+					<input id={`${id}-url`} name="website_url" type="text" inputmode="url" placeholder="yourbusiness.com" autocomplete="url" required />
+				</div>
+				<div class="fform__row">
+					<div class="ffield">
+						<label for={`${id}-name`}>Your name <span>*</span></label>
+						<input id={`${id}-name`} name="name" type="text" placeholder="Full name" autocomplete="name" required />
+					</div>
+					<div class="ffield">
+						<label for={`${id}-email`}>Email <span>*</span></label>
+						<input id={`${id}-email`} name="email" type="email" placeholder="name@company.com" autocomplete="email" required />
+					</div>
+				</div>
+				<Button type="submit" variant="primary" class="fform__submit">Send me my free review</Button>
+				<p class="fform__status" data-form-status role="status" aria-live="polite" hidden></p>
+			</form>
+		</div>
+	</div>
+</section>
+
+<script>
+	import '../scripts/mail-form';
+</script>
+
+<style>
+	.review__frame {
+		display: grid;
+	}
+
+	@media (min-width: 1024px) {
+		.review__frame {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.review__form {
+			border-left: 1px solid var(--line);
+		}
+	}
+
+	.review__copy {
+		display: grid;
+		gap: 20px;
+		align-content: start;
+		padding: clamp(28px, 4.5vw, 64px);
+	}
+
+	.review__lead {
+		max-width: 46ch;
+		font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+
+	.review__points {
+		display: grid;
+		gap: 10px;
+		margin: 0;
+	}
+
+	.review__points li {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.9375rem;
+	}
+
+	.review__points :global(svg) {
+		color: var(--green-ink);
+	}
+
+	.review__form {
+		align-content: center;
+		padding: clamp(28px, 4.5vw, 64px);
+		border-top: 1px solid var(--line);
+	}
+
+	@media (min-width: 1024px) {
+		.review__form {
+			border-top: 0;
+		}
+	}
+</style>

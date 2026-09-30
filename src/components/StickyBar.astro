@@ -1,0 +1,109 @@
+---
+// Phones only: a slim bar at the bottom with WhatsApp and "Get a quote".
+// It appears after the visitor scrolls past the hero, and hides while a form
+// or the footer is on screen, so it never covers them. Added by BaseLayout.
+import { whatsappLink } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+	/** Service or topic for the WhatsApp message. */
+	topic?: string;
+	/** Where "Get a quote" goes: the form on this page, or /contact. */
+	quoteHref: string;
+}
+
+const { topic, quoteHref } = Astro.props;
+---
+<div class="mbar" data-mbar role="region" aria-label="Quick contact">
+	<a class="mbar__btn mbar__btn--wa" href={whatsappLink(topic)} target="_blank" rel="noopener" data-track="whatsapp"><Icon name="whatsapp" size={18} /> WhatsApp</a>
+	<a class="mbar__btn mbar__btn--quote" href={quoteHref}>Get a quote <Icon name="arrow-right" size={16} /></a>
+</div>
+
+<script>
+	const bar = document.querySelector<HTMLElement>('[data-mbar]');
+	if (bar) {
+		// Forms and the footer: the bar steps aside while any of them is visible.
+		const covers = document.querySelectorAll('#discovery, #form, #review, .review, footer');
+		const visible = new Set<Element>();
+		const update = () => {
+			const show = window.scrollY > 480 && visible.size === 0;
+			bar.classList.toggle('is-shown', show);
+			bar.inert = !show;
+		};
+		const io = new IntersectionObserver((entries) => {
+			for (const e of entries) e.isIntersecting ? visible.add(e.target) : visible.delete(e.target);
+			update();
+		});
+		covers.forEach((el) => io.observe(el));
+		addEventListener('scroll', update, { passive: true });
+		update();
+	}
+</script>
+
+<style>
+	.mbar {
+		display: none;
+	}
+
+	@media (max-width: 767px) {
+		.mbar {
+			position: fixed;
+			left: 12px;
+			right: 12px;
+			bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+			z-index: 90;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 8px;
+			padding: 8px;
+			background: var(--card);
+			border: 1px solid var(--line);
+			box-shadow: 0 12px 32px rgba(7, 16, 11, 0.18);
+			transform: translateY(calc(100% + 32px));
+			visibility: hidden;
+			transition:
+				transform 0.35s var(--ease-out),
+				visibility 0s linear 0.35s;
+		}
+
+		.mbar.is-shown {
+			transform: none;
+			visibility: visible;
+			transition:
+				transform 0.35s var(--ease-out),
+				visibility 0s;
+		}
+
+		/* The mobile menu is open: it has its own contact buttons. */
+		:global(html.drawer-open) .mbar {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.mbar,
+		.mbar.is-shown {
+			transition: none;
+		}
+	}
+
+	.mbar__btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		height: 46px;
+		font-size: 0.9375rem;
+		font-weight: 550;
+	}
+
+	.mbar__btn--wa {
+		background: var(--ink);
+		color: #fff;
+	}
+
+	.mbar__btn--quote {
+		background: var(--green);
+		color: var(--ink);
+	}
+</style>

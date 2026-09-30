@@ -1,5 +1,5 @@
 ---
-import { site, services } from '../data/site';
+import { site, services, whatsappLink } from '../data/site';
 import { projects, recentProjects } from '../data/projects';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
@@ -21,6 +21,8 @@ const active = {
 	contact: path === '/contact',
 };
 const latest = projects[0];
+// WhatsApp opens with a message about the page the visitor is on.
+const waHref = whatsappLink(services.find((s) => path === `/${s.slug}`)?.name);
 
 // Industries menu: six industries, where we work, and all industries.
 const tiles = [
@@ -188,7 +190,7 @@ const companyLinks = [
 			</nav>
 
 			<div class="navbar__actions">
-				<a class="icon-btn" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+				<a class="icon-btn" href={waHref} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
 					<Icon name="whatsapp" size={18} />
 				</a>
 				<Button href="/contact" variant="primary" size="sm" class="navbar__cta" magnetic>Get a free quote</Button>
@@ -237,7 +239,7 @@ const companyLinks = [
 			<a href={`tel:${site.phone}`} class="drawer__phone">{site.phoneDisplay}</a>
 			<div class="btn-row">
 				<Button href="/contact" variant="primary">Get a free quote</Button>
-				<Button href={`https://wa.me/${site.whatsapp}`} variant="ghost-light" icon="whatsapp" external>WhatsApp</Button>
+				<Button href={waHref} variant="ghost-light" icon="whatsapp" external>WhatsApp</Button>
 			</div>
 		</div>
 	</nav>

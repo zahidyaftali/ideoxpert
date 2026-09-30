@@ -10,6 +10,7 @@ import PixelMosaic from '../components/PixelMosaic.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
 import StatBars from '../components/StatBars.astro';
 import ToolsGrid from '../components/ToolsGrid.astro';
+import ReviewOffer from '../components/ReviewOffer.astro';
 import RecentWork from '../components/RecentWork.astro';
 import { servicePages, type ServicePage } from '../data/service-pages';
 import { services, serviceBySlug } from '../data/site';
@@ -130,6 +131,9 @@ const crumbs = [
 			</div>
 		</div>
 	</section>
+
+	{/* Free review offer where it fits best (owner's fact sheet). */}
+	{['seo-optimization', 'website-design'].includes(page.slug) && <ReviewOffer />}
 
 	<ToolsGrid tools={toolsByService[page.slug]} />
 

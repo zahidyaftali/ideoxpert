@@ -1,5 +1,5 @@
 ---
-import { site, services } from '../data/site';
+import { site, services, whatsappLink } from '../data/site';
 import Icon from './Icon.astro';
 import Countries from './Countries.astro';
 import { industries } from '../data/industries';
@@ -52,7 +52,7 @@ const company = [
 				<ul role="list" class="footer__contact">
 					<li><a href={`mailto:${site.email}`}>{site.email}</a></li>
 					<li><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></li>
-					<li><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a></li>
+					<li><a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp</a></li>
 				</ul>
 				<p class="footer__based">Based in Islamabad, Pakistan. Working with clients worldwide.</p>
 			</div>

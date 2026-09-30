@@ -1,0 +1,59 @@
+---
+// The project form at the end of every page (DiscoverySession) and on
+// /contact. Short on purpose: name, email, website (optional), what you
+// need (optional) and a message. Posts to /api/send-mail.php, which emails
+// info@ideoxpert.com (see src/scripts/mail-form.ts).
+import { site, services } from '../data/site';
+import Button from './Button.astro';
+import Select from './Select.astro';
+
+interface Props {
+	/** Form id, also the prefix for field ids. */
+	id: string;
+	/** Tells the email which form it came from. */
+	form: 'discovery' | 'contact';
+	/** Service name to preselect. */
+	service?: string;
+	class?: string;
+}
+
+const { id, form, service, class: className } = Astro.props;
+const options = [...services.map((s) => ({ value: s.name, label: s.name })), { value: 'Not sure yet', label: 'Not sure yet' }];
+---
+<form class:list={['fform', className]} action="/api/send-mail.php" method="post" novalidate data-mail-form id={id}>
+	<input type="hidden" name="form" value={form} />
+	<input type="hidden" name="ts" value="" />
+	<div class="fform__trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+	<div class="fform__row">
+		<div class="ffield">
+			<label for={`${id}-name`}>Your name <span>*</span></label>
+			<input id={`${id}-name`} name="name" type="text" placeholder="Full name" autocomplete="name" required />
+		</div>
+		<div class="ffield">
+			<label for={`${id}-email`}>Email <span>*</span></label>
+			<input id={`${id}-email`} name="email" type="email" placeholder="name@company.com" autocomplete="email" required />
+		</div>
+	</div>
+	<div class="fform__row">
+		<div class="ffield">
+			<label for={`${id}-url`}>Your website <em>(optional)</em></label>
+			<input id={`${id}-url`} name="website_url" type="text" inputmode="url" placeholder="yourbusiness.com" autocomplete="url" />
+		</div>
+		<Select name="service" id={`${id}-service`} label="What do you need? (optional)" placeholder="Choose a service" options={options} selected={service ?? ''} />
+	</div>
+	<div class="ffield">
+		<label for={`${id}-message`}>Anything else we should know? <em>(optional)</em></label>
+		<textarea id={`${id}-message`} name="message" rows="4" placeholder="A few lines about your business and what you want the website to do"></textarea>
+	</div>
+	<Button type="submit" variant="primary" class="fform__submit">Get my free plan and quote</Button>
+	<p class="fform__status" data-form-status role="status" aria-live="polite" hidden></p>
+	<ol class="fform__next" role="list" aria-label="What happens next">
+		<li>We reply {site.replyTime}.</li>
+		<li>We look at your current site, if you have one.</li>
+		<li>You get a plan and a price. No obligation.</li>
+	</ol>
+</form>
+
+<script>
+	import '../scripts/mail-form';
+</script>

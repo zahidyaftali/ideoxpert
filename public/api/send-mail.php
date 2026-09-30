@@ -112,19 +112,25 @@ if (count($hits) >= 5) {
 $name = $oneLine($field('name', 100));
 $email = $oneLine($field('email', 150));
 $message = $field('message', 5000);
-$formName = $field('form', 40) === 'discovery' ? 'Discovery session request' : 'Website enquiry';
+$websiteUrl = $oneLine($field('website_url', 200));
+$isReview = $field('form', 40) === 'review' || $field('offer', 40) === 'review';
+$formName = $isReview ? 'Free website review request' : ($field('form', 40) === 'discovery' ? 'Free plan and quote request' : 'Website inquiry');
 
 if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	respond(false, 'Please enter your name and a valid email address.', 422);
 }
-if ($formName === 'Website enquiry' && $ulen($message) < 5) {
-	respond(false, 'Please tell us a little about your project.', 422);
+if ($isReview && $websiteUrl === '') {
+	respond(false, 'Please add the address of the website you want us to review.', 422);
 }
 
 // ---------------------------------------------------------------- message
+// Fields that older versions of the forms sent (phone, company, industry,
+// source) are still read, and simply left out of the email when empty.
 $rows = [
 	'Name' => $name,
 	'Email' => $email,
+	'Website' => $websiteUrl,
+	'Offer' => $isReview ? 'Free website review: reply within 48 hours with the 3 things to fix first' : '',
 	'Phone' => $oneLine($field('phone', 40)),
 	'Company' => $oneLine($field('company', 120)),
 	'Service' => $oneLine($field('service', 80)),
@@ -244,4 +250,6 @@ try {
 $hits[] = $now;
 @file_put_contents($bucket, json_encode(array_values($hits)), LOCK_EX);
 
-respond(true, 'Thank you. Your message has been sent and we will reply within 24 hours.');
+respond(true, $isReview
+	? 'Thanks. We will look at your website and send you the 3 things we would fix first within 48 hours.'
+	: 'Thank you. Your message has been sent. We reply within 24 hours on weekdays.');

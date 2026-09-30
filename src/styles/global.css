@@ -1184,3 +1184,33 @@ p {
 	color: var(--muted);
 	text-align: center;
 }
+
+/* "What happens next" under the submit button. */
+.fform__next {
+	display: grid;
+	gap: 6px;
+	margin: 4px 0 0;
+	padding: 0;
+	counter-reset: next;
+	font-size: 0.875rem;
+	color: var(--muted);
+}
+
+.fform__next li {
+	display: flex;
+	gap: 10px;
+	counter-increment: next;
+}
+
+.fform__next li::before {
+	content: counter(next);
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 20px;
+	height: 20px;
+	background: var(--paper-2);
+	color: var(--green-ink);
+	font-size: 0.75rem;
+	font-weight: 600;
+}

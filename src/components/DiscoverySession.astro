@@ -1,73 +1,42 @@
 ---
-// "Book your 30-minute discovery session": the closing section of every page
+// "Get a free plan for your website": the closing section of every page
 // (added by BaseLayout). The form emails info@ideoxpert.com.
-import { site, services, contactPerson } from '../data/site';
-import Button from './Button.astro';
+import { site, whatsappLink, contactPerson } from '../data/site';
 import Icon from './Icon.astro';
-import Select from './Select.astro';
 import Person from './Person.astro';
+import ProjectForm from './ProjectForm.astro';
 
 interface Props {
-	/** Service name to preselect in the form. */
+	/** Service name to preselect in the form and mention on WhatsApp. */
 	service?: string;
 }
 
 const { service } = Astro.props;
-const industries = ['Retail & e-commerce', 'Health & wellness', 'Real estate', 'Construction & trades', 'Hospitality & food', 'Professional services', 'Education & training', 'Media & entertainment', 'Nonprofit', 'Technology', 'Other'];
-const sources = ['Google search', 'Social media', 'A friend or colleague', 'Saw a website you built', 'Other'];
-const opts = (list: string[]) => list.map((v) => ({ value: v, label: v }));
 ---
 <section class="section discovery" id="discovery">
 	<div class="container">
 		<div class="frame brackets discovery__frame">
 			<div class="discovery__intro">
 				<div class="tex-layer discovery__tex" aria-hidden="true"></div>
-				<h2 class="h2" data-split>Book your 30-minute discovery session<span class="dot">.</span></h2>
+				<h2 class="h2" data-split>Get a free plan for your website<span class="dot">.</span></h2>
 				<p class="discovery__lead" data-reveal>Tell us what you are working on. We will tell you what is possible, what it costs and how long it takes. No pitch, just a straight answer.</p>
 				<div class="dcards" data-reveal>
 					<a class="dcard" href={`mailto:${site.email}`}>
 						<span class="dcard__label"><Icon name="mail" size={16} /> Email us</span>
 						<strong>{site.email}</strong>
 					</a>
-					<a class="dcard" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">
+					<a class="dcard" href={whatsappLink(service)} target="_blank" rel="noopener">
 						<span class="dcard__label"><Icon name="whatsapp" size={16} /> Call or WhatsApp</span>
 						<strong>{site.phoneDisplay}</strong>
 					</a>
 				</div>
 				<div class="discovery__person" data-reveal><Person person={contactPerson} line="who will plan and oversee your project." /></div>
+				{site.calendarUrl && (
+					<a class="link link--green" href={site.calendarUrl} target="_blank" rel="noopener" data-reveal>Prefer to pick a time? Book a 15-minute call <Icon name="arrow-right" /></a>
+				)}
 			</div>
 
-			<form class="fform discovery__form" action="/api/send-mail.php" method="post" novalidate data-mail-form>
-				<input type="hidden" name="form" value="discovery" />
-				<input type="hidden" name="ts" value="" />
-				<div class="fform__trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
-				<div class="ffield">
-					<label for="d-name">Your name <span>*</span></label>
-					<input id="d-name" name="name" type="text" placeholder="Full name" autocomplete="name" required />
-				</div>
-				<div class="fform__row">
-					<div class="ffield">
-						<label for="d-email">Email <span>*</span></label>
-						<input id="d-email" name="email" type="email" placeholder="name@company.com" autocomplete="email" required />
-					</div>
-					<div class="ffield">
-						<label for="d-phone">Phone / WhatsApp</label>
-						<input id="d-phone" name="phone" type="tel" placeholder="+44 7700 900123" autocomplete="tel" />
-					</div>
-				</div>
-				<div class="fform__row">
-					<Select name="service" id="d-service" label="Service" placeholder="Choose a service" options={opts(services.map((s) => s.name))} selected={service ?? ''} />
-					<Select name="industry" id="d-industry" label="Industry" placeholder="Select your industry" options={opts(industries)} />
-				</div>
-				<Select name="source" id="d-source" label="How did you hear about us? (optional)" placeholder="Select an option" options={opts(sources)} />
-				<div class="ffield">
-					<label for="d-message">What would you like to achieve? <em>(optional)</em></label>
-					<textarea id="d-message" name="message" rows="4" placeholder="e.g. We need a new website that brings in more enquiries from Google"></textarea>
-				</div>
-				<Button type="submit" variant="dark" class="fform__submit">Book my free session</Button>
-				<p class="fform__status" data-form-status role="status" aria-live="polite" hidden></p>
-				<p class="fform__note">We reply {site.replyTime}.</p>
-			</form>
+			<ProjectForm id="discovery-form" form="discovery" service={service} class="discovery__form" />
 		</div>
 	</div>
 </section>
@@ -82,7 +51,7 @@ const opts = (list: string[]) => list.map((v) => ({ value: v, label: v }));
 			grid-template-columns: 1fr 1fr;
 		}
 
-		.discovery__form {
+		:global(.discovery__form) {
 			border-left: 1px solid var(--line);
 		}
 	}
@@ -154,13 +123,13 @@ const opts = (list: string[]) => list.map((v) => ({ value: v, label: v }));
 		overflow-wrap: anywhere;
 	}
 
-	.discovery__form {
+	:global(.discovery__form) {
 		padding: clamp(28px, 4.5vw, 64px);
 		border-top: 1px solid var(--line);
 	}
 
 	@media (min-width: 1024px) {
-		.discovery__form {
+		:global(.discovery__form) {
 			border-top: 0;
 		}
 	}

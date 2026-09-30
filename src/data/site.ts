@@ -66,6 +66,13 @@ export const countries = [
 	{ code: 'fj', name: 'Fiji' },
 ];
 
+/**
+ * WhatsApp chat link with a message already typed, so the visitor only has to
+ * press send. Every WhatsApp link on the site uses this.
+ */
+export const whatsappLink = (topic = 'a website project') =>
+	`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi IdeoXpert, I'm interested in ${topic}. My website is: `)}`;
+
 /** The year IdeoXpert started taking client work. */
 export const founded = 2022;
 
