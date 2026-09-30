@@ -1,5 +1,5 @@
 ---
-// "Our experts recommend the best platform": the tools we use for a service.
+// "The tools we use, and why": the platforms and tools we use for a service.
 import type { Tool } from '../data/tools';
 import BrandLogo from './BrandLogo.astro';
 
@@ -8,7 +8,7 @@ interface Props {
 	title?: string;
 }
 
-const { tools, title = 'Our experts recommend the best platform<span class="dot">.</span>' } = Astro.props;
+const { tools, title = 'The tools we use, and why<span class="dot">.</span>' } = Astro.props;
 ---
 <section class="section tools">
 	<div class="container">

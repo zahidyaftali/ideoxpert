@@ -1,28 +1,34 @@
-import { site } from './site';
+import { site, countries } from './site';
 
 export type Faq = { q: string; a: string };
+
+// "the UK, the US, Canada, ... and Fiji", from the countries we have clients in.
+const where = countries
+	.map((c) => (['United States', 'United Kingdom', 'Netherlands'].includes(c.name) ? `the ${c.name.replace('United States', 'US').replace('United Kingdom', 'UK')}` : c.name))
+	.join(', ')
+	.replace(/, ([^,]*)$/, ' and $1');
 
 // Shown on the homepage and About page (FAQPage schema is emitted on About).
 export const generalFaqs: Faq[] = [
 	{
 		q: 'How long does it take to build a website?',
-		a: 'It depends on the size and complexity of the project. A simple WordPress website can be ready in two to three weeks. A custom web application or a larger multi-page website typically takes four to eight weeks. We give you a clear timeline before we start so there are no surprises along the way.',
+		a: 'It depends on the size of the site. A simple WordPress website can be ready in two to three weeks. A custom web application or a larger site usually takes four to eight weeks. You get a timeline with the quote, before any work starts.',
 	},
 	{
-		q: 'Do you work with businesses outside of Islamabad?',
-		a: 'Yes, absolutely. While we are based in Islamabad, we work with clients across Pakistan and internationally. Most of our communication happens over calls, WhatsApp, and email, so location has never been an obstacle. We have delivered projects for clients in Karachi, Lahore, Dubai, the UK, and the US.',
+		q: 'Do you work with businesses outside Islamabad?',
+		a: `Yes. Most of our clients are abroad: we have built websites for businesses in ${where}. We work over email, WhatsApp and video calls, and our working day overlaps with yours.`,
 	},
 	{
-		q: 'Will my website work on mobile phones and tablets?',
-		a: 'Every website we build is fully responsive. That means it automatically adjusts to look and work properly on any screen size — whether it is a phone, tablet, laptop, or desktop. We test across multiple devices before handing anything over to you.',
+		q: 'Will my website work on phones and tablets?',
+		a: 'Yes. Every site we build adjusts to any screen size, and we check it on phones, tablets and desktops before launch.',
 	},
 	{
 		q: 'Do you offer SEO with website development?',
-		a: 'Yes. Every website we build is set up with SEO foundations in mind — proper page structure, fast loading speeds, clean code, meta tags, and mobile optimization. If you need ongoing SEO work to grow your rankings over time, we offer that as a separate service with a clear monthly plan.',
+		a: 'Every site we build is ready for Google at launch: page titles, descriptions, headings, fast pages, a sitemap and structured data. Ongoing SEO, to climb the rankings month by month, is a separate service with a monthly report.',
 	},
 	{
 		q: 'What happens after my website goes live?',
-		a: 'We do not just hand over the files and disappear. After launch, we provide a short handover so you understand how to use and update your website. We also offer website maintenance packages that cover security updates, performance checks, content updates, and technical fixes — so your site stays secure and running well long after it goes live.',
+		a: 'You get every login and all the files, and we show you how to update the site. For 30 days after launch we fix any problem for free. After that you can choose a monthly care plan for updates, backups and small changes.',
 	},
 ];
 
@@ -30,7 +36,7 @@ export const generalFaqs: Faq[] = [
 export const serviceFaqs: Faq[] = [
 	{
 		q: 'What services does IdeoXpert offer?',
-		a: 'We offer a complete range of software and digital services — web design, web development, web application development, mobile app development, WordPress websites, e-commerce stores, SEO optimization, CMS development, hosting and domain, and website maintenance. You can get everything done in one place without needing to manage multiple vendors.',
+		a: 'Website design and development, WordPress websites, online stores, SEO, mobile apps, CMS development, hosting and domains, and website maintenance. One team does all of it, so you do not have to manage several suppliers.',
 	},
 	{
 		q: 'How much does a website cost?',
@@ -38,15 +44,15 @@ export const serviceFaqs: Faq[] = [
 	},
 	{
 		q: 'Can you help with both design and development?',
-		a: 'Yes, and this is one of the main reasons clients choose us. We handle both design and development in-house, which means there is no handoff between teams, no miscommunication, and no delays. You get a consistent result because the same team that designs your website also builds it.',
+		a: 'Yes. The same team designs and builds your site, so nothing gets lost in a handover between agencies. You approve the design before we build it.',
 	},
 	{
-		q: 'Do you offer SEO as part of web development?',
-		a: 'Every website we build includes SEO foundations — proper heading structure, meta tags, page speed optimization, mobile-friendly layout, and clean URL structure. If you need ongoing SEO to grow your rankings month over month, we offer that as a dedicated service with a clear plan and transparent reporting.',
+		q: 'Is SEO part of every website you build?',
+		a: 'The basics are: clean headings, titles and descriptions, fast pages, a sitemap and structured data. If you want to rank for competitive searches, our SEO service adds keyword research, new pages and a monthly report.',
 	},
 	{
-		q: 'I already have a website — can you improve it?',
-		a: 'Absolutely. Many of our clients come to us with an existing website that is outdated, slow, or not ranking well. We can carry out a full redesign, fix performance issues, improve SEO, add new features, or migrate you to a better platform. We start with an honest review of what you have and what needs to change to get better results.',
+		q: 'I already have a website. Can you improve it?',
+		a: 'Yes. Send us the link and we will tell you, for free, what is holding it back. Then we can redesign it, fix speed problems, improve the SEO, add features, or move it to a better platform.',
 	},
 ];
 

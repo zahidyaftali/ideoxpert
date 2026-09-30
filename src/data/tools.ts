@@ -1,4 +1,4 @@
-// Platforms and tools shown in "Our experts recommend the best platform" on
+// Platforms and tools shown in "The tools we use, and why" on
 // each service page. The six per service match the tools in that service's
 // artwork. `si` is a Simple Icons export name (rendered as inline SVG);
 // `img` is a logo file in /public/assets/images/tools for brands Simple Icons

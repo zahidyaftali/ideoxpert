@@ -1,7 +1,8 @@
 ---
-// Country page (/locations/<slug>): framed hero with the country's main
-// cities, local client work, why businesses there work with us, services and
-// a country-specific FAQ.
+// Country page (/locations/<slug>): a landing page for local searches such as
+// "web developer in Dubai". Hero with the main cities and local work, the
+// problems we fix, what we offer, why work with us from Islamabad, our work
+// (local clients first), a country FAQ, and the form.
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
@@ -10,6 +11,7 @@ import Icon from '../../components/Icon.astro';
 import WorkStack from '../../components/WorkStack.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import WhatWeBuild from '../../components/WhatWeBuild.astro';
+import HoldingBack from '../../components/HoldingBack.astro';
 import Faq from '../../components/Faq.astro';
 import { locations, type Location } from '../../data/locations';
 import { projects, recentProjects } from '../../data/projects';
@@ -24,8 +26,9 @@ interface Props {
 
 const { location: loc } = Astro.props;
 const local = loc.projects.map((id) => projects.find((p) => p.id === id)!).filter(Boolean);
-// Without local clients yet, show our most recent work instead.
-const shown = local.length ? local : recentProjects.slice(0, 3);
+// Local clients first, then our most recent other work, six in all.
+const more = recentProjects.filter((p) => !loc.projects.includes(p.id)).slice(0, Math.max(3, 6 - local.length));
+const shown = local.length ? local : more.slice(0, 3);
 const others = locations.filter((l) => l.slug !== loc.slug);
 const url = `${site.url}/locations/${loc.slug}`;
 
@@ -64,33 +67,18 @@ const crumbs = [
 		<div slot="aside"><WorkStack projects={shown} /></div>
 	</PageHero>
 
-	<!-- Local work -->
-	<section class="section lwork" id="work">
-		<div class="container">
-			<div class="lwork__head">
-				<h2 class="h2" data-split>{local.length ? `Websites we built for ${loc.people}` : 'Recent work for clients worldwide'}</h2>
-				<p class="subtitle" data-reveal>
-					{local.length
-						? `Live websites for clients in ${loc.short}. Open any of them for the full case study.`
-						: `Our latest projects for businesses in the UK, Australia, the US and beyond. The same team and process work for ${loc.people}.`}
-				</p>
-			</div>
-			<ul class="lwork__grid" role="list">
-				{shown.map((p, i) => (
-					<li data-reveal style={`--d:${(i % 3) * 70}`}><ProjectCard project={p} /></li>
-				))}
-			</ul>
-		</div>
-	</section>
+	<HoldingBack />
+
+	<WhatWeBuild title={`What we build for ${loc.people}`} subtitle={`Every service is available to businesses in ${loc.cities.slice(0, 3).join(', ')} and across ${loc.short}, delivered remotely.`} />
 
 	<!-- Why work with us from here -->
 	<section class="section lwhy">
 		<div class="container">
 			<div class="frame brackets lwhy__frame">
 				<div class="lwhy__intro">
-					<h2 class="h2" data-split>Why {loc.people} work with us</h2>
+					<h2 class="h2" data-split>{local.length ? `Why ${loc.people} work with us` : `Why work with us from ${loc.short}`}</h2>
 					<p class="lwhy__tz" data-reveal><Icon name="clock" size={18} /> {loc.timezone}</p>
-					<div data-reveal><Button href="#discovery" variant="dark">Book a free call</Button></div>
+					<div data-reveal><Button href="#discovery" variant="dark">Get a free quote</Button></div>
 				</div>
 				<ol class="lwhy__list" role="list">
 					{loc.points.map((pt, i) => (
@@ -105,7 +93,37 @@ const crumbs = [
 		</div>
 	</section>
 
-	<WhatWeBuild title={`What we build for ${loc.people}`} subtitle={`Every service, delivered remotely for clients in ${loc.cities.slice(0, 3).join(', ')} and across ${loc.short}.`} />
+	<!-- Our work: local clients first -->
+	<section class="section lwork" id="work">
+		<div class="container">
+			{local.length > 0 && (
+				<>
+					<div class="lwork__head">
+						<h2 class="h2" data-split>Websites we built for {loc.people}</h2>
+						<p class="subtitle" data-reveal>Live websites for clients in {loc.short}. Open any of them for the full case study.</p>
+					</div>
+					<ul class="lwork__grid" role="list">
+						{local.map((p, i) => (
+							<li data-reveal style={`--d:${(i % 3) * 70}`}><ProjectCard project={p} /></li>
+						))}
+					</ul>
+				</>
+			)}
+			<div class:list={['lwork__head', { 'lwork__head--more': local.length > 0 }]}>
+				<h2 class:list={[local.length ? 'h3' : 'h2']} data-split>{local.length ? 'More of our recent work' : 'Our recent work'}</h2>
+				<p class="subtitle" data-reveal>
+					{local.length
+						? 'For clients in other countries, built the same way.'
+						: `We have no clients in ${loc.short} yet. This is recent work for clients in the UK, the US, Australia and Europe, done the same way we would work with you.`}
+				</p>
+			</div>
+			<ul class="lwork__grid" role="list">
+				{more.map((p, i) => (
+					<li data-reveal style={`--d:${(i % 3) * 70}`}><ProjectCard project={p} /></li>
+				))}
+			</ul>
+		</div>
+	</section>
 
 	<Faq items={loc.faqs} title={`Questions from ${loc.people}`} />
 
@@ -160,6 +178,10 @@ const crumbs = [
 	}
 
 	/* Local work */
+	.lwork__head--more {
+		margin-top: clamp(48px, 6vw, 80px);
+	}
+
 	.lwork__head {
 		display: grid;
 		gap: 16px;
