@@ -23,7 +23,7 @@ export const site = {
 	whatsapp: '923019860329',
 
 	/** How fast we answer a new enquiry (owner's fact sheet). */
-	replyTime: 'within 24 hours',
+	replyTime: 'within 24 hours on weekdays',
 
 	// Public reviews. The rating block only shows when both of these are filled
 	// with a real, public review page and its real numbers.
@@ -68,6 +68,18 @@ export const countries = [
 
 /** The year IdeoXpert started taking client work. */
 export const founded = 2022;
+
+// The founders, two brothers (owner's fact sheet). There are no photos yet,
+// so the site shows their initials. Add a real photo path under
+// /assets/images/about/ to show it instead; never use a stock photo here.
+export type Person = { name: string; role: string; about?: string; photo?: string };
+export const founders: Person[] = [
+	{ name: 'Zahid Ali Yaftali', role: 'Co-founder', about: 'Plans and oversees every project. He is the person you talk to.' },
+	// [[FILL: Millat's role in the day-to-day work, e.g. "Runs design" or "Handles hosting and support"]]
+	{ name: 'Millat Ali Yaftali', role: 'Co-founder' },
+];
+/** Who new clients talk to (shown next to the contact forms). */
+export const contactPerson = founders[0];
 
 // Headline figures, from the owner's fact sheet. Every number on the site
 // reads from here, so the same fact never shows two different values.

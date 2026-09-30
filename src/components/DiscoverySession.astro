@@ -1,10 +1,11 @@
 ---
 // "Book your 30-minute discovery session": the closing section of every page
 // (added by BaseLayout). The form emails info@ideoxpert.com.
-import { site, services } from '../data/site';
+import { site, services, contactPerson } from '../data/site';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import Select from './Select.astro';
+import Person from './Person.astro';
 
 interface Props {
 	/** Service name to preselect in the form. */
@@ -33,6 +34,7 @@ const opts = (list: string[]) => list.map((v) => ({ value: v, label: v }));
 						<strong>{site.phoneDisplay}</strong>
 					</a>
 				</div>
+				<div class="discovery__person" data-reveal><Person person={contactPerson} line="who will plan and oversee your project." /></div>
 			</div>
 
 			<form class="fform discovery__form" action="/api/send-mail.php" method="post" novalidate data-mail-form>

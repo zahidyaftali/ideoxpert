@@ -1,0 +1,91 @@
+---
+// A founder: photo (or initials until there is a real photo), name and role.
+// Used on the About page and next to the contact forms.
+import type { Person } from '../data/site';
+
+interface Props {
+	person: Person;
+	/** Text after the name, e.g. "who will plan and oversee your project." */
+	line?: string;
+	size?: number;
+	dark?: boolean;
+}
+
+const { person, line, size = 48, dark = false } = Astro.props;
+const initials = person.name
+	.split(/\s+/)
+	.filter((w, i, all) => i === 0 || i === all.length - 1)
+	.map((w) => w[0])
+	.join('');
+---
+<p class:list={['person', { 'person--dark': dark }]} style={`--s:${size}px`}>
+	{person.photo ? (
+		<img class="person__img" src={person.photo} alt="" width={size} height={size} loading="lazy" decoding="async" />
+	) : (
+		<span class="person__img person__initials" aria-hidden="true">{initials}</span>
+	)}
+	<span class="person__text">
+		{line ? (
+			<span>You will talk to <strong>{person.name}</strong>, {person.role.toLowerCase()}, {line}</span>
+		) : (
+			<><strong>{person.name}</strong><span class="person__role">{person.role}</span>{person.about && <span class="person__about">{person.about}</span>}</>
+		)}
+	</span>
+</p>
+
+<style>
+	.person {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		font-size: 0.9375rem;
+		line-height: 1.5;
+	}
+
+	.person__img {
+		width: var(--s);
+		height: var(--s);
+		border-radius: 50%;
+		flex: none;
+		object-fit: cover;
+	}
+
+	.person__initials {
+		display: grid;
+		place-items: center;
+		background: var(--grad);
+		color: var(--ink);
+		font-weight: 600;
+		font-size: calc(var(--s) * 0.34);
+		letter-spacing: -0.02em;
+	}
+
+	.person__text {
+		display: grid;
+		gap: 2px;
+	}
+
+	.person__text strong {
+		font-weight: 600;
+		color: var(--ink);
+	}
+
+	.person__role {
+		color: var(--green-ink);
+		font-size: 0.875rem;
+		font-weight: 550;
+	}
+
+	.person__about {
+		color: var(--muted);
+		font-size: 0.875rem;
+	}
+
+	.person--dark .person__text strong {
+		color: var(--on-night);
+	}
+
+	.person--dark .person__role {
+		color: var(--green);
+	}
+</style>

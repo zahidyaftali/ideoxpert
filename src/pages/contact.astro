@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import Select from '../components/Select.astro';
-import { site, services } from '../data/site';
+import Person from '../components/Person.astro';
+import { site, services, contactPerson } from '../data/site';
 
 const steps = [
 	{ icon: 'phone', title: 'We talk it through', text: 'Tell us what you need on a call, WhatsApp or email. We listen first and ask the right questions.' },
@@ -50,6 +51,7 @@ const steps = [
 							<strong>{site.phoneDisplay}</strong>
 						</a>
 					</div>
+					<div class="contact__person" data-reveal><Person person={contactPerson} line="who will plan and oversee your project." /></div>
 				</div>
 
 				<form class="fform contact__form" action="/api/send-mail.php" method="post" novalidate data-mail-form id="form">

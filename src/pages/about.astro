@@ -7,14 +7,24 @@ import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import PixelMosaic from '../components/PixelMosaic.astro';
 import StatBars from '../components/StatBars.astro';
-import { site } from '../data/site';
+import Person from '../components/Person.astro';
+import { site, founders, founded } from '../data/site';
 import { generalFaqs, faqSchema } from '../data/faqs';
 
+// The terms every client gets, from the owner's fact sheet.
 const values = [
-	{ title: 'Real collaboration', text: 'We work closely with every client — not just at the start, but through every stage until the project is done right.' },
-	{ title: 'Results that matter', text: 'Everything we build is designed to perform — faster load times, better rankings, more enquiries, and a stronger presence online.' },
-	{ title: 'Design that puts users first', text: 'We design with your actual users in mind — every layout, every interaction, every screen size.' },
-	{ title: 'Clear and honest communication', text: 'We keep you informed at every step. No jargon, no surprises — just straightforward updates and honest advice throughout.' },
+	{ title: 'You talk to the person doing the work', text: 'Zahid plans and oversees every project. No account managers, so nothing gets lost between people.' },
+	{ title: 'Low risk to start', text: 'You pay 50% to start and 50% when the site goes live. You approve the design before we build, and two rounds of changes are included.' },
+	{ title: 'You own everything', text: 'At launch you get the domain, the hosting logins, admin access and all the files. You are never locked in with us.' },
+	{ title: 'Support after launch', text: '30 days of free fixes after your site goes live. After that, optional monthly care: updates, backups and small changes.' },
+];
+
+// Why a client abroad hires a team in Islamabad (owner's own reasons).
+const reasons = [
+	{ title: 'Better value', text: 'A local agency in the UK, the US or Europe usually charges three to five times more for similar work. Our costs are lower. Our standards are not.' },
+	{ title: 'We already do this', text: 'We have built websites for crane hire in Perth, removals in Wiesbaden, electricians in Toronto and cleaners in Birmingham. Every project in our portfolio links to a live site you can check.' },
+	{ title: 'Our hours work for you', text: 'Islamabad is 4 hours ahead of the UK and 3 ahead of Germany and the Netherlands in summer, so our day covers your morning and early afternoon. US clients get calls in their morning, and work done overnight is ready when they start.' },
+	{ title: 'Fast replies', text: `We reply to every message ${site.replyTime}, and usually within a few hours on WhatsApp.` },
 ];
 
 // Back to front: the last photo is the large one in front.
@@ -22,7 +32,7 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 ---
 <BaseLayout
 	title="About IdeoXpert | Web Development Agency, Islamabad"
-	description="IdeoXpert is a web development agency in Islamabad, Pakistan. Meet the team and see how we build websites, apps and SEO that deliver real results."
+	description="IdeoXpert is a web development agency in Islamabad, run by two brothers. See who we are, how we work, and why clients abroad hire us."
 	keywords="about IdeoXpert, web development agency Islamabad, web design agency Pakistan, web solutions Pakistan, website development Islamabad, mobile app development Pakistan, about us, IdeoXpert team"
 	image="/assets/images/about/14.jpg"
 	pageType="AboutPage"
@@ -32,7 +42,7 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 	<PageHero
 		crumbs={[{ name: 'About Us', path: '/about' }]}
 		title='About IdeoXpert, a web development agency in Islamabad<span class="dot">.</span>'
-		lead="We work with businesses of all sizes, from first-time founders getting their website off the ground to established companies levelling up online. Design, development, apps, SEO and hosting, done by one team that genuinely cares about the outcome."
+		lead="We design and build websites, online stores and apps for startups and small businesses around the world. IdeoXpert is run by two brothers in Islamabad, and you deal with us directly, from the first message to launch day."
 	>
 		<Fragment slot="actions">
 			<Button href="/contact" variant="primary" magnetic>Get a free quote</Button>
@@ -63,7 +73,7 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 				</div>
 				<div class="mission__mosaic" aria-hidden="true"><PixelMosaic seed={7} cols={6} rows={9} /></div>
 				<figure class="mission__photo" data-reveal="clip">
-					<img src="/assets/images/about/15.webp" alt="The IdeoXpert team discussing a website project" width="1600" height="900" loading="lazy" decoding="async" />
+					<img src="/assets/images/about/15.webp" alt="Planning a website project" width="1600" height="900" loading="lazy" decoding="async" />
 				</figure>
 			</div>
 		</div>
@@ -74,10 +84,10 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 		<div class="container">
 			<div class="values__head">
 				<h2 class="h2" data-split>What you can expect from us<span class="dot">.</span></h2>
-				<p class="subtitle" data-reveal>Four things we hold ourselves to on every project, whatever its size.</p>
+				<p class="subtitle" data-reveal>The same terms on every project, whatever its size.</p>
 			</div>
 			<div class="frame values__frame" data-reveal>
-				<div class="values__tabs" role="tablist" aria-orientation="vertical" aria-label="Our values">
+				<div class="values__tabs" role="tablist" aria-orientation="vertical" aria-label="What you can expect">
 					{values.map((v, i) => (
 						<button class:list={['vtab', { 'is-active': i === 0 }]} role="tab" data-tab>
 							<span class="vtab__title">{v.title}</span>
@@ -99,21 +109,43 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 		</div>
 	</section>
 
-	<!-- Who we are -->
+	<!-- Who we are: the founders -->
 	<section class="section who">
-		<div class="container who__grid">
+		<div class="container">
 			<div class="who__copy">
-				<h2 class="h2" data-split>Who we are at IdeoXpert<span class="dot">.</span></h2>
+				<h2 class="h2" data-split>Who we are</h2>
 				<p class="who__lead" data-reveal>
-					We started with one simple goal: helping businesses build an online presence they can be genuinely proud of. Over the years we have grown into a full-service web development agency covering website design and custom development, mobile apps, SEO, WordPress, CMS platforms and reliable hosting.
+					We are two brothers, Zahid and Millat Ali Yaftali. We started IdeoXpert in {founded} to build websites for clients anywhere in the world.
 				</p>
 				<p class="muted" data-reveal>
-					We put real effort into every project, no matter the size. A small business getting its first website deserves the same care as a large company rebuilding from the ground up. That is how we have always worked, and it is what keeps our clients coming back.
+					Most of our clients are startups, small businesses that are growing, and people starting something of their own. Zahid plans and oversees every project, so he is the person you talk to from the first message to launch day.
 				</p>
-				<div class="btn-row" data-reveal>
-					<Button href="/services" variant="dark">Explore our services</Button>
-					<Button href="/contact" variant="ghost" icon={false}>Get a free quote</Button>
-				</div>
+				<ul class="who__people" role="list" data-reveal>
+					{founders.map((p) => <li><Person person={p} size={56} /></li>)}
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why a team in Islamabad -->
+	<section class="section why">
+		<div class="container">
+			<div class="why__head">
+				<h2 class="h2" data-split>Why hire a team in Islamabad?</h2>
+				<p class="subtitle" data-reveal>What you get when you hire us from the UK, Europe, the US or Australia.</p>
+			</div>
+			<ul class="why__grid frame" role="list" data-reveal-group="70">
+				{reasons.map((r, i) => (
+					<li class="why__item" data-reveal>
+						<span class="why__num">0{i + 1}</span>
+						<h3 class="why__title">{r.title}</h3>
+						<p>{r.text}</p>
+					</li>
+				))}
+			</ul>
+			<div class="btn-row why__cta" data-reveal>
+				<Button href="/contact" variant="primary" magnetic>Get a free quote</Button>
+				<Button href="/portfolio" variant="ghost" icon={false}>See our work</Button>
 			</div>
 		</div>
 	</section>
@@ -366,8 +398,72 @@ const deck = ['/assets/images/about/03.webp', '/assets/images/about/01.webp', '/
 		}
 
 		.who__copy > :first-child {
-			grid-row: span 3;
+			grid-row: span 4;
 		}
+	}
+
+	.who__people {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px 40px;
+		margin: 8px 0 0;
+	}
+
+	/* ---------- Why a team in Islamabad ---------- */
+	.why__head {
+		display: grid;
+		gap: 16px;
+		margin-bottom: clamp(32px, 4vw, 48px);
+	}
+
+	.why__grid {
+		display: grid;
+		margin: 0;
+	}
+
+	@media (min-width: 800px) {
+		.why__grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.why__item {
+		display: grid;
+		gap: 10px;
+		align-content: start;
+		padding: clamp(24px, 3vw, 40px);
+		border-bottom: 1px solid var(--line);
+	}
+
+	@media (min-width: 800px) {
+		.why__item:nth-child(odd) {
+			border-right: 1px solid var(--line);
+		}
+
+		.why__item:nth-last-child(-n + 2) {
+			border-bottom: 0;
+		}
+	}
+
+	.why__num {
+		font-size: 0.875rem;
+		font-weight: 550;
+		color: var(--green-ink);
+	}
+
+	.why__title {
+		font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+	}
+
+	.why__item p {
+		color: var(--muted);
+		max-width: 52ch;
+	}
+
+	.why__cta {
+		margin-top: clamp(28px, 3vw, 40px);
 	}
 
 	.who__lead {
