@@ -10,7 +10,7 @@ export const site = {
 		'IdeoXpert is a web development agency in Islamabad, Pakistan providing web solutions: web design, web development, WordPress websites, e-commerce stores, mobile apps, SEO, CMS development, hosting and website maintenance.',
 	logo: '/assets/images/Logo.png',
 	logoLight: '/assets/images/logo-light.png',
-	defaultImage: '/assets/images/bg/16.png',
+	defaultImage: '/assets/images/og-default.jpg',
 	themeColor: '#2db453',
 
 	// YouTube/Vimeo URL for the "Watch our story" button on the About page.

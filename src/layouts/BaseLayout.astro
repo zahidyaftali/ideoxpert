@@ -190,6 +190,19 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...
 		}, 2500);
 	</script>
 
+	<!-- Analytics: none yet (owner's choice, 30 Sept 2026).
+	     [[FILL: GA4 measurement ID or a Plausible / Clarity snippet, when you want analytics]]
+	     Paste the snippet here. src/scripts/track.ts already sends form_submit,
+	     whatsapp_click, email_click and phone_click events once gtag or plausible exists.
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+	<script is:inline>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-XXXXXXXXXX');
+	</script>
+	-->
+
 	<!-- Structured data: one consistent description of the agency on every page -->
 	<script type="application/ld+json" set:html={jsonLd} />
 </head>
@@ -208,6 +221,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [...
 
 	<script>
 		import '../scripts/motion';
+		import '../scripts/track';
 	</script>
 </body>
 </html>

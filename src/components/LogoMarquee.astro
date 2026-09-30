@@ -24,7 +24,7 @@ const items = logoProjects;
 								<img
 									class:list={['clogo__img', { 'clogo__img--mono': p.facts.logo!.light }]}
 									src={`/assets/images/work/${p.id}/${p.facts.logo!.light ? 'logo-mono' : 'logo'}.webp`}
-									alt={copy === 0 ? p.name : ''}
+									alt={copy === 0 ? `${p.name} logo` : ''}
 									loading="lazy"
 									decoding="async"
 									draggable="false"

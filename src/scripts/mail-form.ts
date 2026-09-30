@@ -1,6 +1,8 @@
 // Sends forms marked [data-mail-form] to /api/send-mail.php, which emails
 // info@ideoxpert.com through the Hostinger mailbox. Shows the result in the
 // form's [data-form-status] element.
+import { track } from './track';
+
 const ENDPOINT = '/api/send-mail.php';
 
 document.querySelectorAll<HTMLFormElement>('form[data-mail-form]').forEach((form) => {
@@ -40,6 +42,7 @@ document.querySelectorAll<HTMLFormElement>('form[data-mail-form]').forEach((form
 			const json = await res.json().catch(() => null);
 			if (res.ok && json?.ok) {
 				show('ok', json.message);
+				track('form_submit', { form: String(data.get('form') ?? ''), page: location.pathname });
 				form.reset();
 				form.classList.remove('was-validated');
 				if (started) started.value = String(Date.now());
