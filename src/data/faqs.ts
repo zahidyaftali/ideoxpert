@@ -1,3 +1,5 @@
+import { site } from './site';
+
 export type Faq = { q: string; a: string };
 
 // Shown on the homepage and About page (FAQPage schema is emitted on About).
@@ -32,7 +34,7 @@ export const serviceFaqs: Faq[] = [
 	},
 	{
 		q: 'How much does a website cost?',
-		a: 'We do not have a fixed price list because every project is different. The cost depends on what you need — the number of pages, features, the type of design, and any custom functionality. We start every project with a free consultation to understand your requirements, and then provide a clear quote with no hidden charges.',
+		a: `It depends on what your site needs to do: how many pages, whether you sell online, which features, and who writes the content. Tell us about your project and we will reply ${site.replyTime} with a clear quote and no hidden charges. You pay 50% to start and 50% when the site goes live, and two rounds of design changes are included.`,
 	},
 	{
 		q: 'Can you help with both design and development?',
