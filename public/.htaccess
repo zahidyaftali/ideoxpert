@@ -6,6 +6,14 @@ DirectoryIndex index.html
 AddDefaultCharset UTF-8
 ErrorDocument 404 /404.html
 
+# /blog, /industries and /locations are pages (blog.html...) that share their
+# name with a folder (blog/ holds the articles). Without this the server adds
+# a slash (/blog/) and refuses to list the folder: 403 Forbidden. The rewrite
+# in step 3 serves the page instead.
+<IfModule mod_dir.c>
+DirectorySlash Off
+</IfModule>
+
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
@@ -30,8 +38,11 @@ RewriteRule ^ux-ui-design(\.html)?/?$ /website-design [R=301,L]
 RewriteCond %{THE_REQUEST} \s/([^?\s]+?)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
 
+# This also applies when a folder of the same name exists (/blog -> blog.html,
+# not the blog/ folder). /blog/ is served too rather than redirected, so
+# browsers that cached the old /blog -> /blog/ redirect cannot loop; the
+# canonical tag on the page points to /blog.
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^(.+?)/?$ /$1.html [L]
 </IfModule>

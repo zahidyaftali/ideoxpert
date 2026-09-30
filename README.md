@@ -49,7 +49,11 @@ The Contact page form and the discovery form on every page post to `/api/send-ma
 
 The mailbox login is in `public/api/mail-config.php`. That file is **not in Git** (it is in `.gitignore`) and `.htaccess` refuses to serve it, but the build copies it to `dist/api/`, so uploading `dist/` sets up the mail. It was tested against smtp.hostinger.com on 30 Sept 2026.
 
-- On a fresh copy of the project (for example after cloning from GitHub) the file is missing: copy `public/api/mail-config.sample.php` to `public/api/mail-config.php` and put the mailbox password in `smtp_pass`. Alternatively, upload it as `ideoxpert-mail-config.php` to the folder above `public_html`.
+- **Live site (Hostinger builds it from GitHub):** the password file is not in GitHub, so give the live site the password in one of two ways:
+  1. In the Hostinger deployment settings, add the environment variable `IDEOXPERT_SMTP_PASS` with the mailbox password. The build then writes `dist/api/mail-config.php` itself (see `astro.config.mjs`). Or:
+  2. In hPanel File Manager, upload `ideoxpert-mail-config.php` (a copy of the config with the password, kept in the project folder and ignored by Git) to the folder **above** `public_html`. Deploys never touch that folder.
+  The build log warns `no mail password` when neither is set; the form then falls back to PHP `mail()`, which often lands in spam.
+- On a fresh copy of the project (for example after cloning from GitHub) the local file is missing: copy `public/api/mail-config.sample.php` to `public/api/mail-config.php` and put the mailbox password in `smtp_pass`.
 - If you change the mailbox password in hPanel, change it in this file too and upload it again.
 
 Without the config file the script falls back to the server's built-in mail function, which is more likely to land in spam.

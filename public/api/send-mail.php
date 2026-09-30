@@ -74,6 +74,13 @@ $ucut = static fn (string $v, int $max): string => preg_match('/^.{0,' . $max . 
 
 $field = static function (string $name, int $max = 200) use ($ucut): string {
 	$value = trim((string) ($_POST[$name] ?? ''));
+	// Browsers send UTF-8. Text in an old Windows encoding is converted rather
+	// than dropped (the UTF-8 checks below would otherwise empty it).
+	if (!preg_match('//u', $value)) {
+		$value = function_exists('mb_convert_encoding')
+			? (string) mb_convert_encoding($value, 'UTF-8', 'Windows-1252')
+			: (string) preg_replace('/[\x80-\xFF]/', '?', $value);
+	}
 	$value = preg_replace('/[^\P{C}\n\t]/u', '', $value) ?? ''; // strip control characters
 	return $ucut($value, $max);
 };
@@ -139,21 +146,26 @@ $body .= "\n--\nSent " . gmdate('D, d M Y H:i') . " UTC from IP " . $ip . "\nRep
 $subject = $formName . ': ' . $name . ($rows['Service'] !== '' ? ' (' . $rows['Service'] . ')' : '');
 
 // ---------------------------------------------------------------- send
-$encode = static fn (string $s): string => '=?UTF-8?B?' . base64_encode($s) . '?=';
+// Spam filters score plain English that is base64-encoded anyway (From,
+// Subject, Reply-To, body), so text is only encoded when it has to be.
+$ascii = static fn (string $s): bool => !preg_match('/[^\x20-\x7E]/', $s);
+$encode = static fn (string $s): string => $ascii($s) ? $s : '=?UTF-8?B?' . base64_encode($s) . '?=';
+$mailbox = static fn (string $display, string $addr): string => ($ascii($display) ? '"' . addcslashes($display, '"\\') . '"' : $encode($display)) . ' <' . $addr . '>';
 $domain = substr(strrchr($config['from'], '@') ?: '@ideoxpert.com', 1);
 $headers = [
 	'Date: ' . date('r'),
-	'From: ' . $encode($config['from_name']) . ' <' . $config['from'] . '>',
+	'From: ' . $mailbox($config['from_name'], $config['from']),
 	'To: <' . $config['to'] . '>',
-	'Reply-To: ' . $encode($name) . ' <' . $email . '>',
+	'Reply-To: ' . $mailbox($name, $email),
 	'Subject: ' . $encode($subject),
 	'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . $domain . '>',
 	'MIME-Version: 1.0',
 	'Content-Type: text/plain; charset=UTF-8',
-	'Content-Transfer-Encoding: base64',
+	'Content-Transfer-Encoding: quoted-printable',
 	'X-Mailer: IdeoXpert website',
 ];
-$encodedBody = rtrim(chunk_split(base64_encode($body), 76, "\r\n"));
+// Readable text (quoted-printable keeps plain English as it is).
+$encodedBody = quoted_printable_encode(str_replace("\n", "\r\n", $body));
 
 /** Minimal SMTP client (AUTH LOGIN over SSL or STARTTLS). */
 function smtp_send(array $c, string $headerBlock, string $body): void
@@ -185,7 +197,9 @@ function smtp_send(array $c, string $headerBlock, string $body): void
 		}
 		return $reply;
 	};
-	$helo = preg_replace('/[^a-z0-9.-]/i', '', $_SERVER['SERVER_NAME'] ?? 'localhost') ?: 'localhost';
+	// Introduce ourselves by the sending domain: a bare IP or "localhost" here
+	// is a spam signal.
+	$helo = substr(strrchr($c['from'], '@') ?: '@ideoxpert.com', 1);
 	$cmd(null, [220]);
 	$cmd("EHLO $helo", [250]);
 	if ($c['smtp_secure'] === 'tls') {
