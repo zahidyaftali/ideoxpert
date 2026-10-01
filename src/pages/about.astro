@@ -26,17 +26,16 @@ const reasons = [
 	{ title: 'Fast replies', text: `We reply to every message ${site.replyTime}, and usually within a few hours on WhatsApp.` },
 ];
 
-// Back to front: the last photo is the large one in front. Stock photos from
-// Pexels (free to use, no credit required): 8463151, 36965908, 5483063,
-// 8463163, 8463159, and 36706459 for the mission photo. They show offices in
-// Pakistan and South Asia, not our team; swap in photos of your own office any time.
-const deck = ['/assets/images/about/01.webp', '/assets/images/about/meeting-room.webp', '/assets/images/about/business-event.webp', '/assets/images/about/laptop-work.webp', '/assets/images/about/team-table.webp', '/assets/images/about/team-meeting.webp'];
+// Back to front: the last photo is the large one in front (the office from
+// the street). The four behind it are stock photos from Pexels (free to use,
+// no credit required): 8463151, 36965908, 5483063, 8463163.
+const deck = ['/assets/images/about/01.webp', '/assets/images/about/meeting-room.webp', '/assets/images/about/business-event.webp', '/assets/images/about/laptop-work.webp', '/assets/images/about/team-table.webp', '/assets/images/about/office-outside.webp'];
 ---
 <BaseLayout
 	title="About IdeoXpert | Web Development Agency, Islamabad"
 	description="IdeoXpert is a web development agency in Islamabad, run by two brothers. See who we are, how we work, and why clients abroad hire us."
 	keywords="about IdeoXpert, web development agency Islamabad, web design agency Pakistan, web solutions Pakistan, website development Islamabad, mobile app development Pakistan, about us, IdeoXpert team"
-	image="/assets/images/about/team-meeting.jpg"
+	image="/assets/images/about/office-outside.jpg"
 	pageType="AboutPage"
 	breadcrumbs={[{ name: 'About Us', path: '/about' }]}
 	schema={[faqSchema(generalFaqs)]}
@@ -75,7 +74,7 @@ const deck = ['/assets/images/about/01.webp', '/assets/images/about/meeting-room
 				</div>
 				<div class="mission__mosaic" aria-hidden="true"><PixelMosaic seed={7} cols={6} rows={9} /></div>
 				<figure class="mission__photo" data-reveal="clip">
-					<img src="/assets/images/about/developer-desk.webp" alt="A developer writing code at a two-screen desk" width="1200" height="675" loading="lazy" decoding="async" />
+					<img src="/assets/images/about/office-inside.webp" alt="Inside the IdeoXpert office: desks, a glass meeting room and the logo on the wall" width="1400" height="1050" loading="lazy" decoding="async" />
 				</figure>
 			</div>
 		</div>
