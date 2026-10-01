@@ -9,19 +9,19 @@ const est = (answers) => calculateEstimate({ ...defaults, ...answers }, 'USD');
 
 test('A: website, 6-10 pages, our layouts, own text, no extras, new site', () => {
 	const e = est({ need: ['website'], pages: '6-10', design: 'layout', copy: 'own', existing: 'new' });
-	assert.equal(formatOneOff(e), '$350 – $410');
+	assert.equal(formatOneOff(e), '$280 – $330');
 	assert.equal(e.timeline, '2–3 weeks');
 });
 
 test('B: website, 2-5 pages, fully custom, we write the text, online booking', () => {
 	const e = est({ need: ['website'], pages: '2-5', design: 'custom', copy: 'write', extras: ['booking'] });
-	assert.equal(formatOneOff(e), '$530 – $610');
+	assert.equal(formatOneOff(e), '$410 – $480');
 	assert.equal(e.timeline, '2–3 weeks');
 });
 
 test('C: store, up to 25 products, we add them, product options', () => {
 	const e = est({ need: ['store'], products: '25', adding: 'us', storeExtras: ['options'] });
-	assert.equal(formatOneOff(e), '$980 – $1,130');
+	assert.equal(formatOneOff(e), '$560 – $650');
 	assert.equal(e.timeline, '2–3 weeks');
 });
 
@@ -42,7 +42,7 @@ test('E: hosting Business, annual, USD', () => {
 
 test('F: website, more than 20 pages', () => {
 	const e = est({ need: ['website'], pages: '20+' });
-	assert.equal(formatOneOff(e), 'From $800');
+	assert.equal(formatOneOff(e), 'From $550');
 	assert.equal(e.complex, true);
 	assert.equal(e.timeline, '3–5 weeks, confirmed in your quote');
 });
@@ -63,6 +63,6 @@ test('URL state round-trips', () => {
 
 test('several services add up; the timeline is the longest single one', () => {
 	const e = est({ need: ['website', 'store'], pages: '6-10' });
-	assert.equal(e.oneOff.low, 350 + 900);
+	assert.equal(e.oneOff.low, 280 + 500);
 	assert.equal(e.timeline, '2–3 weeks');
 });
