@@ -26,7 +26,10 @@ const mailConfig = {
 export default defineConfig({
   site: 'https://ideoxpert.com',
   trailingSlash: 'never',
-  build: { format: 'file' },
+  // CSS is written into each page instead of separate /_astro/*.css files.
+  // Those file names change with every CSS edit and the old file is deleted on
+  // deploy, so a crawler holding an older copy of a page got a 404 stylesheet.
+  build: { format: 'file', inlineStylesheets: 'always' },
   compressHTML: false,
   integrations: [mailConfig],
 });
