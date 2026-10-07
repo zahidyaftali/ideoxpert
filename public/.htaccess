@@ -78,6 +78,12 @@ Header always set Strict-Transport-Security "max-age=31536000"
 # can be cached for a year: a changed file always gets a new name.
 SetEnvIf Request_URI "^/_astro/" ASTRO_ASSET
 Header set Cache-Control "public, max-age=31536000, immutable" env=ASTRO_ASSET
+
+# The blog feed (/blog/rss.xml) is for feed readers, not for search results.
+# Only this file: sitemap.xml must stay readable and indexable as it is.
+<Files "rss.xml">
+Header set X-Robots-Tag "noindex"
+</Files>
 </IfModule>
 
 # Compress text files (LiteSpeed on Hostinger also serves Brotli on its own).
