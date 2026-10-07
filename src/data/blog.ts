@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { founders, type Person } from './site';
 
 export type Post = CollectionEntry<'blog'>;
 
@@ -12,6 +13,11 @@ export async function getPosts(): Promise<Post[]> {
 export const readingTime = (post: Post) => Math.max(1, Math.round((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
 
 export const cover = (post: Post) => `/assets/images/blog/${post.id}.webp`;
+
+/** People who sign articles (`author: zahid` in an article's front matter). Real photos only. */
+export const authors: Record<string, Person & { photo: string }> = {
+	zahid: { ...founders[0], photo: '/assets/images/team/zahid-ali-yaftali.webp' },
+};
 
 export const slugify = (s: string) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 

@@ -22,6 +22,8 @@ const blog = defineCollection({
 		keywords: z.string().optional(),
 		faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
 		featured: z.boolean().default(false),
+		/** Who wrote it: a key of `authors` in src/data/blog.ts. Without one the byline says "the IdeoXpert team". */
+		author: z.string().optional(),
 	}),
 });
 

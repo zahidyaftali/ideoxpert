@@ -81,6 +81,8 @@ See [all our prices](/pricing), or get an instant estimate for your own project 
 - **Freelancers** can be excellent value for a clearly defined project. Check they can cover design, development and SEO, or who will.
 - **Agencies** cost more than a single freelancer but give you a team: design, development, SEO and support, with continuity if someone is away.
 
+For a fuller comparison and the questions to ask before you hire, see [how to choose a web developer](/blog/how-to-choose-a-web-developer).
+
 ## How to get an accurate quote
 
 The more precise your brief, the more precise the quote. Before you ask, prepare:
@@ -99,4 +101,4 @@ A very low price usually means something is missing. Ask whether the quote inclu
 
 A website is priced by what it has to do, how custom it is and how much of the content and SEO work is included. The cheapest quote is rarely the cheapest website once rebuilds and lost inquiries are counted.
 
-We do not use a fixed price list, because every project is different. Tell us what you need and we will send a clear, itemized quote with no hidden costs. [Get a free quote](/contact).
+Our starting prices are listed above. Every project is different, so tell us what you need and we will send a clear, itemized quote with no hidden costs. [Get a free quote](/contact).

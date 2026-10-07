@@ -148,7 +148,7 @@ Whether you hire a US agency, a freelancer or a team abroad, ask these before yo
 4. Will I own the domain, the website, the content and the logins?
 5. Who updates the site after launch, and what does it cost?
 
-Clear answers are a good sign. Vague ones usually mean those jobs will not get done.
+Clear answers are a good sign. Vague ones usually mean those jobs will not get done. For the full list of questions, see [how to choose a web developer](/blog/how-to-choose-a-web-developer).
 
 ## What it costs
 
