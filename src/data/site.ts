@@ -76,12 +76,13 @@ export const whatsappLink = (topic = 'a website project') =>
 /** The year IdeoXpert started taking client work. */
 export const founded = 2022;
 
-// The founders, two brothers (owner's fact sheet). There are no photos yet,
-// so the site shows their initials. Add a real photo path under
-// /assets/images/about/ to show it instead; never use a stock photo here.
+// The founders, two brothers (owner's fact sheet). A founder with a `photo`
+// (in /assets/images/team/) is shown with it next to the contact forms and on
+// articles they sign; without one the site shows initials. Real photos only,
+// never a stock photo.
 export type Person = { name: string; role: string; about?: string; photo?: string };
 export const founders: Person[] = [
-	{ name: 'Zahid Ali Yaftali', role: 'Co-founder', about: 'Plans and oversees every project. He is the person you talk to.' },
+	{ name: 'Zahid Ali Yaftali', role: 'Co-founder', about: 'Plans and oversees every project. He is the person you talk to.', photo: '/assets/images/team/zahid-ali-yaftali.webp' },
 	// [[FILL: Millat's role in the day-to-day work, e.g. "Runs design" or "Handles hosting and support"]]
 	{ name: 'Millat Ali Yaftali', role: 'Co-founder' },
 ];

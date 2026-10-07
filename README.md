@@ -89,7 +89,7 @@ curl -sI https://ideoxpert.com/index.html      # 301 -> /
 curl -sI https://ideoxpert.com/Website-development  # 301 -> /website-development
 curl -sI https://ideoxpert.com/nope            # 404
 curl -sI https://ideoxpert.com/blog/rss.xml    # 200, x-robots-tag: noindex
-curl -s  https://ideoxpert.com/sitemap.xml     # 79 URLs
+curl -s  https://ideoxpert.com/sitemap.xml     # 80 URLs
 ```
 
 If the site shows a redirect loop, see the note in `.htaccess` step 3.

@@ -14,9 +14,13 @@ export const readingTime = (post: Post) => Math.max(1, Math.round((post.body ?? 
 
 export const cover = (post: Post) => `/assets/images/blog/${post.id}.webp`;
 
-/** People who sign articles (`author: zahid` in an article's front matter). Real photos only. */
+/** People who sign articles (`author: zahid` in an article's front matter): founders with a photo in src/data/site.ts. */
+const signs = (p: Person) => {
+	if (!p.photo) throw new Error(`${p.name} needs a photo in src/data/site.ts to sign articles`);
+	return { ...p, photo: p.photo };
+};
 export const authors: Record<string, Person & { photo: string }> = {
-	zahid: { ...founders[0], photo: '/assets/images/team/zahid-ali-yaftali.webp' },
+	zahid: signs(founders[0]),
 };
 
 export const slugify = (s: string) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
