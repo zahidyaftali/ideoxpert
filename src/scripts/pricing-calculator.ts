@@ -433,7 +433,10 @@ function initCalculator(root: HTMLFormElement) {
 
 	const link = (a: Answers, cur: Currency) => `${location.origin}${location.pathname}?${toQuery(a, cur)}`;
 
-	const render = () => {
+	// `syncUrl` is off for the first render: rewriting ?need=store to the full
+	// answer list as the page loads made Google report the short address as a
+	// redirect. The address now changes only once the visitor changes an answer.
+	const render = (syncUrl = true) => {
 		const a = read();
 		const cur = currency();
 		const e = calculateEstimate(a, cur);
@@ -458,7 +461,7 @@ function initCalculator(root: HTMLFormElement) {
 			bar.dataset.empty = String(e.empty);
 			$('[data-bar-range]', bar)!.textContent = e.empty ? '' : `Estimate: ${e.oneOff ? formatOneOff(e) : `${money(e.monthlyTotal, cur)}/month`}`;
 		}
-		history.replaceState(null, '', e.empty ? location.pathname : `${location.pathname}?${toQuery(a, cur)}`);
+		if (syncUrl) history.replaceState(null, '', e.empty ? location.pathname : `${location.pathname}?${toQuery(a, cur)}`);
 		return { a, e, cur };
 	};
 
@@ -479,7 +482,7 @@ function initCalculator(root: HTMLFormElement) {
 		}
 	});
 	summary.addEventListener('change', () => render());
-	render();
+	render(false);
 
 	// Buttons
 	$('[data-calc-quote]', summary)?.addEventListener('click', async () => {
