@@ -70,23 +70,29 @@ The testimonials slider shows real projects. Until a client approves a quote, th
 2. Back up the current `public_html`.
 3. Upload **the contents of** `dist/` into `public_html`, including the hidden `.htaccess` file.
 
-`.htaccess` redirects `http://` and `www.` to `https://ideoxpert.com`, serves clean URLs (`/about` for `about.html`), redirects old URLs (`/integrations`, `/index.html`, `/website development`, `/ux-ui-design`), compresses text files, caches `/_astro/` files for a year, and uses `404.html` for missing pages.
+`.htaccess` redirects `http://` and `www.` to `https://ideoxpert.com`, serves clean URLs (`/about` for `about.html`), redirects old URLs (`/home`, `/index.html`, `/integrations`, `/Website-development`, `/website development`, `/ux-ui-design`, the renamed industry pages), marks the blog feed `noindex`, compresses text files, caches `/_astro/` files for a year, and uses `404.html` for missing pages.
+
+Every redirect goes straight to its final `https://ideoxpert.com/...` address, and the old-URL rules come before the domain rule, so an old address on `www` takes one redirect, not two. When you add a redirect, write the full `https://ideoxpert.com/...` target and put it in step 1 of the file.
 
 ### Check right after uploading
 
 Run these commands. Each line shows the expected result.
 
 ```sh
-curl -sI http://www.ideoxpert.com/about        # 301 -> https://ideoxpert.com/about
-curl -sI https://www.ideoxpert.com/            # 301 -> https://ideoxpert.com/
+curl -sI https://www.ideoxpert.com/about       # 301 -> https://ideoxpert.com/about
+curl -sI https://www.ideoxpert.com/home        # 301 -> https://ideoxpert.com/ (one step)
+curl -sI https://www.ideoxpert.com/about.html  # 301 -> https://ideoxpert.com/about (one step)
+curl -sI http://www.ideoxpert.com/about        # 301 -> https://www... (Hostinger's CDN), then 301 -> https://ideoxpert.com/about
 curl -sI https://ideoxpert.com/about           # 200, content-type: text/html
 curl -sI https://ideoxpert.com/about.html      # 301 -> /about
 curl -sI https://ideoxpert.com/index.html      # 301 -> /
+curl -sI https://ideoxpert.com/Website-development  # 301 -> /website-development
 curl -sI https://ideoxpert.com/nope            # 404
-curl -s  https://ideoxpert.com/sitemap.xml     # 73 URLs
+curl -sI https://ideoxpert.com/blog/rss.xml    # 200, x-robots-tag: noindex
+curl -s  https://ideoxpert.com/sitemap.xml     # 79 URLs
 ```
 
-If the site shows a redirect loop, see the note in `.htaccess` step 1.
+If the site shows a redirect loop, see the note in `.htaccess` step 3.
 
 Also ask the host to relax rate limiting and bot protection for known crawlers. The old site answered GPTBot with `429 Too Many Requests` when it fetched pages quickly. That is a server setting, not something in these files.
 

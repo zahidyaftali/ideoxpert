@@ -17,38 +17,51 @@ DirectorySlash Off
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# 1. One domain only: send http:// and www. to https://ideoxpert.com (301).
+# Every redirect below points straight at https://ideoxpert.com/..., and the
+# old-URL rules (1, 2) come before the domain rule (3). An old address on www
+# or http therefore reaches its final page in one redirect, not two. The path
+# and the query string are kept. (Hostinger's CDN sends http to https before
+# these rules run, so an http://www address still takes one extra step.)
+
+# 1. Old or duplicate URLs. THE_REQUEST is the visitor's original request, so
+#    the server's own internal lookup of index.html for "/" is not redirected.
+RewriteCond %{THE_REQUEST} \s/index(\.html)?[\s?] [NC]
+RewriteRule ^index(\.html)?$ https://ideoxpert.com/ [R=301,L]
+# The old site's home page.
+RewriteRule ^home(\.html)?/?$ https://ideoxpert.com/ [NC,R=301,L]
+RewriteRule ^integrations/?$ https://ideoxpert.com/services [R=301,L]
+RewriteRule ^work/?$ https://ideoxpert.com/portfolio [R=301,L]
+RewriteRule ^website\sdevelopment/?$ https://ideoxpert.com/website-development [R=301,L]
+# /Website-development: the old site used a capital W. Any spelling that is
+# not all lower case goes to the real page. The condition stops a loop, and
+# the pattern must not match ".html" (rule 4 rewrites to that name).
+RewriteCond %{REQUEST_URI} !^/website-development/?$
+RewriteRule ^website-development/?$ https://ideoxpert.com/website-development [NC,R=301,L]
+# The founder's own site was removed from the client portfolio.
+RewriteRule ^work/zahid-ali-yaftali(\.html)?/?$ https://ideoxpert.com/portfolio [R=301,L]
+# Industries renamed or regrouped (Oct 2026).
+RewriteRule ^industries/trades-home-services(\.html)?/?$ https://ideoxpert.com/industries/home-services [R=301,L]
+RewriteRule ^industries/healthcare-wellness(\.html)?/?$ https://ideoxpert.com/industries/healthcare [R=301,L]
+RewriteRule ^industries/restaurants-hospitality(\.html)?/?$ https://ideoxpert.com/industries/hospitality [R=301,L]
+RewriteRule ^industries/media-entertainment(\.html)?/?$ https://ideoxpert.com/industries [R=301,L]
+# UI/UX design is no longer offered as a separate service.
+RewriteRule ^ux-ui-design(\.html)?/?$ https://ideoxpert.com/website-design [R=301,L]
+
+# 2. Clean URLs: /about.html -> /about (301).
+RewriteCond %{THE_REQUEST} \s/([^?\s]+?)\.html[\s?] [NC]
+RewriteRule ^ https://ideoxpert.com/%1 [R=301,L]
+
+# 3. One domain only: send http:// and www. to https://ideoxpert.com (301).
 #    If the site sits behind a proxy/CDN that terminates SSL and you get a
 #    redirect loop, delete the "%{HTTPS} off" line and keep the www line.
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^(.*)$ https://ideoxpert.com/$1 [R=301,L]
 
-# 2. Old or duplicate URLs. THE_REQUEST is the visitor's original request, so
-#    the server's own internal lookup of index.html for "/" is not redirected.
-RewriteCond %{THE_REQUEST} \s/index(\.html)?[\s?] [NC]
-RewriteRule ^index(\.html)?$ / [R=301,L]
-RewriteRule ^integrations/?$ /services [R=301,L]
-RewriteRule ^work/?$ /portfolio [R=301,L]
-RewriteRule ^website\sdevelopment/?$ /website-development [R=301,L]
-# The founder's own site was removed from the client portfolio.
-RewriteRule ^work/zahid-ali-yaftali(\.html)?/?$ /portfolio [R=301,L]
-# Industries renamed or regrouped (Oct 2026).
-RewriteRule ^industries/trades-home-services(\.html)?/?$ /industries/home-services [R=301,L]
-RewriteRule ^industries/healthcare-wellness(\.html)?/?$ /industries/healthcare [R=301,L]
-RewriteRule ^industries/restaurants-hospitality(\.html)?/?$ /industries/hospitality [R=301,L]
-RewriteRule ^industries/media-entertainment(\.html)?/?$ /industries [R=301,L]
-# UI/UX design is no longer offered as a separate service.
-RewriteRule ^ux-ui-design(\.html)?/?$ /website-design [R=301,L]
-
-# 3. Clean URLs: /about.html -> /about (301), and /about serves about.html.
-RewriteCond %{THE_REQUEST} \s/([^?\s]+?)\.html[\s?] [NC]
-RewriteRule ^ /%1 [R=301,L]
-
-# This also applies when a folder of the same name exists (/blog -> blog.html,
-# not the blog/ folder). /blog/ is served too rather than redirected, so
-# browsers that cached the old /blog -> /blog/ redirect cannot loop; the
-# canonical tag on the page points to /blog.
+# 4. /about serves about.html. This also applies when a folder of the same
+# name exists (/blog -> blog.html, not the blog/ folder). /blog/ is served too
+# rather than redirected, so browsers that cached the old /blog -> /blog/
+# redirect cannot loop; the canonical tag on the page points to /blog.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^(.+?)/?$ /$1.html [L]
