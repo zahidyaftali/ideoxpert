@@ -76,7 +76,8 @@ export const whatsappLink = (topic = 'a website project') =>
 /** The year IdeoXpert started taking client work. */
 export const founded = 2022;
 
-// The founders, two brothers (owner's fact sheet). A founder with a `photo`
+// The founders (owner's fact sheet). They are brothers, but the owner does not
+// want page copy to say "run by two brothers" (Oct 2026). A founder with a `photo`
 // (in /assets/images/team/) is shown with it next to the contact forms and on
 // articles they sign; without one the site shows initials. Real photos only,
 // never a stock photo.
